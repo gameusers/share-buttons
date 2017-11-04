@@ -8,6 +8,7 @@
 
 
 Twitter、Facebook、Google+など（全10サイト）をシェアすることが可能です。自由度の高いカスタマイズが行え、他にないオリジナルのシェアボタンを作成できます。
+<br /><br />
 
 
 ## 特徴
@@ -19,6 +20,7 @@ Game Users Share Buttonsは優れた機能を提供しています。
 - <strong>好きな画像が使える: </strong> 世界中の素材サイトからアイコン画像をダウンロードして利用できます
 - <strong>オリジナルのシェアボタン: </strong> 自由度の高いカスタマイズが行え、オリジナルのシェアボタンが作れます
 - <strong>商用利用可能: </strong> 商用・非商用、どちらの用途でも利用できます
+<br /><br />
 
 
 ## 対応 Social Media
@@ -35,6 +37,7 @@ Game Users Share Buttonsは優れた機能を提供しています。
 - <strong>はてなブックマーク: </strong> [http://b.hatena.ne.jp/](http://b.hatena.ne.jp/)
 - <strong>LINE: </strong> [https://line.me/](https://line.me/)
 - <strong>Feedly: </strong> [https://feedly.com/](https://feedly.com/)
+<br /><br />
 
 
 ## インストール
@@ -45,17 +48,20 @@ WordPress のダッシュボード > プラグイン > 新規追加 > プラグ�
 上記でZIPファイルをアップロードして有効化すると、WordPress 上で機能するようになります。
 
 または gameusers-share-buttons ディレクトリをお使いの WordPress 内の /wp-content/plugins/ ディレクトリにアップロード後、有効化してもプラグインとして機能します。
+<br /><br />
 
 
 ## Link
 
 - [Official Site](https://gameusers.org/app/share-buttons)
 - [GitHub](https://github.com/gameusers/share-buttons)
+<br /><br />
 
 
 ## ライセンス
 
 [GPL2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.ja.html)
+<br /><br />
 
 
 ## 開発情報
