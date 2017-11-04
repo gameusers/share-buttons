@@ -87,15 +87,16 @@ class ContentTop extends React.Component {
         </p>
 
         <ul className="list-top1">
-          <li>動作が軽快</li>
-          <li>様々なデザインのテーマを利用できます</li>
-          <li>自由度の高いカスタマイズが行え、オリジナルのシェアボタンが作れます</li>
-          <li>商用利用可能です</li>
+          <li><strong>動作が軽快: </strong> 公式が用意しているボタンよりも動作が軽快です</li>
+          <li><strong>テーマが豊富: </strong> 様々なデザインのテーマを利用できます</li>
+          <li><strong>好きな画像が使える: </strong> 世界中の素材サイトからアイコン画像をダウンロードして利用できます</li>
+          <li><strong>オリジナルのシェアボタン: </strong> 自由度の高いカスタマイズが行え、オリジナルのシェアボタンが作れます</li>
+          <li><strong>商用利用可能: </strong> 商用・非商用、どちらの用途でも利用できます</li>
         </ul>
 
 
         <p className="sns">
-          <strong>対応SNS</strong>: 全10サイト + RSS & Mail ボタン
+          <strong>対応 Social Media</strong>: 全10サイト + RSS & Mail ボタン
         </p>
 
         <ul className="list-top2">

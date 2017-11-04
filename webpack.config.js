@@ -3,7 +3,7 @@ const path = require('path');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 // 環境を記述 development or production
-const env = 'development';
+const env = 'production';
 
 const config = {
   entry: {
