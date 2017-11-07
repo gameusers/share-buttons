@@ -54,7 +54,6 @@ WordPress のダッシュボード > プラグイン > 新規追加 > プラグ�
 ## Link
 
 - [Official Site](https://gameusers.org/app/share-buttons)
-- [GitHub](https://github.com/gameusers/share-buttons)
 <br /><br />
 
 

@@ -977,10 +977,9 @@ export class Model extends ModelRecord {
     const currentThemeNameId = map.getIn(['formMap', 'currentThemeNameId']);
     const currentThemeType = map.getIn(['formMap', 'currentThemeType']);
 
-    const selectors = document.querySelectorAll('#sample-theme .box');
+    const selectors = document.querySelectorAll(`#sample-theme .gameusers-share-buttons-${currentThemeNameId}-sample-box`);
 
-
-    let tempMap = Map();
+    let tempMap = OrderedMap();
 
     Object.keys(selectors).forEach((key) => {
 
