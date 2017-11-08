@@ -161,8 +161,6 @@ class Game_Users_Share_Buttons
     {
         if ($hook === 'settings_page_gameusers-share-buttons') {
 
-            wp_deregister_script('jquery');
-            wp_enqueue_script('jquery', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/jquery.min.js', array(), '3.2.1');
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_style('jquery-confirm', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.css', array(), '3.3.2');
             wp_enqueue_script('jquery-confirm', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.js', array('jquery'), '3.3.2');

@@ -1480,7 +1480,7 @@ class ContentEditForm extends React.Component {
     //   ボタンの並び替えができるようにする / jQuery UI 使用
     // --------------------------------------------------
 
-    $('#sample-theme > div').sortable({
+    jQuery('#sample-theme > div').sortable({
       cancel: '.free',
       containment: 'parent',
       tolerance: 'pointer',

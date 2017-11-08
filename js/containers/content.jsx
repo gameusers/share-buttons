@@ -246,7 +246,7 @@ const mapDispatchToProps = (dispatch) => {
    */
   bindActionObj.funcShareImageDelete = () => {
 
-    $.confirm({
+    jQuery.confirm({
       icon: 'glyphicon glyphicon-question-sign',
       title: 'Question',
       content: 'シェアボタンを削除しますか？',
@@ -1265,7 +1265,7 @@ const mapDispatchToProps = (dispatch) => {
     //   Confirm
     // --------------------------------------------------
 
-    $.confirm({
+    jQuery.confirm({
       icon: 'glyphicon glyphicon-question-sign',
       title: 'Question',
       content: 'このテーマを削除しますか？',
@@ -1585,7 +1585,7 @@ const mapDispatchToProps = (dispatch) => {
     //   Confirm
     // --------------------------------------------------
 
-    $.confirm({
+    jQuery.confirm({
       icon: 'glyphicon glyphicon-question-sign',
       title: 'Question',
       content: 'プランを変更しますか？',
