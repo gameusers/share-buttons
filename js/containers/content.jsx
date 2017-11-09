@@ -370,6 +370,7 @@ const mapDispatchToProps = (dispatch) => {
     const dataEditThemesMap = stateModel.get('dataEditThemesMap');
     const uploadImageOfficialMap = stateModel.get('uploadImageOfficialMap');
 
+    const queryControlCache = Math.floor(Math.random() * ((99999999 + 1) - 10000000)) + 10000000;
     const php = stateModel.get('php');
     const twitterApiType = stateModel.get('twitterApiType');
     const rssUrl = stateModel.get('rssUrl');
@@ -504,8 +505,6 @@ const mapDispatchToProps = (dispatch) => {
 
       }
 
-      // console.log('urlPhp = ', urlPhp);
-
 
       // --------------------------------------------------
       //   Get share-bundle.min.js
@@ -548,6 +547,7 @@ const mapDispatchToProps = (dispatch) => {
       // --------------------------------------------------
 
       const optionObj = {
+        queryControlCache,
         php,
         twitterApiType,
         rssUrl

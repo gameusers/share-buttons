@@ -384,6 +384,33 @@ class Game_Users_Share_Buttons
             $returnArr['editThemesArr'] = $editThemesArr;
 
 
+
+            // --------------------------------------------------
+            //   For Cache Clear
+            // --------------------------------------------------
+
+            // ---------------------------------------------
+            //   - Get Option Arr
+            // ---------------------------------------------
+
+            $optionArr = $instanceModel->getOptionArr();
+            $tempArr['queryControlCache'] = mt_rand(10000000, 99999999);
+            $tempArr['php'] = $optionArr['php'];
+            $tempArr['twitterApiType'] = $optionArr['twitterApiType'];
+            $tempArr['rssUrl'] = $optionArr['rssUrl'];
+
+
+            // ---------------------------------------------
+            //   - Save Option Json
+            // ---------------------------------------------
+
+            $path = dirname(__FILE__) . '/json/option.json';
+
+            if (!file_put_contents($path, json_encode($tempArr))) {
+                throw new Exception('optionJson');
+            }
+
+
         } catch (Exception $e) {
 
             $returnArr['error'] = true;
@@ -769,6 +796,8 @@ class Game_Users_Share_Buttons
             // --------------------------------------------------
 
             $jsonArr = array();
+
+            $jsonArr['queryControlCache'] = mt_rand(10000000, 99999999);
 
             if (isset($_POST['php']) && $_POST['php'] == 1) {
                 $jsonArr['php'] = 1;

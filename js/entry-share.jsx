@@ -719,6 +719,8 @@ export class GameUsersShareButtons {
       themeUrl = url;
     }
 
+    const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(this.optionJsonObj.queryControlCache) || 10000000;
+
 
     this.code += `<div class="${this.className}">`;
 
@@ -772,8 +774,6 @@ export class GameUsersShareButtons {
 
           codeCount = `<div class="${this.className}-box-count"><a href="${rssUrl}" target="_blank"><div class="${this.className}-box-count-${countDirection}" data-min="${countMin}" data-max="${countMax}">${countDefaultText}</div></a></div>`;
 
-          // codeCount = `<div class="${this.className}-box-count"><div class="${this.className}-box-count-${countDirection}" data-min="${countMin}" data-max="${countMax}">${countDefaultText}</div></div>`;
-
         } else {
 
           codeCount = `<div class="${this.className}-box-count"><div class="${this.className}-box-count-${countDirection}" data-min="${countMin}" data-max="${countMax}">${countDefaultText}</div></div>`;
@@ -789,7 +789,7 @@ export class GameUsersShareButtons {
       //   画像のパスを作成 / アップロードした画像がある場合はそれを表示
       // --------------------------------------------------
 
-      let imageSrc = `${themeUrl}/${themeName}-${themeId}/${shareName}.${shareImageExtension}`;
+      let imageSrc = `${themeUrl}/${themeName}-${themeId}/${shareName}.${shareImageExtension}?${queryControlCache}`;
 
       if (uploadImageActive && this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type1', shareName, 'src'])) {
         imageSrc = this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type1', shareName, 'src']);
@@ -804,12 +804,8 @@ export class GameUsersShareButtons {
       } else if (key === 'rss' && this.optionJsonObj.rssUrl) {
 
         const rssUrl = GameUsersShareButtonsCommon.escapeHtml(this.optionJsonObj.rssUrl);
-        //
+
         codeImage = `<div class="${this.className}-box-image"><a href="${rssUrl}" target="_blank"><img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" /></a></div>`;
-
-        // codeImage = `<div class="${this.className}-box-image"><a href="${rssUrl}" target="_blank" style="margin: 0, padding: 0"><img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" /></a></div>`;
-
-        // codeImage = `<div class="${this.className}-box-image"><img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" /></div>`;
 
       } else {
 
@@ -875,9 +871,9 @@ export class GameUsersShareButtons {
       this.code += `<div class="${this.className}-free" id="gameusers-share-buttons-free-image">`;
 
       if (freeImageUrl) {
-        this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
+        this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
       } else {
-        this.code += `<img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" />`;
+        this.code += `<img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" />`;
       }
 
       this.code += '</div>';
@@ -900,6 +896,8 @@ export class GameUsersShareButtons {
     if (url) {
       themeUrl = url;
     }
+
+    const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(this.optionJsonObj.queryControlCache) || 10000000;
 
     this.code += `<div class="${this.className}">`;
 
@@ -931,7 +929,7 @@ export class GameUsersShareButtons {
       //   画像のパスを作成 / アップロードした画像がある場合はそれを表示
       // --------------------------------------------------
 
-      let imageSrc = `${themeUrl}/${themeName}-${themeId}/${shareName}.${shareImageExtension}`;
+      let imageSrc = `${themeUrl}/${themeName}-${themeId}/${shareName}.${shareImageExtension}?${queryControlCache}`;
 
       if (uploadImageActive && this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src'])) {
         imageSrc = this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src']);
@@ -1013,7 +1011,7 @@ export class GameUsersShareButtons {
 
 
       this.code += `<div class="${this.className}-free" id="gameusers-share-buttons-free-image">`;
-      this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
+      this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
       this.code += '</div>';
 
     }
@@ -1030,11 +1028,18 @@ export class GameUsersShareButtons {
 
 
     // --------------------------------------------------
+    //   クエリを追加してキャッシュを効かなくさせる
+    // --------------------------------------------------
+
+    const queryDisableCache = Date.now();
+
+
+    // --------------------------------------------------
     //   Option JSON
     // --------------------------------------------------
 
     const xhrOption = new XMLHttpRequest();
-    xhrOption.open('GET', `${this.shareButtonsBaseUrl}json/option.json`, true);
+    xhrOption.open('GET', `${this.shareButtonsBaseUrl}json/option.json?${queryDisableCache}`, true);
     xhrOption.onload = function () {
       if (xhrOption.readyState === 4 && xhrOption.status === 200) {
 
@@ -1052,6 +1057,7 @@ export class GameUsersShareButtons {
 
         let loopCount = 0;
         let existencePinterest = false;
+        const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(that.optionJsonObj.queryControlCache) || 10000000;
 
 
         // --------------------------------------------------
@@ -1061,7 +1067,6 @@ export class GameUsersShareButtons {
         //   https://stackoverflow.com/questions/7459704/in-javascript-what-is-the-best-way-to-convert-a-nodelist-to-an-array/7459729#7459729
         // --------------------------------------------------
 
-        // const elementArr = document.querySelectorAll(`${that.containerSelector}#gameusers-share-buttons`);
         const elementArr = [...document.querySelectorAll(`${that.containerSelector}#gameusers-share-buttons`)];
         const elementArrCount = elementArr.length;
         // console.log('elementArr = ', elementArr);
@@ -1076,7 +1081,7 @@ export class GameUsersShareButtons {
 
 
           const xhr = new XMLHttpRequest();
-          xhr.open('GET', `${that.shareButtonsBaseUrl}themes/${themeNameId}/data.json`, true);
+          xhr.open('GET', `${that.shareButtonsBaseUrl}themes/${themeNameId}/data.json?${queryControlCache}`, true);
           xhr.onload = function () {
             if (xhr.readyState === 4) {
               if (xhr.status === 200) {
