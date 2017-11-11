@@ -69,7 +69,7 @@ class ContentEdit extends React.Component {
             </div>
           </div>
 
-          <div id="gameusers-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
+          <div id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
 
           <div className="file-format">File Format: {fileFormat}</div>
 

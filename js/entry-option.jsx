@@ -28,7 +28,7 @@ if (typeof (gameUsersShareButtonsPageType) !== 'undefined' && gameUsersShareButt
     <Provider store={store}>
       <ContainerContent />
     </Provider>,
-    document.querySelector('#gameusers-share-buttons-option')
+    document.querySelector('#game-users-share-buttons-option')
   );
 
 }
@@ -44,7 +44,7 @@ export default function optionOutput() {
     <Provider store={store}>
       <ContainerContent />
     </Provider>,
-    document.querySelector('#gameusers-share-buttons-option')
+    document.querySelector('#game-users-share-buttons-option')
   );
 
 }

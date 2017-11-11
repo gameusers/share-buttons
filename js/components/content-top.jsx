@@ -45,7 +45,7 @@ class ContentTop extends React.Component {
       const codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('design', OFFICIAL_THEME_DESIGN_URL, false) };
 
       codeArr.push(
-        <div className="top-share-buttons-margin" id="gameusers-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
+        <div className="top-share-buttons-margin" id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
       );
 
     });
@@ -63,7 +63,7 @@ class ContentTop extends React.Component {
       const codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('icon', OFFICIAL_THEME_ICON_URL, false) };
 
       codeArr.push(
-        <div className="top-share-buttons-margin" id="gameusers-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
+        <div className="top-share-buttons-margin" id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
       );
 
     });
@@ -139,12 +139,12 @@ class ContentTop extends React.Component {
         <p className="title-sub">ダウンロードしたシェアボタンの使い方</p>
 
         <p style={{ margin: '0 0 40px 0' }}>
-          公式サイトでシェアボタンを作成した場合、WordPressのプラグインで規定の場所以外にシェアボタンを表示したい場合は、編集タブでシェアボタンをダウンロードしてください。ダウンロードしたZIPファイルを解凍すると gameusers-share-buttons というフォルダが出てきますので、シェアボタンを設置したいウェブサイトのサーバーにアップロードしてください。
+          公式サイトでシェアボタンを作成した場合、WordPressのプラグインで規定の場所以外にシェアボタンを表示したい場合は、編集タブでシェアボタンをダウンロードしてください。ダウンロードしたZIPファイルを解凍すると game-users-share-buttons というフォルダが出てきますので、シェアボタンを設置したいウェブサイトのサーバーにアップロードしてください。
         </p>
 
         <p className="title-sub">ファイル構成</p>
 
-        <div style={{ margin: '0 0 10px 10px' }}>gameusers-share-buttons /</div>
+        <div style={{ margin: '0 0 10px 10px' }}>game-users-share-buttons /</div>
         <div style={{ margin: '0 0 10px 20px' }}>├ img /</div>
         <div style={{ margin: '0 0 10px 20px' }}>├ js /（Javascriptフォルダ）</div>
         <div style={{ margin: '0 0 10px 20px' }}>│<span style={{ margin: '0 0 0 10px' }} className="color-red">└ share-bundle.min.js</span></div>
@@ -155,11 +155,11 @@ class ContentTop extends React.Component {
         <div style={{ margin: '0 0 10px 40px' }} className="color-red">└ gameusers2-vd2bwk79</div>
 
         <p style={{ margin: '40px 0 20px 0' }}>
-          ダウンロードしたシェアボタンを使用する場合は、上記赤文字のファイルが重要になります。まず最初に share-bundle.min.js ファイルを読み込むコードを作成します。以下のコードの赤文字部分に、share-bundle.min.js ファイルまでの絶対パスまたは相対パスを入力してください。<br /><br />絶対パスの例）https://example.com/gameusers-share-buttons/js/share-bundle.min.js
+          ダウンロードしたシェアボタンを使用する場合は、上記赤文字のファイルが重要になります。まず最初に share-bundle.min.js ファイルを読み込むコードを作成します。以下のコードの赤文字部分に、share-bundle.min.js ファイルまでの絶対パスまたは相対パスを入力してください。<br /><br />絶対パスの例）https://example.com/game-users-share-buttons/js/share-bundle.min.js
         </p>
 
         <Well className="well">
-          {'<script type="text/javascript" src="'}<span className="color-red">gameusers-share-buttons/js/share-bundle.min.js</span>{'"></script>'}
+          {'<script type="text/javascript" src="'}<span className="color-red">game-users-share-buttons/js/share-bundle.min.js</span>{'"></script>'}
         </Well>
 
         <p style={{ margin: '20px 0 20px 0' }}>
@@ -167,7 +167,7 @@ class ContentTop extends React.Component {
         </p>
 
         <Well className="well">
-          {'<div id="gameusers-share-buttons" data-theme="'}<span className="color-red">gameusers1-olxdmwzh</span>{'"></div>'}
+          {'<div id="game-users-share-buttons" data-theme="'}<span className="color-red">gameusers1-olxdmwzh</span>{'"></div>'}
         </Well>
 
         <p style={{ margin: '20px 0 20px 0' }}>
@@ -187,9 +187,9 @@ class ContentTop extends React.Component {
 
           {'<body>'}<br />
           <div className="color-red" style={{ margin: '0 0 0 10px' }}>
-            {'<div id="gameusers-share-buttons" data-theme="gameusers1-olxdmwzh"></div>'}<br />
-            {'<div id="gameusers-share-buttons" data-theme="gameusers2-vd2bwk79"></div>'}<br />
-            {'<script type="text/javascript" src="gameusers-share-buttons/js/share-bundle.min.js"></script>'}<br />
+            {'<div id="game-users-share-buttons" data-theme="gameusers1-olxdmwzh"></div>'}<br />
+            {'<div id="game-users-share-buttons" data-theme="gameusers2-vd2bwk79"></div>'}<br />
+            {'<script type="text/javascript" src="game-users-share-buttons/js/share-bundle.min.js"></script>'}<br />
           </div>
           {'</body>'}<br />
           {'</html>'}<br />

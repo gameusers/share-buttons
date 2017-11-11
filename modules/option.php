@@ -14,7 +14,7 @@ class Game_Users_Share_Buttons_Option
             'Game Users Share Buttons Setting', // page_title（オプションページのHTMLのタイトル）
             'Game Users Share Buttons', // menu_title（メニューで表示されるタイトル）
             'administrator', // capability
-            'gameusers-share-buttons', // menu_slug（URLのスラッグこの例だとoptions-general.php?gameusers-share-buttons）
+            'game-users-share-buttons', // menu_slug（URLのスラッグこの例だとoptions-general.php?game-users-share-buttons）
             array($this, 'viewOption') // function
         );
     }

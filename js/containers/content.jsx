@@ -515,7 +515,7 @@ const mapDispatchToProps = (dispatch) => {
         'text'
       );
 
-      zip.file('gameusers-share-buttons/js/share-bundle.min.js', shareBundleJs, { binary: false });
+      zip.file('game-users-share-buttons/js/share-bundle.min.js', shareBundleJs, { binary: false });
 
 
       // --------------------------------------------------
@@ -527,7 +527,7 @@ const mapDispatchToProps = (dispatch) => {
         'blob'
       );
 
-      zip.file('gameusers-share-buttons/img/free.png', freeImage, { binary: true });
+      zip.file('game-users-share-buttons/img/free.png', freeImage, { binary: true });
 
 
       // --------------------------------------------------
@@ -539,7 +539,7 @@ const mapDispatchToProps = (dispatch) => {
         'text'
       );
 
-      zip.file('gameusers-share-buttons/php/count.php', countPhp, { binary: false });
+      zip.file('game-users-share-buttons/php/count.php', countPhp, { binary: false });
 
 
       // --------------------------------------------------
@@ -555,7 +555,7 @@ const mapDispatchToProps = (dispatch) => {
 
       const optionJs = JSON.stringify(optionObj);
 
-      zip.file('gameusers-share-buttons/json/option.json', optionJs, { binary: false });
+      zip.file('game-users-share-buttons/json/option.json', optionJs, { binary: false });
 
 
 
@@ -589,7 +589,7 @@ const mapDispatchToProps = (dispatch) => {
           const dataObj = dataEditThemesMap.getIn([themeNameId, openedThemeType]).toJS();
           const dataJson = JSON.stringify(dataObj);
 
-          zip.file(`gameusers-share-buttons/themes/${themeNameId}/data.json`, dataJson, { binary: false });
+          zip.file(`game-users-share-buttons/themes/${themeNameId}/data.json`, dataJson, { binary: false });
 
 
           // ---------------------------------------------
@@ -620,7 +620,7 @@ const mapDispatchToProps = (dispatch) => {
               const fileType = loopObj[shareImageType].file.type;
               const blob = toBlob(imageSrc, fileType);
 
-              zip.file(`gameusers-share-buttons/themes/${themeNameId}/${fileName}`, blob, { binary: true });
+              zip.file(`game-users-share-buttons/themes/${themeNameId}/${fileName}`, blob, { binary: true });
 
 
             // ---------------------------------------------
@@ -638,7 +638,7 @@ const mapDispatchToProps = (dispatch) => {
                 'blob'
               );
 
-              zip.file(`gameusers-share-buttons/themes/${themeNameId}/${imageName}`, image, { binary: true });
+              zip.file(`game-users-share-buttons/themes/${themeNameId}/${imageName}`, image, { binary: true });
 
             }
 
@@ -661,7 +661,7 @@ const mapDispatchToProps = (dispatch) => {
             'text'
           );
 
-          zip.file(`gameusers-share-buttons/themes/${themeNameId}/data.json`, dataJson, { binary: false });
+          zip.file(`game-users-share-buttons/themes/${themeNameId}/data.json`, dataJson, { binary: false });
 
 
           // ---------------------------------------------
@@ -679,7 +679,7 @@ const mapDispatchToProps = (dispatch) => {
               'blob'
             );
 
-            zip.file(`gameusers-share-buttons/themes/${themeNameId}/${imageName}`, image, { binary: true });
+            zip.file(`game-users-share-buttons/themes/${themeNameId}/${imageName}`, image, { binary: true });
 
           }));
 
@@ -694,7 +694,7 @@ const mapDispatchToProps = (dispatch) => {
 
       zip.generateAsync({ type: 'blob' })
         .then((content) => {
-          saveAs(content, 'gameusers-share-buttons.zip');
+          saveAs(content, 'game-users-share-buttons.zip');
 
           iziToast.success({
             title: 'OK',
@@ -1117,7 +1117,7 @@ const mapDispatchToProps = (dispatch) => {
 
       } else {
 
-        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_save_theme`, 'POST', 'same-origin', 'same-origin', formData);
+        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_save_theme`, 'POST', 'same-origin', 'same-origin', formData);
 
         if (returnObj.error) {
           throw new Error();
@@ -1215,7 +1215,7 @@ const mapDispatchToProps = (dispatch) => {
 
         } else {
 
-          const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_delete_theme`, 'POST', 'same-origin', 'same-origin', formData);
+          const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_delete_theme`, 'POST', 'same-origin', 'same-origin', formData);
 
           if (returnObj.error) {
             throw new Error();
@@ -1330,7 +1330,7 @@ const mapDispatchToProps = (dispatch) => {
 
     try {
 
-      const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_set_top_bottom_theme`, 'POST', 'same-origin', 'same-origin', formData);
+      const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_set_top_bottom_theme`, 'POST', 'same-origin', 'same-origin', formData);
 
       if (returnObj.error) {
         throw new Error();
@@ -1428,7 +1428,7 @@ const mapDispatchToProps = (dispatch) => {
 
       } else {
 
-        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_save_option`, 'POST', 'same-origin', 'same-origin', formData);
+        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_save_option`, 'POST', 'same-origin', 'same-origin', formData);
 
         if (returnObj.error) {
           throw new Error();
@@ -1546,7 +1546,7 @@ const mapDispatchToProps = (dispatch) => {
 
         } else {
 
-          const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_change_plan`, 'POST', 'same-origin', 'same-origin', formData);
+          const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_change_plan`, 'POST', 'same-origin', 'same-origin', formData);
 
           if (returnObj.error) {
             throw new Error();
@@ -1689,7 +1689,7 @@ const mapDispatchToProps = (dispatch) => {
 
       } else {
 
-        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=gameusers_share_buttons_ajax_move_edit_tab`, 'POST', 'same-origin', 'same-origin', formData);
+        const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_move_edit_tab`, 'POST', 'same-origin', 'same-origin', formData);
 
         if (returnObj.error) {
           throw new Error();

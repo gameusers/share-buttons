@@ -32,7 +32,7 @@ class ContentEdit extends React.Component {
 
     if (!this.props.googleFontsList.equals(prevProps.googleFontsList)) {
 
-      const elementGoogleFonts = document.querySelector('#gameusers-share-buttons-google-fonts');
+      const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
       const googleFonts = this.props.googleFontsList.toJS().join('|');
 
 
@@ -45,7 +45,7 @@ class ContentEdit extends React.Component {
         const css = document.createElement('link');
         css.type = 'text/css';
         css.rel = 'stylesheet';
-        css.id = 'gameusers-share-buttons-google-fonts';
+        css.id = 'game-users-share-buttons-google-fonts';
         css.href = `https://fonts.googleapis.com/css?family=${googleFonts}`;
         document.getElementsByTagName('head').item(0).appendChild(css);
 
@@ -213,7 +213,7 @@ class ContentEdit extends React.Component {
               {buttonSetBottomTheme}
             </div>
           </div>
-          <div id="gameusers-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
+          <div id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
         </div>
       );
 

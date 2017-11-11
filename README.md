@@ -41,13 +41,13 @@ Game Users Share Buttonsは優れた機能を提供しています。
 
 
 ## インストール
-gameusers-share-buttons というディレクトリを作成し、その中に Clone してください。そのディレクトリをZIPファイルに圧縮すると、WordPress で利用できるプラグインファイルになります。
+game-users-share-buttons というディレクトリを作成し、その中に Clone してください。そのディレクトリをZIPファイルに圧縮すると、WordPress で利用できるプラグインファイルになります。
 
 WordPress のダッシュボード > プラグイン > 新規追加 > プラグインのアップロード
 
 上記でZIPファイルをアップロードして有効化すると、WordPress 上で機能するようになります。
 
-または gameusers-share-buttons ディレクトリをお使いの WordPress 内の /wp-content/plugins/ ディレクトリにアップロード後、有効化してもプラグインとして機能します。
+または game-users-share-buttons ディレクトリをお使いの WordPress 内の /wp-content/plugins/ ディレクトリにアップロード後、有効化してもプラグインとして機能します。
 <br /><br />
 
 

@@ -1,1 +1,1 @@
-<div class="gameusers-share-buttons-option" id="gameusers-share-buttons-option"></div>
+<div class="game-users-share-buttons-option" id="game-users-share-buttons-option"></div>

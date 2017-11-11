@@ -31,7 +31,7 @@ export const PLUGIN_URL = (() => {
       ({ src } = script);
     }
   }
-  const directoryName = 'gameusers-share-buttons';
+  const directoryName = 'game-users-share-buttons';
   const scrArr = src.split(directoryName);
 
   return GameUsersShareButtonsCommon.escapeHtml(`${scrArr[0]}${directoryName}/`);
@@ -77,9 +77,31 @@ export class GameUsersShareButtons {
 
     this.containerSelector = '';
 
-    if (document.getElementById('gameusers-share-buttons-official')) {
-      this.containerSelector = '#gameusers-share-buttons-official ';
+    if (document.getElementById('game-users-share-buttons-official')) {
+      this.containerSelector = '#game-users-share-buttons-official ';
     }
+
+
+
+    // window.onload = function () {
+    //
+    //   console.log('window.onload');
+    //   // const instanceGameUsersShareButtons = new GameUsersShareButtons();
+    //   // instanceGameUsersShareButtons.renderAllShareButtons();
+    //   this.renderAllShareButtons();
+    //
+    // };
+
+    // --------------------------------------------------
+    //   シェアボタンを描写する
+    // --------------------------------------------------
+
+    // const that = this;
+    //
+    // window.onload = function () {
+    //   that.renderAllShareButtons();
+    // };
+
 
   }
 
@@ -100,7 +122,7 @@ export class GameUsersShareButtons {
 
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
     const themeId = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.id);
-    this.className = `gameusers-share-buttons-${themeName}-${themeId}`;
+    this.className = `game-users-share-buttons-${themeName}-${themeId}`;
 
     if (this.jsonObj.style.type === 1 && this.jsonObj.style.version === 1) {
       this.styleType1Ver1();
@@ -373,22 +395,13 @@ export class GameUsersShareButtons {
     this.code += '  outline: none;';
     this.code += '}';
 
-
-    // this.code += `.${this.className}-box-image a {`;
-    // this.code += '  -webkit-box-shadow: none;';
-    // this.code += '  box-shadow: none;';
-    // this.code += '  height: 0;';
-    // this.code += '  margin: 0;';
-    // this.code += '  padding: 0;';
-    // this.code += '}';
-
-
     this.code += `.${this.className}-box-image img, .${this.className}-box-image a img {`;
     this.code += '  -webkit-box-shadow: none;';
     this.code += '  box-shadow: none;';
     this.code += `  ${shareImageWidth}`;
     this.code += `  ${shareImageHeight}`;
     // this.code += '  vertical-align: bottom;';
+    this.code += '  vertical-align: baseline;';
     this.code += '}';
 
     this.code += `.${this.className}-box-count {`;
@@ -527,7 +540,6 @@ export class GameUsersShareButtons {
     this.code += '</style>';
 
   }
-
 
 
   styleType2Ver1() {
@@ -747,7 +759,7 @@ export class GameUsersShareButtons {
       const shareCount = GameUsersShareButtonsCommon.escapeHtml(value.count);
 
 
-      this.code += `<div class="${this.className}-box" id="gameusers-share-buttons-${shareName}" data-count="${shareCount}">`;
+      this.code += `<div class="${this.className}-box" id="game-users-share-buttons-${shareName}" data-count="${shareCount}">`;
 
       if (this.jsonObj.count) {
 
@@ -868,7 +880,7 @@ export class GameUsersShareButtons {
 
       }
 
-      this.code += `<div class="${this.className}-free" id="gameusers-share-buttons-free-image">`;
+      this.code += `<div class="${this.className}-free" id="game-users-share-buttons-free-image">`;
 
       if (freeImageUrl) {
         this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
@@ -884,7 +896,6 @@ export class GameUsersShareButtons {
     this.code += '</div>';
 
   }
-
 
 
   themeType2Ver1(url, uploadImageActive) {
@@ -921,7 +932,7 @@ export class GameUsersShareButtons {
       const shareFormalName = GameUsersShareButtonsCommon.escapeHtml(this.shareObj[key]);
       const shareCount = GameUsersShareButtonsCommon.escapeHtml(value.count);
 
-      this.code += `<div class="${this.className}-box" id="gameusers-share-buttons-${shareName}" data-count="${shareCount}">`;
+      this.code += `<div class="${this.className}-box" id="game-users-share-buttons-${shareName}" data-count="${shareCount}">`;
 
 
       // --------------------------------------------------
@@ -1010,7 +1021,7 @@ export class GameUsersShareButtons {
       }
 
 
-      this.code += `<div class="${this.className}-free" id="gameusers-share-buttons-free-image">`;
+      this.code += `<div class="${this.className}-free" id="game-users-share-buttons-free-image">`;
       this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
       this.code += '</div>';
 
@@ -1020,6 +1031,7 @@ export class GameUsersShareButtons {
     this.code += '</div>';
 
   }
+
 
 
   renderAllShareButtons() {
@@ -1037,7 +1049,8 @@ export class GameUsersShareButtons {
     // --------------------------------------------------
     //   Option JSON
     // --------------------------------------------------
-
+    // console.log('PLUGIN_URL = ', PLUGIN_URL);
+    // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
     const xhrOption = new XMLHttpRequest();
     xhrOption.open('GET', `${this.shareButtonsBaseUrl}json/option.json?${queryDisableCache}`, true);
     xhrOption.onload = function () {
@@ -1062,14 +1075,15 @@ export class GameUsersShareButtons {
 
         // --------------------------------------------------
         //   Loop
-        //   const elementArr = [...document.querySelectorAll(`${that.containerSelector}#gameusers-share-buttons`)];
+        //   const elementArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
         //   上記の書き方は NodeList を forEach でループさせると IE とEdghe でエラーが出るため
         //   https://stackoverflow.com/questions/7459704/in-javascript-what-is-the-best-way-to-convert-a-nodelist-to-an-array/7459729#7459729
         // --------------------------------------------------
-
-        const elementArr = [...document.querySelectorAll(`${that.containerSelector}#gameusers-share-buttons`)];
+        // console.log('that.containerSelector = ', that.containerSelector);
+        const elementArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
         const elementArrCount = elementArr.length;
         // console.log('elementArr = ', elementArr);
+        // console.log('elementArrCount = ', elementArrCount);
 
         elementArr.forEach((element) => {
 
@@ -1102,11 +1116,11 @@ export class GameUsersShareButtons {
                 const copyElement = element;
                 copyElement.innerHTML = that.shareButtons();
 
-                const elementDivArr = [...element.querySelectorAll('[id^=gameusers-share-buttons-]')];
+                const elementDivArr = [...element.querySelectorAll('[id^=game-users-share-buttons-]')];
 
                 elementDivArr.forEach((elementDiv) => {
                   const elementCopy = elementDiv;
-                  const shareId = elementDiv.id.replace(/gameusers-share-buttons-/g, '');
+                  const shareId = elementDiv.id.replace(/game-users-share-buttons-/g, '');
 
                   if (elementCopy.dataset.count) {
                     that.countObj[shareId] = null;
@@ -1131,9 +1145,10 @@ export class GameUsersShareButtons {
             // --------------------------------------------------
 
             loopCount += 1;
+            // console.log('loopCount = ', loopCount);
 
-            if (elementArrCount >= loopCount) {
-
+            if (elementArrCount === loopCount) {
+              // console.log('Last');
               // --------------------------------------------------
               //   Add Google Fonts Style Sheet
               // --------------------------------------------------
@@ -1142,7 +1157,7 @@ export class GameUsersShareButtons {
 
                 const fonts = that.importGoogleFontsArr.join('|');
 
-                const elementGoogleFonts = document.querySelector('#gameusers-share-buttons-google-fonts');
+                const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
 
                 if (elementGoogleFonts) {
 
@@ -1153,7 +1168,7 @@ export class GameUsersShareButtons {
                   const css = document.createElement('link');
                   css.type = 'text/css';
                   css.rel = 'stylesheet';
-                  css.id = 'gameusers-share-buttons-google-fonts';
+                  css.id = 'game-users-share-buttons-google-fonts';
                   css.href = `https://fonts.googleapis.com/css?family=${fonts}`;
                   document.getElementsByTagName('head').item(0).appendChild(css);
 
@@ -1172,7 +1187,7 @@ export class GameUsersShareButtons {
 
                 const script = document.createElement('script');
                 script.type = 'text/javascript';
-                script.id = 'gameusers-share-buttons-pinit-js';
+                script.id = 'game-users-share-buttons-pinit-js';
                 script.src = '//assets.pinterest.com/js/pinit.js';
                 document.getElementsByTagName('head').item(0).appendChild(script);
 
@@ -1246,7 +1261,7 @@ export class GameUsersShareButtons {
 
   countApply(type) {
 
-    const elementArr = [...document.querySelectorAll(`${this.containerSelector}#gameusers-share-buttons-${type}`)];
+    const elementArr = [...document.querySelectorAll(`${this.containerSelector}#game-users-share-buttons-${type}`)];
 
     elementArr.forEach((element) => {
 
@@ -1280,7 +1295,6 @@ export class GameUsersShareButtons {
     });
 
   }
-
 
 
   countTwitter(url) {
@@ -1350,7 +1364,6 @@ export class GameUsersShareButtons {
     xmlHttpReq.send(null);
 
   }
-
 
 
   countHatena(url) {
@@ -1523,11 +1536,10 @@ export class GameUsersShareButtons {
   count() {
 
     const url = window.location.href;
-    // const url = encodeURIComponent('https://www.yahoo.co.jp/');
     // const url = 'https://www.yahoo.co.jp/';
     // const url = 'https://www.google.com/';
-    // const url = 'https://news.yahoo.co.jp/pickup/rss.xml';
-    // const url = 'https://ja.wikipedia.org/wiki/日本語';
+
+    // console.log('this.countObj = ', this.countObj);
 
 
     Object.keys(this.countObj).forEach((key) => {
@@ -1567,7 +1579,7 @@ window.onload = function () {
   //
   //   このうちの 2 & 3 のシェアボタン作成タブの場合、ここでは描写しない
   //   1 の通常使用時と公式ページの左メニュー部分のシェアボタンはこちらから描写する
-  //   gameUsersShareButtonsPageType が存在していない場合は作成タブではないという判定
+  //   gameUsersShareButtonsPageType が存在しない場合、作成タブではないという判定
   // --------------------------------------------------
 
   if (typeof (gameUsersShareButtonsPageType) === 'undefined') {
@@ -1666,82 +1678,3 @@ if (!Array.from) {
     };
   }());
 }
-
-
-/* eslint no-void: 0, prefer-destructuring: 0 */
-// if (!Array.from) {
-//   Array.from = (function () {
-//     const toStr = Object.prototype.toString;
-//     const isCallable = function (fn) {
-//       return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
-//     };
-//     const toInteger = function (value) {
-//       const number = Number(value);
-//       if (Number.isNaN(number)) { return 0; }
-//       if (number === 0 || !Number.isFinite(number)) { return number; }
-//       return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
-//     };
-//     const maxSafeInteger = Number.Math.pow(2, 53) - 1;
-//     const toLength = function (value) {
-//       const len = toInteger(value);
-//       return Math.min(Math.max(len, 0), maxSafeInteger);
-//     };
-//
-//     // The length property of the from method is 1.
-//     return function from(arrayLike, ...args) {
-//       // 1. Let C be the this value.
-//       const C = this;
-//
-//       // 2. Let items be ToObject(arrayLike).
-//       const items = Object(arrayLike);
-//
-//       // 3. ReturnIfAbrupt(items).
-//       if (arrayLike == null) {
-//         throw new TypeError('Array.from requires an array-like object - not null or undefined');
-//       }
-//
-//       // 4. If mapfn is undefined, then let mapping be false.
-//       const mapFn = args.length > 1 ? args[1] : void undefined;
-//       let T;
-//       if (typeof mapFn !== 'undefined') {
-//         // 5. else
-//         // 5. a If IsCallable(mapfn) is false, throw a TypeError exception.
-//         if (!isCallable(mapFn)) {
-//           throw new TypeError('Array.from: when provided, the second argument must be a function');
-//         }
-//
-//         // 5. b. If thisArg was supplied, let T be thisArg; else let T be undefined.
-//         if (args.length > 2) {
-//           T = args[2];
-//         }
-//       }
-//
-//       // 10. Let lenValue be Get(items, "length").
-//       // 11. Let len be ToLength(lenValue).
-//       const len = toLength(items.length);
-//
-//       // 13. If IsConstructor(C) is true, then
-//       // 13. a. Let A be the result of calling the [[Construct]] internal method of C with an argument list containing the single item len.
-//       // 14. a. Else, Let A be ArrayCreate(len).
-//       const A = isCallable(C) ? Object(new C(len)) : new Array(len);
-//
-//       // 16. Let k be 0.
-//       let k = 0;
-//       // 17. Repeat, while k < len… (also steps a - h)
-//       let kValue;
-//       while (k < len) {
-//         kValue = items[k];
-//         if (mapFn) {
-//           A[k] = typeof T === 'undefined' ? mapFn(kValue, k) : mapFn.call(T, kValue, k);
-//         } else {
-//           A[k] = kValue;
-//         }
-//         k += 1;
-//       }
-//       // 18. Let putStatus be Put(A, "length", len, true).
-//       A.length = len;
-//       // 20. Return A.
-//       return A;
-//     };
-//   }());
-// }

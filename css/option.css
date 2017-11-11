@@ -2,7 +2,7 @@ body {
   background-color: #f1f1f1;
 }
 
-.gameusers-share-buttons-option {
+.game-users-share-buttons-option {
   margin: 0 10px 0 0;
   padding: 15px 0 0;
   background-color: #f1f1f1;
@@ -10,59 +10,59 @@ body {
 
 
 
-.gameusers-share-buttons-option .title-top {
+.game-users-share-buttons-option .title-top {
   margin: 0 0 20px;
   font-size: 22px;
   font-weight: bold;
 }
 
-.gameusers-share-buttons-option .title-sub {
+.game-users-share-buttons-option .title-sub {
   margin: 0 0 10px;
   font-size: 20px;
 }
 
-.gameusers-share-buttons-option .color-red {
+.game-users-share-buttons-option .color-red {
   color: red;
 }
 
-.gameusers-share-buttons-option .color-blue {
+.game-users-share-buttons-option .color-blue {
   color: blue;
 }
 
-.gameusers-share-buttons-option .well {
+.game-users-share-buttons-option .well {
   font-size: 12px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 
-.gameusers-share-buttons-option .sns {
+.game-users-share-buttons-option .sns {
   margin: 30px 0 14px;
 }
 
-.gameusers-share-buttons-option .list-top1 {
+.game-users-share-buttons-option .list-top1 {
   list-style: disc;
   margin: 0 0 0 25px;
 }
 
-.gameusers-share-buttons-option .list-top1 li {
+.game-users-share-buttons-option .list-top1 li {
   margin: 0 0 6px;
 }
 
-.gameusers-share-buttons-option .list-top2 {
+.game-users-share-buttons-option .list-top2 {
   list-style: circle;
   margin: 0 0 0 25px;
 }
 
-.gameusers-share-buttons-option .list-top2 li {
+.game-users-share-buttons-option .list-top2 li {
   margin: 0 0 6px;
 }
 
-.gameusers-share-buttons-option .list-plan {
+.game-users-share-buttons-option .list-plan {
   list-style: disc;
   margin: 30px 0 30px 25px;
 }
 
-.gameusers-share-buttons-option .list-plan li {
+.game-users-share-buttons-option .list-plan li {
   margin: 0 0 6px;
 }
 
@@ -70,23 +70,23 @@ body {
 
 
 
-.gameusers-share-buttons-option .top-share-buttons-margin {
+.game-users-share-buttons-option .top-share-buttons-margin {
   margin: 20px 0 0;
 }
 
 
-.gameusers-share-buttons-option .form-group-margin {
+.game-users-share-buttons-option .form-group-margin {
   margin: 30px 0 0;
 }
 
 
-.gameusers-share-buttons-option .inline-margin {
+.game-users-share-buttons-option .inline-margin {
   margin: 0 10px 0 0;
 }
 
 
 
-.gameusers-share-buttons-option .hr-text {
+.game-users-share-buttons-option .hr-text {
   line-height: 1em;
   position: relative;
   border: 0;
@@ -96,7 +96,7 @@ body {
   opacity: 0.5;
 }
 
-.gameusers-share-buttons-option .hr-text: before {
+.game-users-share-buttons-option .hr-text: before {
   content: '';
   background: linear-gradient(to right, transparent, #818078, transparent);
   position: absolute;
@@ -106,7 +106,7 @@ body {
   height: 1px;
 }
 
-.gameusers-share-buttons-option .hr-text: after {
+.game-users-share-buttons-option .hr-text: after {
   content: attr(data-content);
   position: relative;
   display: inline-block;
@@ -116,7 +116,7 @@ body {
   background-color: #fcfcfa;
 }
 
-.gameusers-share-buttons-option .hr-slash {
+.game-users-share-buttons-option .hr-slash {
   height: 8px;
   background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzcHgiIGhlaWdodD0iM3B4IiB2aWV3Qm94PSIwIDAgMyAzIiBmaWxsPSJoc2xhKDAsIDAlLCA2NSUsIDEuMCkiPjxwb2x5Z29uIHBvaW50cz0iMCwwLjUgMCwxLjUgMS41LDMgMi41LDMiLz48cG9seWdvbiBwb2ludHM9IjIuNSwwIDEuNSwwIDMsMS41IDMsMC41Ii8+PC9zdmc+');
   background-size: 3px 3px;
@@ -125,7 +125,7 @@ body {
 
 
 
-.gameusers-share-buttons-option .option-content {
+.game-users-share-buttons-option .option-content {
   border-right: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
@@ -137,34 +137,34 @@ body {
 
 
 
-.gameusers-share-buttons-option .select-theme-box {
+.game-users-share-buttons-option .select-theme-box {
   margin: 10px 0;
 }
 
 
 
-.gameusers-share-buttons-option .edit-theme-form {
+.game-users-share-buttons-option .edit-theme-form {
   margin: 10px 0;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sample-theme-box {
+.game-users-share-buttons-option .edit-theme-form .sample-theme-box {
   background-color: #fff;
   z-index: 1000;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sample-theme {
+.game-users-share-buttons-option .edit-theme-form .sample-theme {
   padding: 50px 0 0;
 }
 
 
 
-.gameusers-share-buttons-option .edit-theme-form .sticky {
+.game-users-share-buttons-option .edit-theme-form .sticky {
   position: sticky;
   top: 0;
   left: 0;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky {
+.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky {
   /*margin-top: 0;
   margin-bottom: 0;
   position: fixed;
@@ -173,51 +173,51 @@ body {
   /*background-color: yellow;*/
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-top"]) {
+.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-top"]) {
   /*margin-top: 0 !important;*/
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-bottom"]) {
+.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-bottom"]) {
   /*margin-bottom: 0 !important;*/
 }
 
-.gameusers-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-absolute {
+.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-absolute {
   /*position: absolute;*/
 }
 
 
 
-.gameusers-share-buttons-option .edit-theme-form .theme-type-box {
+.game-users-share-buttons-option .edit-theme-form .theme-type-box {
   margin: 30px 0 0;
 }
 
 
 
-.gameusers-share-buttons-option .edit-theme-form .share-image-type {
+.game-users-share-buttons-option .edit-theme-form .share-image-type {
   margin: 0 0 10px;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .share-buttons-option {
+.game-users-share-buttons-option .edit-theme-form .share-buttons-option {
   font-size: 16px;
   font-weight: bold;
   margin: 40px 0 10px;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .share-delete-button {
+.game-users-share-buttons-option .edit-theme-form .share-delete-button {
   margin: 30px 0 40px;
 }
 
-.gameusers-share-buttons-option .edit-theme-form .submit-button {
+.game-users-share-buttons-option .edit-theme-form .submit-button {
   margin: 10px 0 0;
 }
 
 
 
-.gameusers-share-buttons-option .edit-theme-list-box {
+.game-users-share-buttons-option .edit-theme-list-box {
   margin: 0;
 }
 
-.gameusers-share-buttons-option .theme-box {
+.game-users-share-buttons-option .theme-box {
   display: flex;
   flex-flow: column wrap;
   border-bottom: 1px dashed #bbb;
@@ -225,54 +225,54 @@ body {
   margin: 0 0 30px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box {
+.game-users-share-buttons-option .theme-box .menu-box {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   margin: 0 0 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box .name-box {
+.game-users-share-buttons-option .theme-box .menu-box .name-box {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   margin: 0 0 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box .name-box .checkbox {
+.game-users-share-buttons-option .theme-box .menu-box .name-box .checkbox {
   width: 16px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box .name-box .name {
+.game-users-share-buttons-option .theme-box .menu-box .name-box .name {
   font-weight: bold;
   margin: 0 10px 0 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box .name-box .author {
+.game-users-share-buttons-option .theme-box .menu-box .name-box .author {
   margin: 0 10px 0 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .file-format {
+.game-users-share-buttons-option .theme-box .file-format {
   margin: 5px 0 5px 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .website {
+.game-users-share-buttons-option .theme-box .website {
   margin: 0 0 5px 5px;
 }
 
 
-.gameusers-share-buttons-option .theme-box .menu-box .button-box {
+.game-users-share-buttons-option .theme-box .menu-box .button-box {
   margin: 0 0 5px;
 }
 
-.gameusers-share-buttons-option .theme-box .menu-box .button-box .buttons {
+.game-users-share-buttons-option .theme-box .menu-box .button-box .buttons {
   margin: 0 5px 0 0;
 }
 
-.gameusers-share-buttons-option .download-buttons {
+.game-users-share-buttons-option .download-buttons {
   margin: 20px 0 10px;
 }
 
-.gameusers-share-buttons-option .outline-none {
+.game-users-share-buttons-option .outline-none {
   outline: none;
 }

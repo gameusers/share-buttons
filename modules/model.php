@@ -19,9 +19,9 @@ class Game_Users_Share_Buttons_Model
     public function __construct()
     {
         global $wpdb;
-        $this->databaseTableName = $wpdb->prefix . 'gameusers_share_buttons';
+        $this->databaseTableName = $wpdb->prefix . 'game_users_share_buttons';
 
-        $this->optionArr = get_site_option('gameusers_option');
+        $this->optionArr = get_site_option('game_users_option');
 
         if ($this->optionArr) {
             $this->databaseVersion = (int) $this->optionArr['databaseVersion'];
@@ -42,27 +42,27 @@ class Game_Users_Share_Buttons_Model
         if (! $this->databaseVersion) {
             $tempArr = array(
                 'databaseVersion' => 1,
-                'topTheme' => '',
-                'bottomTheme' => '',
+                'topTheme' => null,
+                'bottomTheme' => null,
                 'editThemesArr' => array(),
                 'php' => 0,
                 'twitterApiType' => '',
                 'rssUrl' => '',
                 'plan' => 'free',
             );
-            update_option('gameusers_option', $tempArr);
+            update_option('game_users_option', $tempArr);
         }
     }
 
     public function updateOption($key, $value)
     {
         $this->optionArr[$key] = $value;
-        update_option('gameusers_option', $this->optionArr);
+        update_option('game_users_option', $this->optionArr);
     }
 
     public function deleteOption()
     {
-        delete_option('gameusers_option');
+        delete_option('game_users_option');
     }
 
 

@@ -3,7 +3,7 @@
 Plugin Name: Game Users Share Buttons
 Plugin URI: https://gameusers.org/app/share-buttons
 Description: Twitter、Facebook、Google+など（全10サイト）のシェアボタンが利用できるようになるプラグインです。自由度の高いカスタマイズが行え、他にないオリジナルのシェアボタンを作成できます。設定 > Game Users Share Buttons を開いてシェアボタンを作成・編集してください。
-Version: 1.0.0
+Version: 1.0.2
 Author: Game Users
 Author URI: https://gameusers.org/
 License: GPL2
@@ -27,12 +27,12 @@ License: GPL2
 require_once dirname(__FILE__) . '/modules/model.php';
 require_once dirname(__FILE__) . '/modules/option.php';
 
-// define('GAMEUSERS_SHARE_BUTTONS_URL', 'http://localhost/gameusers/public/');
-define('GAMEUSERS_SHARE_BUTTONS_URL', 'https://gameusers.org/');
+// define('GAME_USERS_SHARE_BUTTONS_URL', 'http://localhost/gameusers/public/');
+define('GAME_USERS_SHARE_BUTTONS_URL', 'https://gameusers.org/');
 
-define('GAMEUSERS_SHARE_BUTTONS_DATABASE_VERSION', 1);
-define('GAMEUSERS_SHARE_BUTTONS_IMAGE_ALT', 'Game Users');
-define('GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL', plugins_url('gameusers-share-buttons'));
+define('GAME_USERS_SHARE_BUTTONS_DATABASE_VERSION', 1);
+define('GAME_USERS_SHARE_BUTTONS_IMAGE_ALT', 'Game Users');
+define('GAME_USERS_SHARE_BUTTONS_PLUGIN_URL', plugins_url('game-users-share-buttons'));
 
 
 
@@ -106,12 +106,12 @@ class Game_Users_Share_Buttons
         //    Ajax
         // --------------------------------------------------
 
-        add_action('wp_ajax_gameusers_share_buttons_ajax_save_theme', array( $this, 'ajaxSaveTheme' ));
-        add_action('wp_ajax_gameusers_share_buttons_ajax_delete_theme', array( $this, 'ajaxDeleteTheme' ));
-        add_action('wp_ajax_gameusers_share_buttons_ajax_set_top_bottom_theme', array( $this, 'ajaxSetTopBottomTheme' ));
-        add_action('wp_ajax_gameusers_share_buttons_ajax_move_edit_tab', array( $this, 'ajaxMoveEditTab' ));
-        add_action('wp_ajax_gameusers_share_buttons_ajax_save_option', array( $this, 'ajaxSaveOption' ));
-        add_action('wp_ajax_gameusers_share_buttons_ajax_change_plan', array( $this, 'ajaxChangePlan' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_save_theme', array( $this, 'ajaxSaveTheme' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_delete_theme', array( $this, 'ajaxDeleteTheme' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_set_top_bottom_theme', array( $this, 'ajaxSetTopBottomTheme' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_move_edit_tab', array( $this, 'ajaxMoveEditTab' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_save_option', array( $this, 'ajaxSaveOption' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_change_plan', array( $this, 'ajaxChangePlan' ));
 
     }
 
@@ -124,7 +124,7 @@ class Game_Users_Share_Buttons
     public static function code($themeNameId)
     {
         $escValue = esc_attr($themeNameId);
-        return '<div id="gameusers-share-buttons" data-theme="' . $escValue . '"></div>';
+        return '<div id="game-users-share-buttons" data-theme="' . $escValue . '"></div>';
     }
 
 
@@ -134,7 +134,7 @@ class Game_Users_Share_Buttons
 
     public function head()
     {
-        wp_enqueue_script('gameusers-share', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.0.0', true);
+        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.0.2', true);
     }
 
     public function view($article)
@@ -159,18 +159,18 @@ class Game_Users_Share_Buttons
 
     public function optionHead($hook)
     {
-        if ($hook === 'settings_page_gameusers-share-buttons') {
+        if ($hook === 'settings_page_game-users-share-buttons') {
 
             wp_enqueue_script('jquery-ui-sortable');
-            wp_enqueue_style('jquery-confirm', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.css', array(), '3.3.2');
-            wp_enqueue_script('jquery-confirm', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.js', array('jquery'), '3.3.2');
+            wp_enqueue_style('jquery-confirm', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.css', array(), '3.3.2');
+            wp_enqueue_script('jquery-confirm', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.js', array('jquery'), '3.3.2');
 
-            wp_enqueue_style('bootstrap', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/bootstrap.min.css', array(), '3.3.7');
-            wp_enqueue_style('ladda-bootstrap', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda-themeless.min.css', array(), '0.9.4');
-            wp_enqueue_script('ladda-bootstrap-spin', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/spin.min.js', array(), '0.9.4');
-            wp_enqueue_script('ladda-bootstrap', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda.min.js', array(), '0.9.4');
+            wp_enqueue_style('bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/bootstrap.min.css', array(), '3.3.7');
+            wp_enqueue_style('ladda-bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda-themeless.min.css', array(), '0.9.4');
+            wp_enqueue_script('ladda-bootstrap-spin', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/spin.min.js', array(), '0.9.4');
+            wp_enqueue_script('ladda-bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda.min.js', array(), '0.9.4');
 
-            wp_enqueue_script('gameusers-option', GAMEUSERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.0.0', true);
+            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.0.2', true);
 
             $instanceOption = new Game_Users_Share_Buttons_Option();
             $instanceOption->jsFunctionAdmin($this->optionArr);
@@ -676,7 +676,7 @@ class Game_Users_Share_Buttons
             //   Set Path
             // --------------------------------------------------
 
-            define('THEME_DIRECTORY_URL', GAMEUSERS_SHARE_BUTTONS_URL . 'react/contents/app/share-buttons/themes-design/' . $themeNameId . '/');
+            define('THEME_DIRECTORY_URL', GAME_USERS_SHARE_BUTTONS_URL . 'react/contents/app/share-buttons/themes-design/' . $themeNameId . '/');
             $directoryPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . $themeNameId;
             $dataJsonPath = $directoryPath . DIRECTORY_SEPARATOR . 'data.json';
 

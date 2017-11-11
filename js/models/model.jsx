@@ -24,7 +24,7 @@ const pageType = typeof (gameUsersShareButtonsPageType) === 'undefined' ? 'offic
 export const OFFICIAL_BASE_URL = 'https://gameusers.org/';
 
 export const OFFICIAL_API_URL = `${OFFICIAL_BASE_URL}api/public.json`;
-export const OFFICIAL_PLUGIN_URL = `${OFFICIAL_BASE_URL}dev/blog/wp-content/plugins/gameusers-share-buttons/`;
+export const OFFICIAL_PLUGIN_URL = `${OFFICIAL_BASE_URL}dev/blog/wp-content/plugins/game-users-share-buttons/`;
 export const OFFICIAL_THEME_DESIGN_URL = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/themes-design`;
 export const OFFICIAL_THEME_ICON_URL = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/themes-icon`;
 
@@ -383,7 +383,7 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
 
     this.shareButtonsFreeImageUrl = `${OFFICIAL_BASE_URL}react/contents/app/img/free.png`;
 
-    this.containerSelector = '#gameusers-share-buttons-option ';
+    this.containerSelector = '#game-users-share-buttons-option ';
 
   }
 
@@ -409,6 +409,12 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
 
 
 
+  // renderAllShareButtons() {
+  //   // this.test = null;
+  //   console.log('aaa2');
+  // }
+
+
   /**
    * 編集タブに表示する編集用のサンプルテーマを出力する
    * @param  {string} addClassName       クラスに追加する名前 - これがないとサンプルと一覧のスタイルシートが一緒になる
@@ -423,7 +429,7 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
     const themeId = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.id);
 
-    this.className = `gameusers-share-buttons-${themeName}-${themeId}-${addClassName}`;
+    this.className = `game-users-share-buttons-${themeName}-${themeId}-${addClassName}`;
 
 
     if (this.jsonObj.style.type === 1 && this.jsonObj.style.version === 1) {
@@ -977,13 +983,13 @@ export class Model extends ModelRecord {
     const currentThemeNameId = map.getIn(['formMap', 'currentThemeNameId']);
     const currentThemeType = map.getIn(['formMap', 'currentThemeType']);
 
-    const selectors = document.querySelectorAll(`#sample-theme .gameusers-share-buttons-${currentThemeNameId}-sample-box`);
+    const selectors = document.querySelectorAll(`#sample-theme .game-users-share-buttons-${currentThemeNameId}-sample-box`);
 
     let tempMap = OrderedMap();
 
     Object.keys(selectors).forEach((key) => {
 
-      const id = selectors[key].id.split('gameusers-share-buttons-')[1];
+      const id = selectors[key].id.split('game-users-share-buttons-')[1];
       tempMap = tempMap.set(id, map.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'share', id]));
 
     });

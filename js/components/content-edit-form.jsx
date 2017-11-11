@@ -45,7 +45,7 @@ class ContentEditForm extends React.Component {
 
     if (countGoogleFont !== prevCountGoogleFont) {
 
-      const elementGoogleFonts = document.querySelector('#gameusers-share-buttons-google-fonts-sample');
+      const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts-sample');
 
       if (elementGoogleFonts) {
         elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${countGoogleFont}`;
@@ -54,7 +54,7 @@ class ContentEditForm extends React.Component {
         const css = document.createElement('link');
         css.type = 'text/css';
         css.rel = 'stylesheet';
-        css.id = 'gameusers-share-buttons-google-fonts-sample';
+        css.id = 'game-users-share-buttons-google-fonts-sample';
         css.href = `https://fonts.googleapis.com/css?family=${countGoogleFont}`;
         document.getElementsByTagName('head').item(0).appendChild(css);
 
@@ -1457,14 +1457,7 @@ class ContentEditForm extends React.Component {
     //   テーマタイプが「Type2」の場合、画像の上にシェア数のレイヤーを表示します。編集時のみ
     // --------------------------------------------------
 
-    // console.log('currentThemeNameId = ', this.props.currentThemeNameId);
-
-    const selectorCountBackgroundColor = document.querySelector(`#sample-theme .gameusers-share-buttons-${this.props.currentThemeNameId}-sample-box-count`);
-
-    // console.log('box-count = ', `#sample-theme .gameusers-share-buttons-${this.props.currentThemeNameId}-box-count`);
-    // console.log('selectorCountBackgroundColor = ', selectorCountBackgroundColor);
-    // console.log('this.props.countBackgroundColor = ', this.props.countBackgroundColor);
-    // console.log('this.props.countBackgroundColorHex = ', this.props.countBackgroundColorHex);
+    const selectorCountBackgroundColor = document.querySelector(`#sample-theme .game-users-share-buttons-${this.props.currentThemeNameId}-sample-box-count`);
 
     if (selectorCountBackgroundColor) {
       if (this.props.countBackgroundColor) {
