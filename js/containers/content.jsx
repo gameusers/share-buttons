@@ -493,15 +493,15 @@ const mapDispatchToProps = (dispatch) => {
 
       if (pageType === 'official') {
 
-        urlShareBundleJs = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/js/share-bundle.min.js`;
-        urlFreeImage = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/free.png`;
-        urlPhp = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/php/count.txt`;
+        urlShareBundleJs = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/js/share-bundle.min.js?${queryControlCache}`;
+        urlFreeImage = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/free.png?${queryControlCache}`;
+        urlPhp = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/php/count.txt?${queryControlCache}`;
 
       } else {
 
-        urlShareBundleJs = `${LOCAL_PLUGIN_URL}js/share-bundle.min.js`;
-        urlFreeImage = `${LOCAL_PLUGIN_URL}img/free.png`;
-        urlPhp = `${LOCAL_PLUGIN_URL}php/count.txt`;
+        urlShareBundleJs = `${LOCAL_PLUGIN_URL}js/share-bundle.min.js?${queryControlCache}`;
+        urlFreeImage = `${LOCAL_PLUGIN_URL}img/free.png?${queryControlCache}`;
+        urlPhp = `${LOCAL_PLUGIN_URL}php/count.txt?${queryControlCache}`;
 
       }
 

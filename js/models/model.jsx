@@ -409,12 +409,6 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
 
 
 
-  // renderAllShareButtons() {
-  //   // this.test = null;
-  //   console.log('aaa2');
-  // }
-
-
   /**
    * 編集タブに表示する編集用のサンプルテーマを出力する
    * @param  {string} addClassName       クラスに追加する名前 - これがないとサンプルと一覧のスタイルシートが一緒になる
@@ -1199,8 +1193,7 @@ export class Model extends ModelRecord {
 
 
     // --------------------------------------------------
-    //   New Theme の場合、新しい名前のテーマをコピーし
-    //
+    //   New Theme の場合、新しい名前のテーマをコピー
     // --------------------------------------------------
 
     if (!namePrev && !idPrev) {
@@ -1249,7 +1242,7 @@ export class Model extends ModelRecord {
 
 
   setDataObj(contentType, loadedDataObj) {
-    // console.log('setDataObj');
+
     let map = this;
     let googleFontsList = map.getIn(['googleFontsList']);
 
@@ -1334,35 +1327,18 @@ export class Model extends ModelRecord {
       const countGoogleFont = map.getIn([dataType, key, themeType, 'countGoogleFont']);
 
       if (countGoogleFont && !googleFontsList.includes(countGoogleFont)) {
-        // console.log('countGoogleFont = ', countGoogleFont);
         googleFontsList = googleFontsList.push(countGoogleFont);
       }
 
     });
 
     map = map.set('googleFontsList', googleFontsList);
-    // console.log('map = ', map.toJS());
+
 
     return map;
 
   }
 
-
-  // setPage(contentType, page) {
-  //
-  //   let map = this;
-  //
-  //   if (contentType === 'editThemes') {
-  //     map = map.set('editThemesPage', page);
-  //   } else if (contentType === 'designThemes') {
-  //     map = map.set('designThemesPage', page);
-  //   } else {
-  //     map = map.set('iconThemesPage', page);
-  //   }
-  //
-  //   return map;
-  //
-  // }
 
 
 
@@ -1386,7 +1362,6 @@ export class Model extends ModelRecord {
     // --------------------------------------------------
 
     let googleFontsList = map.getIn(['googleFontsList']);
-    // console.log('googleFontsList = ', googleFontsList.toJS());
 
     if (!dataObj) {
       return map;
@@ -1407,9 +1382,6 @@ export class Model extends ModelRecord {
       const googleFontObj = JSON.parse(dataObj[key].data);
       const googleFont = googleFontObj.countGoogleFont;
 
-      // console.log('googleFontObj = ', googleFontObj);
-      // console.log('googleFont = ', googleFont);
-
       if (!googleFontsList.includes(googleFont)) {
         googleFontsList = googleFontsList.push(googleFont);
       }
@@ -1417,10 +1389,6 @@ export class Model extends ModelRecord {
 
     });
 
-
-    // console.log('dataObj = ', dataObj);
-    // console.log('googleFontsList = ', googleFontsList.toJS());
-    // console.log('map = ', map.toJS());
 
     map = map.set('googleFontsList', googleFontsList);
 

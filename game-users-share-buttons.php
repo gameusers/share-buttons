@@ -3,7 +3,7 @@
 Plugin Name: Game Users Share Buttons
 Plugin URI: https://gameusers.org/app/share-buttons
 Description: Twitter、Facebook、Google+など（全10サイト）のシェアボタンが利用できるようになるプラグインです。自由度の高いカスタマイズが行え、他にないオリジナルのシェアボタンを作成できます。設定 > Game Users Share Buttons を開いてシェアボタンを作成・編集してください。
-Version: 1.0.2
+Version: 1.0.8
 Author: Game Users
 Author URI: https://gameusers.org/
 License: GPL2
@@ -33,6 +33,26 @@ define('GAME_USERS_SHARE_BUTTONS_URL', 'https://gameusers.org/');
 define('GAME_USERS_SHARE_BUTTONS_DATABASE_VERSION', 1);
 define('GAME_USERS_SHARE_BUTTONS_IMAGE_ALT', 'Game Users');
 define('GAME_USERS_SHARE_BUTTONS_PLUGIN_URL', plugins_url('game-users-share-buttons'));
+
+define(
+    'GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT',
+    WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'game-users-share-buttons'
+);
+
+define(
+    'GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON',
+    GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT . DIRECTORY_SEPARATOR . 'json'
+);
+
+define(
+    'GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON_OPTION_JSON',
+    GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON . DIRECTORY_SEPARATOR . 'option.json'
+);
+
+define(
+    'GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES',
+    GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT . DIRECTORY_SEPARATOR . 'themes'
+);
 
 
 
@@ -87,6 +107,13 @@ class Game_Users_Share_Buttons
 
 
         // --------------------------------------------------
+        //   Plugin Upgrade
+        // --------------------------------------------------
+
+        add_action('upgrader_process_complete', array( $this, 'upgradeCompleted' ), 10, 2);
+
+
+        // --------------------------------------------------
         //   Content Page
         // --------------------------------------------------
 
@@ -134,7 +161,7 @@ class Game_Users_Share_Buttons
 
     public function head()
     {
-        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.0.2', true);
+        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.0.8', true);
     }
 
     public function view($article)
@@ -170,7 +197,7 @@ class Game_Users_Share_Buttons
             wp_enqueue_script('ladda-bootstrap-spin', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/spin.min.js', array(), '0.9.4');
             wp_enqueue_script('ladda-bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda.min.js', array(), '0.9.4');
 
-            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.0.2', true);
+            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.0.8', true);
 
             $instanceOption = new Game_Users_Share_Buttons_Option();
             $instanceOption->jsFunctionAdmin($this->optionArr);
@@ -332,6 +359,29 @@ class Game_Users_Share_Buttons
             }
 
 
+
+
+            // --------------------------------------------------
+            //   wp-content / Delete Directory
+            // --------------------------------------------------
+
+            Game_Users_Share_Buttons::deleteDirectory(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES . DIRECTORY_SEPARATOR . $themeNameId);
+
+            if ($themeNameIdPrev && $themeNameIdPrev !== $themeNameId) {
+                $path = GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES . DIRECTORY_SEPARATOR . $themeNameIdPrev;
+                Game_Users_Share_Buttons::deleteDirectory($path);
+            }
+
+
+            // --------------------------------------------------
+            //   wp-content / Copy Directory
+            // --------------------------------------------------
+
+            Game_Users_Share_Buttons::copyDirectory($directoryPath, GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES . DIRECTORY_SEPARATOR . $themeNameId);
+
+
+
+
             // --------------------------------------------------
             //   Get Edit Themes Arr
             // --------------------------------------------------
@@ -394,10 +444,10 @@ class Game_Users_Share_Buttons
             // ---------------------------------------------
 
             $optionArr = $instanceModel->getOptionArr();
-            $tempArr['queryControlCache'] = mt_rand(10000000, 99999999);
-            $tempArr['php'] = $optionArr['php'];
-            $tempArr['twitterApiType'] = $optionArr['twitterApiType'];
-            $tempArr['rssUrl'] = $optionArr['rssUrl'];
+            $jsonArr['queryControlCache'] = mt_rand(10000000, 99999999);
+            $jsonArr['php'] = $optionArr['php'];
+            $jsonArr['twitterApiType'] = $optionArr['twitterApiType'];
+            $jsonArr['rssUrl'] = $optionArr['rssUrl'];
 
 
             // ---------------------------------------------
@@ -405,10 +455,13 @@ class Game_Users_Share_Buttons
             // ---------------------------------------------
 
             $path = dirname(__FILE__) . '/json/option.json';
+            $encodedJson = json_encode($jsonArr);
 
-            if (!file_put_contents($path, json_encode($tempArr))) {
+            if (!file_put_contents($path, $encodedJson)) {
                 throw new Exception('optionJson');
             }
+
+            copy($path, GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON_OPTION_JSON);
 
 
         } catch (Exception $e) {
@@ -454,18 +507,16 @@ class Game_Users_Share_Buttons
             // --------------------------------------------------
 
             $themeNameId = sanitize_text_field($_POST['themeNameId']);
-            $directoryPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . $themeNameId;
+            $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . $themeNameId;
+            $pathWpContent = GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES . DIRECTORY_SEPARATOR . $themeNameId;
 
 
             // --------------------------------------------------
             //   Delete Directory
             // --------------------------------------------------
 
-            if (is_dir($directoryPath) and !is_link($directoryPath)) {
-                array_map('rmrf', glob($directoryPath . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR));
-                array_map('unlink', glob($directoryPath . DIRECTORY_SEPARATOR . '*'));
-                rmdir($directoryPath);
-            }
+            Game_Users_Share_Buttons::deleteDirectory($path);
+            Game_Users_Share_Buttons::deleteDirectory($pathWpContent);
 
 
             // --------------------------------------------------
@@ -676,7 +727,11 @@ class Game_Users_Share_Buttons
             //   Set Path
             // --------------------------------------------------
 
-            define('THEME_DIRECTORY_URL', GAME_USERS_SHARE_BUTTONS_URL . 'react/contents/app/share-buttons/themes-design/' . $themeNameId . '/');
+            define(
+                'THEME_DIRECTORY_URL',
+                GAME_USERS_SHARE_BUTTONS_URL . "react/contents/app/share-buttons/themes-design/{$themeNameId}/"
+            );
+
             $directoryPath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . $themeNameId;
             $dataJsonPath = $directoryPath . DIRECTORY_SEPARATOR . 'data.json';
 
@@ -743,6 +798,14 @@ class Game_Users_Share_Buttons
                 }
 
             }
+
+
+            // --------------------------------------------------
+            //   Copy Theme
+            // --------------------------------------------------
+
+            $pathDest = GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES . DIRECTORY_SEPARATOR . $themeNameId;
+            Game_Users_Share_Buttons::copyDirectory($directoryPath, $pathDest);
 
 
             // --------------------------------------------------
@@ -823,10 +886,13 @@ class Game_Users_Share_Buttons
             // --------------------------------------------------
 
             $path = dirname(__FILE__) . '/json/option.json';
+            $encodedJson = json_encode($jsonArr);
 
-            if (!file_put_contents($path, json_encode($jsonArr))) {
+            if (!file_put_contents($path, $encodedJson)) {
                 throw new Exception('optionJson');
             }
+
+            copy($path, GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON_OPTION_JSON);
 
 
             // --------------------------------------------------
@@ -907,14 +973,113 @@ class Game_Users_Share_Buttons
 
 
 
+    /**
+     * ディレクトリーをコピーする、中のファイルも
+     * @param  string $pathSource コピー元ファイルへのパス
+     * @param  string $pathDest   コピー先のパス
+     */
+    public static function copyDirectory($pathSource, $pathDest)
+    {
+        if (!is_dir($pathDest)) {
+            mkdir($pathDest);
+        }
+
+        if (is_dir($pathSource)) {
+            if ($dh = opendir($pathSource)) {
+                while (($file = readdir($dh)) !== false) {
+                    if ($file == "." || $file == "..") {
+                        continue;
+                    }
+                    if (is_dir($pathSource . DIRECTORY_SEPARATOR . $file)) {
+                        Game_Users_Share_Buttons::copyDirectory($pathSource . DIRECTORY_SEPARATOR . $file, $pathDest . DIRECTORY_SEPARATOR . $file);
+                    } else {
+                        copy($pathSource . DIRECTORY_SEPARATOR . $file, $pathDest . DIRECTORY_SEPARATOR . $file);
+                    }
+                }
+                closedir($dh);
+            }
+        }
+    }
+
+
+    /**
+     * ディレクトリーを削除する、中のファイルも
+     * @param  string $path パス
+     */
+    public static function deleteDirectory($path) {
+        if (!$dh = @opendir($path)) return;
+
+        while (false !== ($obj = readdir($dh))) {
+            if ($obj=='.' || $obj=='..') continue;
+            if (!@unlink($path.'/'.$obj)) Game_Users_Share_Buttons::deleteDirectory($path.'/'.$obj, true);
+        }
+
+        closedir($dh);
+        @rmdir($path);
+    }
+
+
+
     // --------------------------------------------------
     //    Plugin Activate / Deactivate / Uninstall
     // --------------------------------------------------
 
     public function activate()
     {
+
+        // --------------------------------------------------
+        //   Initialize Option
+        // --------------------------------------------------
+
         $gameUsersShareButtonsModel = new Game_Users_Share_Buttons_Model();
         $gameUsersShareButtonsModel->initializeOption();
+
+
+        // --------------------------------------------------
+        //   Make game-users-share-buttons Directory
+        // --------------------------------------------------
+
+        if (!file_exists(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT)) {
+            mkdir(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT);
+        }
+
+
+        // --------------------------------------------------
+        //   Make Json Directory
+        // --------------------------------------------------
+
+        if (!file_exists(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON)) {
+            mkdir(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON);
+        }
+
+
+        // --------------------------------------------------
+        //   Save Option Json
+        // --------------------------------------------------
+
+        $optionArr = $gameUsersShareButtonsModel->getOptionArr();
+
+        $jsonArr = array();
+        $jsonArr['queryControlCache'] = mt_rand(10000000, 99999999);
+        $jsonArr['php'] = $optionArr['php'];
+        $jsonArr['twitterApiType'] = $optionArr['twitterApiType'];
+        $jsonArr['rssUrl'] = $optionArr['rssUrl'];
+
+        $path = dirname(__FILE__) . '/json/option.json';
+        $encodedJson = json_encode($jsonArr);
+
+        file_put_contents($path, $encodedJson);
+        copy($path, GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON_OPTION_JSON);
+
+
+        // --------------------------------------------------
+        //   Make Themes Directory
+        // --------------------------------------------------
+
+        if (!file_exists(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES)) {
+            mkdir(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES);
+        }
+
     }
 
     public function deactivate()
@@ -926,6 +1091,37 @@ class Game_Users_Share_Buttons
     {
         $gameUsersShareButtonsModel = new Game_Users_Share_Buttons_Model();
         $gameUsersShareButtonsModel->deleteOption();
+
+        Game_Users_Share_Buttons::deleteDirectory(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT);
+    }
+
+
+    // --------------------------------------------------
+    //    Plugin Upgrade
+    // --------------------------------------------------
+
+    public function upgradeCompleted($upgraderObject, $options)
+    {
+        // The path to our plugin's main file
+        $pluginBaseName = plugin_basename(__FILE__);
+
+        // If an update has taken place and the updated type is plugins and the plugins element exists
+        if ($options['action'] === 'update' && $options['type'] === 'plugin' && isset($options['plugins'])) {
+
+            // Iterate through the plugins being updated and check if ours is there
+            foreach($options['plugins'] as $plugin) {
+
+                if ($plugin === $pluginBaseName) {
+
+                    $pathJson = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'json';
+                    Game_Users_Share_Buttons::copyDirectory(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_JSON, $pathJson);
+
+                    $pathThemes = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'themes';
+                    Game_Users_Share_Buttons::copyDirectory(GAME_USERS_SHARE_BUTTONS_PLUGIN_PATH_WP_CONTENT_THEMES, $pathThemes);
+
+                }
+            }
+        }
     }
 
 

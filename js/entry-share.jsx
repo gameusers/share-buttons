@@ -81,28 +81,6 @@ export class GameUsersShareButtons {
       this.containerSelector = '#game-users-share-buttons-official ';
     }
 
-
-
-    // window.onload = function () {
-    //
-    //   console.log('window.onload');
-    //   // const instanceGameUsersShareButtons = new GameUsersShareButtons();
-    //   // instanceGameUsersShareButtons.renderAllShareButtons();
-    //   this.renderAllShareButtons();
-    //
-    // };
-
-    // --------------------------------------------------
-    //   シェアボタンを描写する
-    // --------------------------------------------------
-
-    // const that = this;
-    //
-    // window.onload = function () {
-    //   that.renderAllShareButtons();
-    // };
-
-
   }
 
 
@@ -1036,23 +1014,197 @@ export class GameUsersShareButtons {
 
   renderAllShareButtons() {
 
+    // console.log('renderAllShareButtons()');
+
+    // --------------------------------------------------
+    //   Set Variable
+    // --------------------------------------------------
+
     const that = this;
+    const cacheDataJsonObj = {};
+    let loopCount = 0;
 
 
     // --------------------------------------------------
-    //   クエリを追加してキャッシュを効かなくさせる
+    //   コードを作成するための配列（elementsArr）
+    //   data.json を読み込むための配列（themesArr）を作成する
+    //
+    //   const elementsArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
+    //   上記の書き方は NodeList を forEach でループさせると IE とEdghe でエラーが出るため
+    //   https://stackoverflow.com/questions/7459704/in-javascript-what-is-the-best-way-to-convert-a-nodelist-to-an-array/7459729#7459729
     // --------------------------------------------------
 
-    const queryDisableCache = Date.now();
+    const elementsArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
+    const elementsArrCount = elementsArr.length;
+    const themesArr = [];
+
+    elementsArr.forEach((element) => {
+      const themeNameId = element.dataset.theme;
+
+      if (themeNameId && themesArr.indexOf(themeNameId) === -1) {
+        themesArr.push(themeNameId);
+      }
+    });
+
+    const themesArrCount = themesArr.length;
+
+    // console.log('elementsArr = ', elementsArr);
+    // console.log('elementsArrCount = ', elementsArrCount);
+    // console.log('themesArr = ', themesArr);
+
+
+
+    /**
+     * Render Share Buttons
+     */
+    function render() {
+
+      // console.log('render()');
+      // console.log('cacheDataJsonObj = ', cacheDataJsonObj);
+
+      // --------------------------------------------------
+      //   Set Variable
+      // --------------------------------------------------
+
+      loopCount = 0;
+      let existencePinterest = false;
+
+
+      // --------------------------------------------------
+      //   Loop
+      // --------------------------------------------------
+
+      elementsArr.forEach((element) => {
+
+
+        // --------------------------------------------------
+        //   Loop Count +1
+        // --------------------------------------------------
+
+        loopCount += 1;
+
+
+        // --------------------------------------------------
+        //   Get themeNameId
+        // --------------------------------------------------
+
+        const themeNameId = element.dataset.theme;
+        // console.log('themeNameId = ', themeNameId);
+
+        if (!themeNameId) {
+          return;
+        }
+
+
+        // --------------------------------------------------
+        //   Set Json Object
+        // --------------------------------------------------
+
+        const jsonObj = cacheDataJsonObj[themeNameId];
+        that.setJsonObj(jsonObj);
+
+        // console.log('jsonObj = ', jsonObj);
+
+
+        // --------------------------------------------------
+        //   Share Buttons を描画する
+        // --------------------------------------------------
+
+        const copyElement = element;
+        copyElement.innerHTML = that.shareButtons();
+
+        const elementDivArr = [...element.querySelectorAll('[id^=game-users-share-buttons-]')];
+
+        elementDivArr.forEach((elementDiv) => {
+          const elementCopy = elementDiv;
+          const shareId = elementDiv.id.replace(/game-users-share-buttons-/g, '');
+
+          if (elementCopy.dataset.count) {
+            that.countObj[shareId] = null;
+          }
+
+          if (shareId === 'pinterest') {
+            existencePinterest = true;
+          }
+
+          elementCopy.onclick = function () {
+            that.share(shareId);
+          };
+        });
+
+
+        // --------------------------------------------------
+        //   ループの最後で行う処理
+        // --------------------------------------------------
+
+        if (elementsArrCount === loopCount) {
+
+          // console.log('Render Last loopCount = ', loopCount);
+
+          // --------------------------------------------------
+          //   Add Google Fonts Style Sheet
+          // --------------------------------------------------
+
+          if (that.importGoogleFontsArr.length > 0) {
+
+            const fonts = that.importGoogleFontsArr.join('|');
+
+            const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
+
+            if (elementGoogleFonts) {
+
+              elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${fonts}`;
+
+            } else {
+
+              const css = document.createElement('link');
+              css.type = 'text/css';
+              css.rel = 'stylesheet';
+              css.id = 'game-users-share-buttons-google-fonts';
+              css.href = `https://fonts.googleapis.com/css?family=${fonts}`;
+              document.getElementsByTagName('head').item(0).appendChild(css);
+
+            }
+
+          }
+
+
+          // --------------------------------------------------
+          //   Add Pinterest Script
+          // --------------------------------------------------
+
+          const elementPinterestJs = document.querySelector('script[src^="//assets.pinterest.com/js/pinit"]');
+
+          if (existencePinterest && !elementPinterestJs) {
+
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.id = 'game-users-share-buttons-pinit-js';
+            script.src = '//assets.pinterest.com/js/pinit.js';
+            document.getElementsByTagName('head').item(0).appendChild(script);
+
+          }
+
+
+          // --------------------------------------------------
+          //   Count
+          // --------------------------------------------------
+
+          that.count();
+
+        }
+
+      });
+
+    }
 
 
     // --------------------------------------------------
-    //   Option JSON
+    //   Get Option JSON
     // --------------------------------------------------
-    // console.log('PLUGIN_URL = ', PLUGIN_URL);
-    // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
+
     const xhrOption = new XMLHttpRequest();
-    xhrOption.open('GET', `${this.shareButtonsBaseUrl}json/option.json?${queryDisableCache}`, true);
+    xhrOption.open('GET', `${this.shareButtonsBaseUrl}json/option.json?${Date.now()}`, true);
     xhrOption.onload = function () {
       if (xhrOption.readyState === 4 && xhrOption.status === 200) {
 
@@ -1065,143 +1217,53 @@ export class GameUsersShareButtons {
 
 
         // --------------------------------------------------
-        //   Property
+        //   クエリを追加してキャッシュを効かなくさせる
         // --------------------------------------------------
 
-        let loopCount = 0;
-        let existencePinterest = false;
         const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(that.optionJsonObj.queryControlCache) || 10000000;
 
 
         // --------------------------------------------------
         //   Loop
-        //   const elementArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
-        //   上記の書き方は NodeList を forEach でループさせると IE とEdghe でエラーが出るため
-        //   https://stackoverflow.com/questions/7459704/in-javascript-what-is-the-best-way-to-convert-a-nodelist-to-an-array/7459729#7459729
         // --------------------------------------------------
-        // console.log('that.containerSelector = ', that.containerSelector);
-        const elementArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
-        const elementArrCount = elementArr.length;
-        // console.log('elementArr = ', elementArr);
-        // console.log('elementArrCount = ', elementArrCount);
 
-        elementArr.forEach((element) => {
+        themesArr.forEach((themeNameId) => {
 
-          const themeNameId = element.dataset.theme;
 
-          if (!themeNameId) {
-            return;
-          }
-
+          // --------------------------------------------------
+          //   data.json を読み込む
+          // --------------------------------------------------
 
           const xhr = new XMLHttpRequest();
           xhr.open('GET', `${that.shareButtonsBaseUrl}themes/${themeNameId}/data.json?${queryControlCache}`, true);
           xhr.onload = function () {
-            if (xhr.readyState === 4) {
-              if (xhr.status === 200) {
-
-
-                // --------------------------------------------------
-                //   Set Json Object
-                // --------------------------------------------------
-
-                const jsonObj = JSON.parse(this.responseText);
-                that.setJsonObj(jsonObj);
-
-
-                // --------------------------------------------------
-                //   Output Share Buttons
-                // --------------------------------------------------
-
-                const copyElement = element;
-                copyElement.innerHTML = that.shareButtons();
-
-                const elementDivArr = [...element.querySelectorAll('[id^=game-users-share-buttons-]')];
-
-                elementDivArr.forEach((elementDiv) => {
-                  const elementCopy = elementDiv;
-                  const shareId = elementDiv.id.replace(/game-users-share-buttons-/g, '');
-
-                  if (elementCopy.dataset.count) {
-                    that.countObj[shareId] = null;
-                  }
-
-                  if (shareId === 'pinterest') {
-                    existencePinterest = true;
-                  }
-
-                  elementCopy.onclick = function () {
-                    that.share(shareId);
-                  };
-                });
-
-              }
-            }
-
 
 
             // --------------------------------------------------
-            //   Last
+            //   Loop Count +1
             // --------------------------------------------------
 
             loopCount += 1;
-            // console.log('loopCount = ', loopCount);
-
-            if (elementArrCount === loopCount) {
-              // console.log('Last');
-              // --------------------------------------------------
-              //   Add Google Fonts Style Sheet
-              // --------------------------------------------------
-
-              if (that.importGoogleFontsArr.length > 0) {
-
-                const fonts = that.importGoogleFontsArr.join('|');
-
-                const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
-
-                if (elementGoogleFonts) {
-
-                  elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${fonts}`;
-
-                } else {
-
-                  const css = document.createElement('link');
-                  css.type = 'text/css';
-                  css.rel = 'stylesheet';
-                  css.id = 'game-users-share-buttons-google-fonts';
-                  css.href = `https://fonts.googleapis.com/css?family=${fonts}`;
-                  document.getElementsByTagName('head').item(0).appendChild(css);
-
-                }
-
-              }
 
 
-              // --------------------------------------------------
-              //   Add Pinterest Script
-              // --------------------------------------------------
+            // --------------------------------------------------
+            //   cacheDataJsonObj に data.json をセットする
+            // --------------------------------------------------
 
-              const elementPinterestJs = document.querySelector('script[src^="//assets.pinterest.com/js/pinit"]');
-
-              if (existencePinterest && !elementPinterestJs) {
-
-                const script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.id = 'game-users-share-buttons-pinit-js';
-                script.src = '//assets.pinterest.com/js/pinit.js';
-                document.getElementsByTagName('head').item(0).appendChild(script);
-
-              }
-
-
-              // --------------------------------------------------
-              //   Count
-              // --------------------------------------------------
-
-              that.count();
-
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              const jsonObj = JSON.parse(this.responseText);
+              cacheDataJsonObj[themeNameId] = jsonObj;
             }
 
+
+            // --------------------------------------------------
+            //   ループの最後に達したらシェアボタンを描画する
+            // --------------------------------------------------
+
+            if (loopCount === themesArrCount) {
+              // console.log('data.json Last loopCount = ', loopCount);
+              render();
+            }
 
           };
           xhr.onerror = function () {
