@@ -10,16 +10,9 @@ body {
 
 
 
-.game-users-share-buttons-option .title-top {
-  margin: 0 0 20px;
-  font-size: 22px;
-  font-weight: bold;
-}
-
-.game-users-share-buttons-option .title-sub {
-  margin: 0 0 10px;
-  font-size: 20px;
-}
+/* --------------------------------------------------
+   共通
+-------------------------------------------------- */
 
 .game-users-share-buttons-option .color-red {
   color: red;
@@ -34,57 +27,23 @@ body {
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-
-.game-users-share-buttons-option .sns {
-  margin: 30px 0 14px;
-}
-
-.game-users-share-buttons-option .list-top1 {
-  list-style: disc;
-  margin: 0 0 0 25px;
-}
-
-.game-users-share-buttons-option .list-top1 li {
-  margin: 0 0 6px;
-}
-
-.game-users-share-buttons-option .list-top2 {
-  list-style: circle;
-  margin: 0 0 0 25px;
-}
-
-.game-users-share-buttons-option .list-top2 li {
-  margin: 0 0 6px;
-}
-
-.game-users-share-buttons-option .list-plan {
-  list-style: disc;
-  margin: 30px 0 30px 25px;
-}
-
-.game-users-share-buttons-option .list-plan li {
-  margin: 0 0 6px;
-}
-
-
-
-
-
-.game-users-share-buttons-option .top-share-buttons-margin {
-  margin: 20px 0 0;
-}
-
-
 .game-users-share-buttons-option .form-group-margin {
   margin: 30px 0 0;
 }
-
 
 .game-users-share-buttons-option .inline-margin {
   margin: 0 10px 0 0;
 }
 
+.game-users-share-buttons-option .outline-none {
+  outline: none;
+}
 
+
+
+/* --------------------------------------------------
+   共通 / 水平線
+-------------------------------------------------- */
 
 .game-users-share-buttons-option .hr-text {
   line-height: 1em;
@@ -125,97 +84,9 @@ body {
 
 
 
-.game-users-share-buttons-option .option-content {
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  border-left: 1px solid #ddd;
-  border-radius: 0 0 10px 10px;
-  margin: 0;
-  padding: 25px 15px 15px;
-  background-color: #fff;
-}
-
-
-
-.game-users-share-buttons-option .select-theme-box {
-  margin: 10px 0;
-}
-
-
-
-.game-users-share-buttons-option .edit-theme-form {
-  margin: 10px 0;
-}
-
-.game-users-share-buttons-option .edit-theme-form .sample-theme-box {
-  background-color: #fff;
-  z-index: 1000;
-}
-
-.game-users-share-buttons-option .edit-theme-form .sample-theme {
-  padding: 50px 0 0;
-}
-
-
-
-.game-users-share-buttons-option .edit-theme-form .sticky {
-  position: sticky;
-  top: 0;
-  left: 0;
-}
-
-.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky {
-  /*margin-top: 0;
-  margin-bottom: 0;
-  position: fixed;
-  left: 200px;
-  backface-visibility: hidden;*/
-  /*background-color: yellow;*/
-}
-
-.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-top"]) {
-  /*margin-top: 0 !important;*/
-}
-
-.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-sticky:not([style*="margin-bottom"]) {
-  /*margin-bottom: 0 !important;*/
-}
-
-.game-users-share-buttons-option .edit-theme-form .sticky.sticky-fixed.is-absolute {
-  /*position: absolute;*/
-}
-
-
-
-.game-users-share-buttons-option .edit-theme-form .theme-type-box {
-  margin: 30px 0 0;
-}
-
-
-
-.game-users-share-buttons-option .edit-theme-form .share-image-type {
-  margin: 0 0 10px;
-}
-
-.game-users-share-buttons-option .edit-theme-form .share-buttons-option {
-  font-size: 16px;
-  font-weight: bold;
-  margin: 40px 0 10px;
-}
-
-.game-users-share-buttons-option .edit-theme-form .share-delete-button {
-  margin: 30px 0 40px;
-}
-
-.game-users-share-buttons-option .edit-theme-form .submit-button {
-  margin: 10px 0 0;
-}
-
-
-
-.game-users-share-buttons-option .edit-theme-list-box {
-  margin: 0;
-}
+/* --------------------------------------------------
+   共通 / テーマ一覧
+-------------------------------------------------- */
 
 .game-users-share-buttons-option .theme-box {
   display: flex;
@@ -269,10 +140,164 @@ body {
   margin: 0 5px 0 0;
 }
 
-.game-users-share-buttons-option .download-buttons {
+
+
+/* --------------------------------------------------
+   コンテンツタブ
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .option-content {
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-radius: 0 0 10px 10px;
+  margin: 0;
+  padding: 25px 15px 15px;
+  background-color: #fff;
+}
+
+
+
+/* --------------------------------------------------
+   トップタブ
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .top-share-buttons-margin {
+  margin: 20px 0 0;
+}
+
+.game-users-share-buttons-option .title-top {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.game-users-share-buttons-option .title-sub {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.game-users-share-buttons-option .sns {
+  margin: 30px 0 14px;
+}
+
+.game-users-share-buttons-option .list-top1 {
+  list-style: disc;
+  margin: 0 0 0 25px;
+}
+
+.game-users-share-buttons-option .list-top1 li {
+  margin: 0 0 6px;
+}
+
+.game-users-share-buttons-option .list-top2 {
+  list-style: circle;
+  margin: 0 0 0 25px;
+}
+
+.game-users-share-buttons-option .list-top2 li {
+  margin: 0 0 6px;
+}
+
+
+
+/* --------------------------------------------------
+   編集タブ
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .download-buttons-box {
   margin: 20px 0 10px;
 }
 
-.game-users-share-buttons-option .outline-none {
-  outline: none;
+.game-users-share-buttons-option .download-button {
+  margin: 0 5px 10px;
+}
+
+.game-users-share-buttons-option .select-theme-box {
+  margin: 10px 0;
+}
+
+
+
+/* --------------------------------------------------
+   編集タブ / 編集フォーム
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .edit-theme-form {
+  margin: 10px 0;
+}
+
+.game-users-share-buttons-option .edit-theme-form .sample-theme-box {
+  background-color: #fff;
+  z-index: 1000;
+}
+
+.game-users-share-buttons-option .edit-theme-form .sample-theme {
+  padding: 50px 0 0;
+}
+
+
+.game-users-share-buttons-option .edit-theme-form .sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+
+.game-users-share-buttons-option .edit-theme-form .theme-type-box {
+  margin: 30px 0 0;
+}
+
+
+.game-users-share-buttons-option .edit-theme-form .share-image-type {
+  margin: 0 0 10px;
+}
+
+.game-users-share-buttons-option .edit-theme-form .share-buttons-option {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 40px 0 10px;
+}
+
+.game-users-share-buttons-option .edit-theme-form .share-delete-button {
+  margin: 30px 0 40px;
+}
+
+.game-users-share-buttons-option .edit-theme-form .submit-button {
+  margin: 10px 0 0;
+}
+
+
+.game-users-share-buttons-option .edit-theme-list-box {
+  margin: 0;
+}
+
+
+
+/* --------------------------------------------------
+   テーマタブ
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .recruitment {
+  margin: 20px 0 0;
+}
+
+.game-users-share-buttons-option .recruitment h4 {
+  font-size: 12px;
+}
+
+
+
+/* --------------------------------------------------
+   プランタブ
+-------------------------------------------------- */
+
+.game-users-share-buttons-option .list-plan {
+  list-style: disc;
+  margin: 30px 0 30px 25px;
+}
+
+.game-users-share-buttons-option .list-plan li {
+  margin: 0 0 6px;
 }

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/lib/Pagination';
 import { Map } from 'immutable';
 
 import { OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';

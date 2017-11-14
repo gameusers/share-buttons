@@ -4,7 +4,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, Tab } from 'react-bootstrap';
+import Tabs from 'react-bootstrap/lib/Tabs';
+import Tab from 'react-bootstrap/lib/Tab';
 
 import { Model } from '../models/model';
 

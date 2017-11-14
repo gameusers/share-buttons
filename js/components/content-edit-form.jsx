@@ -3,13 +3,32 @@
 // --------------------------------------------------
 
 import React from 'react';
-import { Button, FormGroup, ControlLabel, FormControl, Checkbox, InputGroup, HelpBlock } from 'react-bootstrap';
-import { SketchPicker } from 'react-color';
+import Button from 'react-bootstrap/lib/Button';
+import FormGroup from 'react-bootstrap/lib/FormGroup';
+import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import Checkbox from 'react-bootstrap/lib/Checkbox';
+import InputGroup from 'react-bootstrap/lib/InputGroup';
+import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import Popover from 'react-bootstrap/lib/Popover';
+import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
+import SketchPicker from 'react-color/lib/components/sketch/Sketch';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import Sticky from 'react-sticky-state';
 
 import { instanceGameUsersShareButtonsOption, shareObj, Model } from '../models/model';
+
+
+
+// --------------------------------------------------
+//   Popovers
+// --------------------------------------------------
+
+const popoverForUploadImage = (
+  <Popover id="popover-trigger-focus" title="モバイル環境で綺麗に表示するには？">
+    スマートフォンやタブレットでは、通常の2倍の大きさの画像をアップロードすると綺麗に表示されます。例えば <strong>50 x 50</strong> の画像を表示したい場合は、 <strong>100 x 100</strong> の画像を利用してください。
+  </Popover>
+);
 
 
 
@@ -1497,6 +1516,35 @@ class ContentEditForm extends React.Component {
 
 
 
+
+  /**
+   * 余白設定
+   * @return {array} コードの配列
+   */
+  // codeOptionMargin2() {
+  //
+  //
+  //   // --------------------------------------------------
+  //   //   設定を表示しない
+  //   // --------------------------------------------------
+  //
+  //   if (this.props.optionType !== 'margin' && this.props.optionType !== 'all') {
+  //     return;
+  //   }
+  //
+  //
+  //   const codeArr = [];
+  //
+  //   codeArr.push(
+  //     <hr className="hr-text" data-content="AND" key="hr" />
+  //   );
+  //
+  //   return codeArr;
+  //
+  // }
+
+
+
   render() {
 
     return (
@@ -1519,26 +1567,25 @@ class ContentEditForm extends React.Component {
         </FormGroup>
 
 
-        <Sticky disabled={this.props.checkStickySampleTheme ? false : true}>
-          <div className="sample-theme-box" id="sample-theme-box">
-            <div className="sample-theme" id="sample-theme" dangerouslySetInnerHTML={this.renderSampleTheme()} />
-            <div className="submit-button">
-              <Button
-                bsStyle="success"
-                bsSize="xsmall"
-                className="ladda-button outline-none"
-                data-style="expand-right"
-                data-size="xs"
-                onClick={e => this.props.funcAjaxSaveTheme(
-                  this.props.stateModel,
-                  e.currentTarget
-                )}
-              >
-                <span className="ladda-label">保存する</span>
-              </Button>
-            </div>
+
+        <div className={this.props.checkStickySampleTheme ? 'sample-theme-box sticky' : 'sample-theme-box'} id="sample-theme-box">
+          <div className="sample-theme" id="sample-theme" dangerouslySetInnerHTML={this.renderSampleTheme()} />
+          <div className="submit-button">
+            <Button
+              bsStyle="success"
+              bsSize="xsmall"
+              className="ladda-button outline-none"
+              data-style="expand-right"
+              data-size="xs"
+              onClick={e => this.props.funcAjaxSaveTheme(
+                this.props.stateModel,
+                e.currentTarget
+              )}
+            >
+              <span className="ladda-label">保存する</span>
+            </Button>
           </div>
-        </Sticky>
+        </div>
 
 
 
@@ -1605,6 +1652,10 @@ class ContentEditForm extends React.Component {
           />
 
           <HelpBlock>アップロードする画像のタイプを選んでから画像ファイルを選択してください。画像ファイルは500KBまでのPNG,GIF,JPEG,SVGを利用することができます。ファイルサイズの大きな画像を利用する場合は、画像編集ソフトなどで軽量化してからアップロードすることをおすすめします。</HelpBlock>
+
+          <OverlayTrigger trigger="focus" placement="bottom" overlay={popoverForUploadImage}>
+            <Button bsStyle="danger" bsSize="xsmall"><span className="glyphicon glyphicon-info-sign" aria-hidden="true" /> モバイル環境で綺麗に表示するには？</Button>
+          </OverlayTrigger>
         </FormGroup>
 
 

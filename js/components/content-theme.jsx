@@ -4,7 +4,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Pagination } from 'react-bootstrap';
+import Button from 'react-bootstrap/lib/Button';
+import Pagination from 'react-bootstrap/lib/Pagination';
+import Panel from 'react-bootstrap/lib/Panel';
 import { Map, List } from 'immutable';
 
 import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';
@@ -136,6 +138,16 @@ class ContentEdit extends React.Component {
         <p>
           簡単に利用できるテーマを用意しています。利用したいテーマが見つかったら「編集タブに移動」ボタンを押してください。
         </p>
+
+        <Panel collapsible header="テーマ募集！" bsStyle="success" className="recruitment">
+          オリジナルのテーマを提供してくれる方を募集しています。テーマとして採用された方には、ビジネスプラン（￥3000 相当）の利用券を差し上げます。すべて自作の画像（あなたが権利を保有している）を利用したテーマを作成して、編集タブからダウンロードした game-users-share-buttons.zip ファイルをメールに添付して送ってください。メールのタイトルを「Game Users Share Buttons テーマ提供」にして、こちらのアドレス <strong>mail@gameusers.org</strong> までよろしくお願いします。<br /><br />
+
+          <strong>提供用のテーマを作成する場合は、一時的にビジネスプランを利用してください（プランを購入する必要はありません）。</strong>プランタブでビジネスプランに変更すると、黒猫の画像が編集できるようになりますので、自作のアイコンに変更したり、自サイトへのリンクを貼ることができます。作成したテーマを利用する人が出てくると、ユーザーの各ブログ記事からあなたのサイトへのリンクが貼られることになりますので、宣伝効果も非常に大きいです。<br /><br />
+
+          絵が描けたり、デザインが行える方は、ぜひともご参加よろしくお願いします。<br /><br />
+
+          ※ テーマに利用する画像を作成する前に、編集タブ &gt; シェアボタン新規作成ボタン &gt; 画像アップロードフォームの下にある「モバイル環境で綺麗に表示するには？」を必ずチェックしてください。
+        </Panel>
 
 
         <hr id="design-themes-hr" className="hr-slash" style={{ margin: '40px 0 40px 0' }} />
