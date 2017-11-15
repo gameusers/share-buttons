@@ -2,10 +2,10 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Map } from 'immutable';
-import Well from 'react-bootstrap/lib/Well';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import { Map } from 'alias-node-modules/immutable';
+import Well from 'alias-node-modules/react-bootstrap/lib/Well';
 
 import { OFFICIAL_THEME_DESIGN_URL, OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption } from '../models/model';
 

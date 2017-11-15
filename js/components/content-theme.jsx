@@ -2,12 +2,12 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/lib/Button';
-import Pagination from 'react-bootstrap/lib/Pagination';
-import Panel from 'react-bootstrap/lib/Panel';
-import { Map, List } from 'immutable';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import Button from 'alias-node-modules/react-bootstrap/lib/Button';
+import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
+import Panel from 'alias-node-modules/react-bootstrap/lib/Panel';
+import { Map, List } from 'alias-node-modules/immutable';
 
 import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';
 

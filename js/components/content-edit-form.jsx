@@ -2,19 +2,19 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import Button from 'react-bootstrap/lib/Button';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import Checkbox from 'react-bootstrap/lib/Checkbox';
-import InputGroup from 'react-bootstrap/lib/InputGroup';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import Popover from 'react-bootstrap/lib/Popover';
-import OverlayTrigger from 'react-bootstrap/lib/OverlayTrigger';
-import SketchPicker from 'react-color/lib/components/sketch/Sketch';
-import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import React from 'alias-node-modules/react';
+import Button from 'alias-node-modules/react-bootstrap/lib/Button';
+import FormGroup from 'alias-node-modules/react-bootstrap/lib/FormGroup';
+import ControlLabel from 'alias-node-modules/react-bootstrap/lib/ControlLabel';
+import FormControl from 'alias-node-modules/react-bootstrap/lib/FormControl';
+import Checkbox from 'alias-node-modules/react-bootstrap/lib/Checkbox';
+import InputGroup from 'alias-node-modules/react-bootstrap/lib/InputGroup';
+import HelpBlock from 'alias-node-modules/react-bootstrap/lib/HelpBlock';
+import Popover from 'alias-node-modules/react-bootstrap/lib/Popover';
+import OverlayTrigger from 'alias-node-modules/react-bootstrap/lib/OverlayTrigger';
+import SketchPicker from 'alias-node-modules/react-color/lib/components/sketch/Sketch';
+import PropTypes from 'alias-node-modules/prop-types';
+import { Map } from 'alias-node-modules/immutable';
 
 import { instanceGameUsersShareButtonsOption, shareObj, Model } from '../models/model';
 

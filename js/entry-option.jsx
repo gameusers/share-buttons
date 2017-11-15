@@ -2,10 +2,10 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import React from 'alias-node-modules/react';
+import ReactDOM from 'alias-node-modules/react-dom';
+import { createStore } from 'alias-node-modules/redux';
+import { Provider } from 'alias-node-modules/react-redux';
 import reducer from './reducers/reducer';
 import ContainerContent from './containers/content';
 

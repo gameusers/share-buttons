@@ -2,10 +2,10 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Tabs from 'react-bootstrap/lib/Tabs';
-import Tab from 'react-bootstrap/lib/Tab';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import Tabs from 'alias-node-modules/react-bootstrap/lib/Tabs';
+import Tab from 'alias-node-modules/react-bootstrap/lib/Tab';
 
 import { Model } from '../models/model';
 

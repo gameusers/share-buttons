@@ -32,11 +32,20 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', 'css']
+    extensions: ['.js', '.jsx', 'css'],
+    // alias: {
+    //   // root: path.resolve('../../../../../../../', 'node_modules')
+    //   // root: path.resolve(__dirname, '../../../../../../node_modules/')
+    //   // root: path.resolve(__dirname, 'node_modules/')
+    //   root: path.resolve('./', 'node_modules')
+    //   // root: path.resolve(__dirname, '../../../../../../../node_modules/')
+    // }
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: env
+      NODE_ENV: env,
+      TYPE: 'plugin',
+      PATH: path.resolve(__dirname, 'node_modules/')
     }),
     new webpack.ProvidePlugin({
       Promise: 'es6-promise-promise'

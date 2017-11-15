@@ -2,8 +2,8 @@
 //   Import
 // --------------------------------------------------
 
-import { fromJS, Map, OrderedMap, Seq, Record } from 'immutable';
-import 'whatwg-fetch';
+import { fromJS, Map, OrderedMap, Seq, Record } from 'alias-node-modules/immutable';
+import 'alias-node-modules/whatwg-fetch';
 
 import { GameUsersShareButtonsCommon, PLUGIN_URL, GameUsersShareButtons } from '../entry-share';
 

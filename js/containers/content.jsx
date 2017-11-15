@@ -2,19 +2,19 @@
 //   Import
 // --------------------------------------------------
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import 'whatwg-fetch';
+import { connect } from 'alias-node-modules/react-redux';
+import { bindActionCreators } from 'alias-node-modules/redux';
+import 'alias-node-modules/whatwg-fetch';
+import iziToast from 'alias-node-modules/izitoast';
 import JSZip from 'jszip';
-import iziToast from 'izitoast';
 import { saveAs } from 'file-saver';
+
+import 'alias-node-modules/izitoast/dist/css/iziToast.min.css';
 
 import { OFFICIAL_BASE_URL, OFFICIAL_API_URL, LOCAL_PLUGIN_URL, instanceGameUsersShareButtonsOption, fromJSOrdered } from '../models/model';
 import * as actions from '../actions/action';
 
 import Content from '../components/content';
-
-import '../../node_modules/izitoast/dist/css/iziToast.min.css';
 
 
 

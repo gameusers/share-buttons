@@ -2,11 +2,11 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/lib/Button';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import Radio from 'react-bootstrap/lib/Radio';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import Button from 'alias-node-modules/react-bootstrap/lib/Button';
+import FormGroup from 'alias-node-modules/react-bootstrap/lib/FormGroup';
+import Radio from 'alias-node-modules/react-bootstrap/lib/Radio';
 
 import { Model } from '../models/model';
 

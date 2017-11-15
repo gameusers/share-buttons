@@ -2,10 +2,10 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Pagination from 'react-bootstrap/lib/Pagination';
-import { Map } from 'immutable';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
+import { Map } from 'alias-node-modules/immutable';
 
 import { OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';
 

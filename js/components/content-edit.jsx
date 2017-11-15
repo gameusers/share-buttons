@@ -2,15 +2,15 @@
 //   Import
 // --------------------------------------------------
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/lib/Button';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
-import Pagination from 'react-bootstrap/lib/Pagination';
-import { List, Map } from 'immutable';
+import React from 'alias-node-modules/react';
+import PropTypes from 'alias-node-modules/prop-types';
+import Button from 'alias-node-modules/react-bootstrap/lib/Button';
+import ButtonToolbar from 'alias-node-modules/react-bootstrap/lib/ButtonToolbar';
+import FormGroup from 'alias-node-modules/react-bootstrap/lib/FormGroup';
+import ControlLabel from 'alias-node-modules/react-bootstrap/lib/ControlLabel';
+import FormControl from 'alias-node-modules/react-bootstrap/lib/FormControl';
+import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
+import { List, Map } from 'alias-node-modules/immutable';
 
 import { instanceGameUsersShareButtonsOption, Model } from '../models/model';
 import ContentEditForm from './content-edit-form';
