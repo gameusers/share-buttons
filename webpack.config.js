@@ -33,13 +33,6 @@ const config = {
   },
   resolve: {
     extensions: ['.js', '.jsx', 'css'],
-    // alias: {
-    //   // root: path.resolve('../../../../../../../', 'node_modules')
-    //   // root: path.resolve(__dirname, '../../../../../../node_modules/')
-    //   // root: path.resolve(__dirname, 'node_modules/')
-    //   root: path.resolve('./', 'node_modules')
-    //   // root: path.resolve(__dirname, '../../../../../../../node_modules/')
-    // }
   },
   plugins: [
     new webpack.EnvironmentPlugin({

@@ -72,7 +72,7 @@ export class GameUsersShareButtons {
     this.className = '';
 
     this.shareButtonsBaseUrl = PLUGIN_URL;
-    this.shareButtonsFreeImageUrl = `${this.shareButtonsBaseUrl}img/free.png`;
+    this.shareButtonsFreeImageBaseUrl = `${this.shareButtonsBaseUrl}img/`;
 
 
     this.containerSelector = '';
@@ -799,6 +799,13 @@ export class GameUsersShareButtons {
 
       } else {
 
+
+        // console.log('themeType1Ver1 / this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
+        // console.log('themeType1Ver1 / themeUrl = ', themeUrl);
+        // console.log('themeType1Ver1 / url = ', url);
+        // console.log('themeType1Ver1 / 含む / imageSrc2 = ', imageSrc);
+        // console.log('\n');
+
         codeImage = `<div class="${this.className}-box-image"><img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" /></div>`;
 
       }
@@ -844,7 +851,6 @@ export class GameUsersShareButtons {
           freeImageSrc = this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type1', 'freeUploadImage', 'src']);
         }
 
-
         freeImageWidth = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeUploadImageWidth);
         freeImageHeight = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeUploadImageHeight);
 
@@ -852,18 +858,26 @@ export class GameUsersShareButtons {
 
         freeImageUrl = this.gameUsersShareButtonsWebUrl;
         freeImageAlt = this.gameUsersShareButtonsFreeImageAlt;
-        freeImageSrc = this.shareButtonsFreeImageUrl;
         freeImageWidth = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageWidth);
         freeImageHeight = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageHeight);
 
+        let freeImageType = 1;
+        if ('freeImageType' in this.jsonObj) {
+          freeImageType = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageType);
+        }
+        freeImageSrc = `${this.shareButtonsFreeImageBaseUrl}free${freeImageType}.png?${queryControlCache}`;
+        // freeImageSrc = `${this.shareButtonsBaseUrl}img/free${freeImageType}.png?${queryControlCache}`;
+
+
       }
+
 
       this.code += `<div class="${this.className}-free" id="game-users-share-buttons-free-image">`;
 
       if (freeImageUrl) {
-        this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
+        this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
       } else {
-        this.code += `<img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" />`;
+        this.code += `<img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" />`;
       }
 
       this.code += '</div>';
@@ -878,13 +892,20 @@ export class GameUsersShareButtons {
 
   themeType2Ver1(url, uploadImageActive) {
 
+    // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
     const themeId = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.id);
 
     let themeUrl = `${this.shareButtonsBaseUrl}themes`;
+
     if (url) {
       themeUrl = url;
     }
+
+    // console.log('url = ', url);
+    // console.log('uploadImageActive = ', uploadImageActive);
+    // console.log('themeName = ', themeName);
+    // console.log('themeId = ', themeId);
 
     const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(this.optionJsonObj.queryControlCache) || 10000000;
 
@@ -920,9 +941,13 @@ export class GameUsersShareButtons {
 
       let imageSrc = `${themeUrl}/${themeName}-${themeId}/${shareName}.${shareImageExtension}?${queryControlCache}`;
 
+
       if (uploadImageActive && this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src'])) {
         imageSrc = this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src']);
       }
+      // console.log('themeUrl = ', themeUrl);
+      // console.log('imageSrc = ', imageSrc);
+
 
 
       if (key === 'pinterest') {
@@ -938,6 +963,19 @@ export class GameUsersShareButtons {
       } else {
 
         this.code += `<img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" />`;
+
+        // if (imageSrc.indexOf('https://gameusers.org/dev/blog/wp-content/plugins/game-users-share-buttons/') !== -1) {
+        //   // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
+        //   // console.log('themeUrl = ', themeUrl);
+        //   // console.log('url = ', url);
+        //   // console.log('含む / imageSrc2 = ', imageSrc);
+        //   // console.log('\n');
+        // } else {
+        //   this.code += `<img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" />`;
+        // }
+
+
+
 
       }
 
@@ -992,15 +1030,28 @@ export class GameUsersShareButtons {
 
         freeImageUrl = this.gameUsersShareButtonsWebUrl;
         freeImageAlt = this.gameUsersShareButtonsFreeImageAlt;
-        freeImageSrc = this.shareButtonsFreeImageUrl;
         freeImageWidth = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageWidth);
         freeImageHeight = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageHeight);
+
+        let freeImageType = 1;
+        if ('freeImageType' in this.jsonObj) {
+          freeImageType = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageType);
+        }
+        freeImageSrc = `${this.shareButtonsFreeImageBaseUrl}free${freeImageType}.png?${queryControlCache}`;
+        // freeImageSrc = `${this.shareButtonsBaseUrl}img/free${freeImageType}.png?${queryControlCache}`;
+
 
       }
 
 
       this.code += `<div class="${this.className}-free" id="game-users-share-buttons-free-image">`;
-      this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}?${queryControlCache}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
+
+      if (freeImageUrl) {
+        this.code += `<a href="${freeImageUrl}" target="_blank"><img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" /></a>`;
+      } else {
+        this.code += `<img src="${freeImageSrc}" widht="${freeImageWidth}" height="${freeImageHeight}" alt="${freeImageAlt}" />`;
+      }
+
       this.code += '</div>';
 
     }
@@ -1147,15 +1198,35 @@ export class GameUsersShareButtons {
 
           if (that.importGoogleFontsArr.length > 0) {
 
-            const fonts = that.importGoogleFontsArr.join('|');
-
+            let fonts = that.importGoogleFontsArr.join('|');
             const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
 
             if (elementGoogleFonts) {
 
+              const href = elementGoogleFonts.getAttribute('href');
+              const already = href.replace('https://fonts.googleapis.com/css?family=', '');
+
+              // すでにフォントがある場合は追加分と合成して表示する
+              if (already) {
+
+                const alreadyArr = already.split('|');
+                const mergedArr = that.importGoogleFontsArr.concat(alreadyArr);
+
+                // 重複削除
+                const fontsArr = mergedArr.filter((x, i, self) => self.indexOf(x) === i);
+
+                fonts = fontsArr.join('|');
+                // console.log('alreadyArr = ', alreadyArr);
+                // console.log('mergedArr = ', mergedArr);
+                // console.log('fontsArr = ', fontsArr);
+                // console.log('fonts = ', fonts);
+
+              }
+
               elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${fonts}`;
 
             } else {
+
 
               const css = document.createElement('link');
               css.type = 'text/css';

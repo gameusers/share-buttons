@@ -326,6 +326,11 @@ export const funcFreeImage = value => ({
   value
 });
 
+export const funcFreeImageType = value => ({
+  type: 'FREE_IMAGE_TYPE',
+  value
+});
+
 export const funcFreeImageVerticalAlign = value => ({
   type: 'FREE_IMAGE_VERTICAL_ALIGN',
   value

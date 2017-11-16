@@ -12,7 +12,7 @@ import FormControl from 'alias-node-modules/react-bootstrap/lib/FormControl';
 import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
 import { List, Map } from 'alias-node-modules/immutable';
 
-import { instanceGameUsersShareButtonsOption, Model } from '../models/model';
+import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';
 import ContentEditForm from './content-edit-form';
 
 
@@ -134,7 +134,7 @@ class ContentEdit extends React.Component {
 
       let codeShareButtons = null;
       const dataMap = this.props.dataEditThemesMap.getIn([themeNameId, openedThemeType]);
-
+      // console.log('themeNameId = ', themeNameId);
 
       // --------------------------------------------------
       //   シェアボタンのコード作成
@@ -144,7 +144,14 @@ class ContentEdit extends React.Component {
 
         const dataObj = dataMap.toJS();
         instanceGameUsersShareButtonsOption.setJsonObj(dataObj);
-        codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('edit', null, true) };
+
+        let themeUrl = null;
+
+        if (this.props.pageType === 'official') {
+          themeUrl = OFFICIAL_THEME_DESIGN_URL;
+        }
+
+        codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('edit', themeUrl, true) };
 
       }
 

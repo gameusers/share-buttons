@@ -296,6 +296,10 @@ const reducer = (state = new Model(), action) => {
       return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImage'], action.value);
     }
 
+    case 'FREE_IMAGE_TYPE': {
+      return state.setFreeImageType(action.value);
+    }
+
     case 'FREE_IMAGE_VERTICAL_ALIGN': {
       return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageVerticalAlign'], action.value);
     }

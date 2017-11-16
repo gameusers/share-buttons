@@ -132,6 +132,7 @@ const mapStateToProps = (state) => {
     countFontWeight: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countFontWeight']),
 
     freeImage: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImage']),
+    freeImageType: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageType']),
     freeImageVerticalAlign: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageVerticalAlign']),
     freeImageWidth: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageWidth']),
     freeImageHeight: state.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageHeight']),
@@ -488,19 +489,22 @@ const mapDispatchToProps = (dispatch) => {
       // --------------------------------------------------
 
       let urlShareBundleJs = null;
-      let urlFreeImage = null;
+      let urlFreeImage1 = null;
+      let urlFreeImage2 = null;
       let urlPhp = null;
 
       if (pageType === 'official') {
 
         urlShareBundleJs = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/js/share-bundle.min.js?${queryControlCache}`;
-        urlFreeImage = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/free.png?${queryControlCache}`;
+        urlFreeImage1 = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/free1.png?${queryControlCache}`;
+        urlFreeImage2 = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/free2.png?${queryControlCache}`;
         urlPhp = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/php/count.txt?${queryControlCache}`;
 
       } else {
 
         urlShareBundleJs = `${LOCAL_PLUGIN_URL}js/share-bundle.min.js?${queryControlCache}`;
-        urlFreeImage = `${LOCAL_PLUGIN_URL}img/free.png?${queryControlCache}`;
+        urlFreeImage1 = `${LOCAL_PLUGIN_URL}img/free1.png?${queryControlCache}`;
+        urlFreeImage2 = `${LOCAL_PLUGIN_URL}img/free2.png?${queryControlCache}`;
         urlPhp = `${LOCAL_PLUGIN_URL}php/count.txt?${queryControlCache}`;
 
       }
@@ -519,15 +523,27 @@ const mapDispatchToProps = (dispatch) => {
 
 
       // --------------------------------------------------
-      //   Get free.png / Black Cat Image
+      //   Get free1.png / Black Cat Image
       // --------------------------------------------------
 
-      const freeImage = await funcPromiseGet(
-        urlFreeImage,
+      const freeImage1 = await funcPromiseGet(
+        urlFreeImage1,
         'blob'
       );
 
-      zip.file('game-users-share-buttons/img/free.png', freeImage, { binary: true });
+      zip.file('game-users-share-buttons/img/free1.png', freeImage1, { binary: true });
+
+
+      // --------------------------------------------------
+      //   Get free2.png / Black Cat Image
+      // --------------------------------------------------
+
+      const freeImage2 = await funcPromiseGet(
+        urlFreeImage2,
+        'blob'
+      );
+
+      zip.file('game-users-share-buttons/img/free2.png', freeImage2, { binary: true });
 
 
       // --------------------------------------------------

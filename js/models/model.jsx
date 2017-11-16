@@ -32,6 +32,22 @@ export const LOCAL_PLUGIN_URL = pageType === 'wordPressPlugin' ? PLUGIN_URL : nu
 
 
 // --------------------------------------------------
+//   Constant - フリー画像のサイズを設定する
+// --------------------------------------------------
+
+const FREE_IMAGE_1_DEFAULT_WIDTH = 116;
+const FREE_IMAGE_1_DEFAULT_HEIGHT = 128;
+const FREE_IMAGE_1_WIDTH = 45;
+const FREE_IMAGE_1_HEIGHT = 50;
+
+const FREE_IMAGE_2_DEFAULT_WIDTH = 128;
+const FREE_IMAGE_2_DEFAULT_HEIGHT = 99;
+const FREE_IMAGE_2_WIDTH = 50;
+const FREE_IMAGE_2_HEIGHT = 39;
+
+
+
+// --------------------------------------------------
 //   Share Object
 //   シェアできるサイト / カウントできる場合はtrue
 // --------------------------------------------------
@@ -47,7 +63,7 @@ export const shareObj = {
   },
   'google-plus': {
     name: 'Google+',
-    count: true
+    count: false
   },
   pocket: {
     name: 'Pocket',
@@ -133,11 +149,12 @@ const initialDataObjType1 = {
   countFontWeight: 400,
 
   freeImage: true,
+  freeImageType: 1,
   freeImageVerticalAlign: 'middle',
-  freeImageDefaultWidth: 100,
-  freeImageDefaultHeight: 110,
-  freeImageWidth: 46,
-  freeImageHeight: 54,
+  freeImageDefaultWidth: FREE_IMAGE_1_DEFAULT_WIDTH,
+  freeImageDefaultHeight: FREE_IMAGE_1_DEFAULT_HEIGHT,
+  freeImageWidth: FREE_IMAGE_1_WIDTH,
+  freeImageHeight: FREE_IMAGE_1_HEIGHT,
   freeImageMarginTop: 0,
   freeImageMarginRight: 0,
   freeImageMarginBottom: 0,
@@ -192,11 +209,12 @@ const initialDataObjType2 = {
   countFontWeight: 400,
 
   freeImage: true,
+  freeImageType: 1,
   freeImageVerticalAlign: 'middle',
-  freeImageDefaultWidth: 100,
-  freeImageDefaultHeight: 110,
-  freeImageWidth: 46,
-  freeImageHeight: 54,
+  freeImageDefaultWidth: FREE_IMAGE_1_DEFAULT_WIDTH,
+  freeImageDefaultHeight: FREE_IMAGE_1_DEFAULT_HEIGHT,
+  freeImageWidth: FREE_IMAGE_1_WIDTH,
+  freeImageHeight: FREE_IMAGE_1_HEIGHT,
   freeImageMarginTop: 0,
   freeImageMarginRight: 0,
   freeImageMarginBottom: 0,
@@ -377,11 +395,14 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
 
     if (pageType === 'official') {
       this.shareButtonsBaseUrl = OFFICIAL_PLUGIN_URL;
+      this.shareButtonsFreeImageBaseUrl = `${OFFICIAL_BASE_URL}react/contents/app/share-buttons/img/`;
     } else {
       this.shareButtonsBaseUrl = LOCAL_PLUGIN_URL;
+      this.shareButtonsFreeImageBaseUrl = `${LOCAL_PLUGIN_URL}img/`;
     }
+    // console.log('GameUsersShareButtonsOption / this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
 
-    this.shareButtonsFreeImageUrl = `${OFFICIAL_BASE_URL}react/contents/app/img/free.png`;
+
 
     this.containerSelector = '#game-users-share-buttons-option ';
 
@@ -417,7 +438,7 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
    * @return {string}                    シェアボタンのコード
    */
   shareButtonsSampleTheme(addClassName, themeUrl, uploadImageActive) {
-
+    // console.log('themeUrl = ', themeUrl);
     this.code = '';
 
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
@@ -433,8 +454,10 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
     }
 
     if (this.jsonObj.theme.type === 1 && this.jsonObj.theme.version === 1) {
+      // console.log('shareButtonsSampleTheme Type1 / themeName = ', themeName, ' / themeUrl = ', themeUrl);
       this.themeType1Ver1(themeUrl, uploadImageActive);
     } else if (this.jsonObj.theme.type === 2 && this.jsonObj.theme.version === 1) {
+      // console.log('shareButtonsSampleTheme Type2 / themeName = ', themeName, ' / themeUrl = ', themeUrl);
       this.themeType2Ver1(themeUrl, uploadImageActive);
     }
 
@@ -818,6 +841,63 @@ export class Model extends ModelRecord {
   }
 
 
+
+  /**
+   * フリー画像のタイプ
+   * タイプを切り替えた時に画像のデフォルトサイズと表示サイズも変更する
+   * @param {number} type 数字で指定 1 / 2
+   */
+  setFreeImageType(type) {
+
+
+    // --------------------------------------------------
+    //   Copy State
+    // --------------------------------------------------
+
+    let map = this;
+
+
+    // --------------------------------------------------
+    //   データ取得
+    // --------------------------------------------------
+
+    const currentThemeNameId = map.getIn(['formMap', 'currentThemeNameId']);
+    const currentThemeType = map.getIn(['formMap', 'currentThemeType']);
+
+
+    // --------------------------------------------------
+    //   Free Image Type
+    // --------------------------------------------------
+
+    const numberType = type ? parseInt(type, 10) : 1;
+    map = map.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageType'], numberType);
+
+
+    // --------------------------------------------------
+    //   Free Image Size
+    // --------------------------------------------------
+
+    let freeImageDefaultWidth = FREE_IMAGE_1_DEFAULT_WIDTH;
+    let freeImageDefaultHeight = FREE_IMAGE_1_DEFAULT_HEIGHT;
+    let freeImageWidth = FREE_IMAGE_1_WIDTH;
+    let freeImageHeight = FREE_IMAGE_1_HEIGHT;
+
+    if (numberType === 2) {
+      freeImageDefaultWidth = FREE_IMAGE_2_DEFAULT_WIDTH;
+      freeImageDefaultHeight = FREE_IMAGE_2_DEFAULT_HEIGHT;
+      freeImageWidth = FREE_IMAGE_2_WIDTH;
+      freeImageHeight = FREE_IMAGE_2_HEIGHT;
+    }
+
+    map = map.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageDefaultWidth'], freeImageDefaultWidth);
+    map = map.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageDefaultHeight'], freeImageDefaultHeight);
+    map = map.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageWidth'], freeImageWidth);
+    map = map.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'freeImageHeight'], freeImageHeight);
+
+
+    return map;
+
+  }
 
 
 

@@ -16,7 +16,7 @@ import SketchPicker from 'alias-node-modules/react-color/lib/components/sketch/S
 import PropTypes from 'alias-node-modules/prop-types';
 import { Map } from 'alias-node-modules/immutable';
 
-import { instanceGameUsersShareButtonsOption, shareObj, Model } from '../models/model';
+import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, shareObj, Model } from '../models/model';
 
 
 
@@ -1023,6 +1023,23 @@ class ContentEditForm extends React.Component {
     }
 
     codeArr.push(
+      <div className="form-group-margin" key="free-image-type">
+        <FormGroup controlId="free-image-type" validationState="success">
+          <ControlLabel>フリー画像のタイプ</ControlLabel>
+          <FormControl
+            componentClass="select"
+            value={this.props.freeImageType}
+            onChange={e => this.props.funcFreeImageType(e.target.value)}
+          >
+            <option value="1">ネコ - 全身</option>
+            <option value="2">ネコ - 顔</option>
+          </FormControl>
+          <HelpBlock>フリー画像を変更することができます。</HelpBlock>
+        </FormGroup>
+      </div>
+    );
+
+    codeArr.push(
       <div className="form-group-margin" key="free-image-vertical-align">
         <FormGroup controlId="free-image-vertical-align" validationState="success">
           <ControlLabel>縦の表示位置</ControlLabel>
@@ -1458,7 +1475,14 @@ class ContentEditForm extends React.Component {
     // --------------------------------------------------
 
     instanceGameUsersShareButtonsOption.setJsonObj(dataObj);
-    return { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('sample', null, true) };
+
+    let themeUrl = null;
+
+    if (this.props.pageType === 'official') {
+      themeUrl = OFFICIAL_THEME_DESIGN_URL;
+    }
+
+    return { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('sample', themeUrl, true) };
 
 
   }
@@ -1476,14 +1500,21 @@ class ContentEditForm extends React.Component {
     //   テーマタイプが「Type2」の場合、画像の上にシェア数のレイヤーを表示します。編集時のみ
     // --------------------------------------------------
 
-    const selectorCountBackgroundColor = document.querySelector(`#sample-theme .game-users-share-buttons-${this.props.currentThemeNameId}-sample-box-count`);
+    const elementsArr = [...document.querySelectorAll(`#sample-theme .game-users-share-buttons-${this.props.currentThemeNameId}-sample-box-count`)];
 
-    if (selectorCountBackgroundColor) {
-      if (this.props.countBackgroundColor) {
-        selectorCountBackgroundColor.style.backgroundColor = this.props.countBackgroundColorHex;
-      } else {
-        selectorCountBackgroundColor.style.backgroundColor = '';
-      }
+    if (elementsArr.length > 0) {
+
+      elementsArr.forEach((element) => {
+
+        const copyElement = element;
+
+        if (this.props.countBackgroundColor) {
+          copyElement.style.backgroundColor = this.props.countBackgroundColorHex;
+        } else {
+          copyElement.style.backgroundColor = '';
+        }
+      });
+
     }
 
 
@@ -1709,6 +1740,8 @@ ContentEditForm.propTypes = {
 
   stateModel: PropTypes.instanceOf(Model).isRequired,
 
+  pageType: PropTypes.string.isRequired,
+
   checkStickySampleTheme: PropTypes.bool.isRequired,
   currentThemeNameId: PropTypes.string.isRequired,
   currentThemeType: PropTypes.string.isRequired,
@@ -1774,6 +1807,7 @@ ContentEditForm.propTypes = {
   countFontWeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   freeImage: PropTypes.bool.isRequired,
+  freeImageType: PropTypes.number,
   freeImageVerticalAlign: PropTypes.oneOf(['top', 'middle', 'bottom']).isRequired,
   freeImageWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   freeImageHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
@@ -1864,6 +1898,7 @@ ContentEditForm.propTypes = {
   funcCountFontWeight: PropTypes.func.isRequired,
 
   funcFreeImage: PropTypes.func.isRequired,
+  funcFreeImageType: PropTypes.func.isRequired,
   funcFreeImageVerticalAlign: PropTypes.func.isRequired,
   funcFreeImageWidth: PropTypes.func.isRequired,
   funcFreeImageHeight: PropTypes.func.isRequired,
@@ -1944,6 +1979,8 @@ ContentEditForm.defaultProps = {
   countFontSize: 16,
   countFontStyle: 'normal',
   countFontWeight: 400,
+
+  freeImageType: 1,
 
 };
 

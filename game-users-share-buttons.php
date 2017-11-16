@@ -3,7 +3,7 @@
 Plugin Name: Game Users Share Buttons
 Plugin URI: https://gameusers.org/app/share-buttons
 Description: Twitter、Facebook、Google+など（全10サイト）のシェアボタンが利用できるようになるプラグインです。自由度の高いカスタマイズが行え、他にないオリジナルのシェアボタンを作成できます。設定 > Game Users Share Buttons を開いてシェアボタンを作成・編集してください。
-Version: 1.0.9
+Version: 1.1.0
 Author: Game Users
 Author URI: https://gameusers.org/
 License: GPL2
@@ -66,7 +66,7 @@ class Game_Users_Share_Buttons
     public static $shareArr = array(
         'twitter' => array('name' => 'Twitter', 'count' => true),
         'facebook' => array('name' => 'Facebook', 'count' => true),
-        'google-plus' => array('name' => 'Google+', 'count' => true),
+        'google-plus' => array('name' => 'Google+', 'count' => false),
         'pocket' => array('name' => 'Pocket', 'count' => true),
         'pinterest' => array('name' => 'Pinterest', 'count' => true),
         'linkedin' => array('name' => 'LinkedIn', 'count' => true),
