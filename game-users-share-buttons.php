@@ -161,7 +161,7 @@ class Game_Users_Share_Buttons
 
     public function head()
     {
-        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.0.9', true);
+        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.1.0', true);
     }
 
     public function view($article)
@@ -197,7 +197,7 @@ class Game_Users_Share_Buttons
             wp_enqueue_script('ladda-bootstrap-spin', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/spin.min.js', array(), '0.9.4');
             wp_enqueue_script('ladda-bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda.min.js', array(), '0.9.4');
 
-            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.0.9', true);
+            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.1.0', true);
 
             $instanceOption = new Game_Users_Share_Buttons_Option();
             $instanceOption->jsFunctionAdmin($this->optionArr);

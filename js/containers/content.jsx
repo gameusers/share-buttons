@@ -612,6 +612,10 @@ const mapDispatchToProps = (dispatch) => {
           //   - Get Images
           // ---------------------------------------------
 
+          // console.log('uploadImageOfficialMap = ', uploadImageOfficialMap.toJS());
+          // console.log('themeNameId = ', themeNameId);
+          // console.log('openedThemeType = ', openedThemeType);
+
           const loopObj = uploadImageOfficialMap.getIn([themeNameId, openedThemeType]).toJS();
 
 
@@ -644,13 +648,13 @@ const mapDispatchToProps = (dispatch) => {
             // ---------------------------------------------
 
             } else {
-
+              // console.log('imageSrc = ', `${imageSrc}?${queryControlCache}`);
               const tempArr = imageSrc.split(themeNameId)[1].split('.');
               const extension = tempArr[1];
               const imageName = `${shareImageType}.${extension}`;
 
               const image = await funcPromiseGet(
-                imageSrc,
+                `${imageSrc}?${queryControlCache}`,
                 'blob'
               );
 
@@ -673,7 +677,7 @@ const mapDispatchToProps = (dispatch) => {
           // ---------------------------------------------
 
           const dataJson = await funcPromiseGet(
-            `${LOCAL_PLUGIN_URL}themes/${themeNameId}/data.json`,
+            `${LOCAL_PLUGIN_URL}themes/${themeNameId}/data.json?${queryControlCache}`,
             'text'
           );
 
@@ -691,7 +695,7 @@ const mapDispatchToProps = (dispatch) => {
             const imageName = `${shareImageType}.${dataObj.share[shareImageType].extension}`;
 
             const image = await funcPromiseGet(
-              `${LOCAL_PLUGIN_URL}themes/${themeNameId}/${imageName}`,
+              `${LOCAL_PLUGIN_URL}themes/${themeNameId}/${imageName}?${queryControlCache}`,
               'blob'
             );
 
@@ -721,6 +725,7 @@ const mapDispatchToProps = (dispatch) => {
 
     } catch (e) {
 
+      // console.log('e = ', e);
       iziToast.error({
         title: 'Error',
         message: 'ダウンロードできませんでした。'

@@ -1219,9 +1219,10 @@ export class Model extends ModelRecord {
 
     let type = 'type1';
 
-    if (loadedDataObj[themeNameId].type === 2) {
+    if (loadedDataObj[themeNameId].theme.type === 2) {
       type = 'type2';
     }
+
 
 
     // --------------------------------------------------
