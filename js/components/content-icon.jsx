@@ -11,7 +11,7 @@ import { OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption, Model } f
 
 
 
-class ContentEdit extends React.Component {
+class ContentIcon extends React.Component {
 
 
   /**
@@ -136,7 +136,7 @@ class ContentEdit extends React.Component {
 
 }
 
-ContentEdit.propTypes = {
+ContentIcon.propTypes = {
 
 
   // --------------------------------------------------
@@ -161,4 +161,4 @@ ContentEdit.propTypes = {
 };
 
 
-export default ContentEdit;
+export default ContentIcon;

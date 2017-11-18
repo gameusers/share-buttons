@@ -405,6 +405,7 @@ class GameUsersShareButtonsOption extends GameUsersShareButtons {
 
 
     this.containerSelector = '#game-users-share-buttons-option ';
+    // this.googleFontsAdditionalClassName = '-option';
 
   }
 
@@ -1443,6 +1444,8 @@ export class Model extends ModelRecord {
     // --------------------------------------------------
 
     let googleFontsList = map.getIn(['googleFontsList']);
+    // console.log('dataObj = ', dataObj);
+    // console.log('googleFontsList = ', googleFontsList.toJS());
 
     if (!dataObj) {
       return map;
@@ -1470,7 +1473,7 @@ export class Model extends ModelRecord {
 
     });
 
-
+    // console.log('googleFontsList = ', googleFontsList);
     map = map.set('googleFontsList', googleFontsList);
 
 

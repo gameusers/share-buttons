@@ -23,6 +23,8 @@ const reducer = (state = new Model(), action) => {
         .set('designRandomMap', action.designRandomMap)
         .set('iconRandomMap', action.iconRandomMap)
         .setDataObj('editThemes', action.editThemesDataObj)
+        .setCountGoogleFont(action.designThemesMap.toJS())
+        .setCountGoogleFont(action.iconThemesMap.toJS())
         .setCountGoogleFont(action.designRandomMap.toJS())
         .setCountGoogleFont(action.iconRandomMap.toJS());
     }

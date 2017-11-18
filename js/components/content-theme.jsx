@@ -13,7 +13,7 @@ import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, Model }
 
 
 
-class ContentEdit extends React.Component {
+class ContentTheme extends React.Component {
 
 
   /**
@@ -161,7 +161,7 @@ class ContentEdit extends React.Component {
 
 }
 
-ContentEdit.propTypes = {
+ContentTheme.propTypes = {
 
 
   // --------------------------------------------------
@@ -188,4 +188,4 @@ ContentEdit.propTypes = {
 };
 
 
-export default ContentEdit;
+export default ContentTheme;

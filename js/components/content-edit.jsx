@@ -20,55 +20,6 @@ import ContentEditForm from './content-edit-form';
 class ContentEdit extends React.Component {
 
 
-  // --------------------------------------------------
-  //   Lifecycle Methods
-  // --------------------------------------------------
-
-  componentDidUpdate(prevProps) {
-
-    // console.log('this.props.stateModel = ', this.props.stateModel.toJS());
-
-    // console.log('this.props.googleFontsList = ', this.props.googleFontsList.toJS());
-    // console.log('this.props.googleFontsList.count() = ', this.props.googleFontsList.count());
-
-    // --------------------------------------------------
-    //   Google Fonts
-    // --------------------------------------------------
-
-    if (!this.props.googleFontsList.equals(prevProps.googleFontsList)) {
-
-      const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
-      const googleFonts = this.props.googleFontsList.toJS().join('|');
-
-
-      if (elementGoogleFonts && this.props.googleFontsList.count() > 0) {
-
-        elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${googleFonts}`;
-
-      } else {
-
-        const css = document.createElement('link');
-        css.type = 'text/css';
-        css.rel = 'stylesheet';
-        css.id = 'game-users-share-buttons-google-fonts';
-        css.href = `https://fonts.googleapis.com/css?family=${googleFonts}`;
-        document.getElementsByTagName('head').item(0).appendChild(css);
-
-      }
-
-    }
-
-
-    // --------------------------------------------------
-    //   Count
-    // --------------------------------------------------
-
-    instanceGameUsersShareButtonsOption.count(true);
-
-  }
-
-
-
   /**
    * 記事の上部・下部に表示するシェアボタンを選択するフォーム
    * @return {array} コードの配列

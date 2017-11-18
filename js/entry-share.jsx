@@ -1,3 +1,11 @@
+// --------------------------------------------------
+//   Import
+// --------------------------------------------------
+
+import setGoogleFonts from './modules/font';
+
+
+
 export class GameUsersShareButtonsCommon {
   static escapeHtml(value) {
     if (typeof value !== 'string') {
@@ -394,6 +402,10 @@ export class GameUsersShareButtons {
     this.code += `  border-radius: ${countBorderRadius};`;
     this.code += `  margin: ${countMarginTop} ${countMarginRight} ${countMarginBottom} ${countMarginLeft};`;
     this.code += `  background-color: ${countColor};`;
+    this.code += '}';
+
+    this.code += `.${this.className}-box-count a {`;
+    this.code += '  text-decoration: none;';
     this.code += '}';
 
     this.code += `.${this.className}-box-count-${countDirection} {`;
@@ -1197,46 +1209,7 @@ export class GameUsersShareButtons {
           // --------------------------------------------------
 
           if (that.importGoogleFontsArr.length > 0) {
-
-            let fonts = that.importGoogleFontsArr.join('|');
-            const elementGoogleFonts = document.querySelector('#game-users-share-buttons-google-fonts');
-
-            if (elementGoogleFonts) {
-
-              const href = elementGoogleFonts.getAttribute('href');
-              const already = href.replace('https://fonts.googleapis.com/css?family=', '');
-
-              // すでにフォントがある場合は追加分と合成して表示する
-              if (already) {
-
-                const alreadyArr = already.split('|');
-                const mergedArr = that.importGoogleFontsArr.concat(alreadyArr);
-
-                // 重複削除
-                const fontsArr = mergedArr.filter((x, i, self) => self.indexOf(x) === i);
-
-                fonts = fontsArr.join('|');
-                // console.log('alreadyArr = ', alreadyArr);
-                // console.log('mergedArr = ', mergedArr);
-                // console.log('fontsArr = ', fontsArr);
-                // console.log('fonts = ', fonts);
-
-              }
-
-              elementGoogleFonts.href = `https://fonts.googleapis.com/css?family=${fonts}`;
-
-            } else {
-
-
-              const css = document.createElement('link');
-              css.type = 'text/css';
-              css.rel = 'stylesheet';
-              css.id = 'game-users-share-buttons-google-fonts';
-              css.href = `https://fonts.googleapis.com/css?family=${fonts}`;
-              document.getElementsByTagName('head').item(0).appendChild(css);
-
-            }
-
+            setGoogleFonts(that.importGoogleFontsArr, 'game-users-share-buttons-google-fonts');
           }
 
 

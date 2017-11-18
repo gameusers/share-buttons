@@ -6,8 +6,9 @@ import React from 'alias-node-modules/react';
 import PropTypes from 'alias-node-modules/prop-types';
 import Tabs from 'alias-node-modules/react-bootstrap/lib/Tabs';
 import Tab from 'alias-node-modules/react-bootstrap/lib/Tab';
+import { List } from 'alias-node-modules/immutable';
 
-import { Model } from '../models/model';
+import { instanceGameUsersShareButtonsOption, Model } from '../models/model';
 
 import ContentTop from './content-top';
 import ContentEdit from './content-edit';
@@ -15,6 +16,8 @@ import ContentTheme from './content-theme';
 import ContentIcon from './content-icon';
 import ContentOption from './content-option';
 import ContentPlan from './content-plan';
+
+import setGoogleFonts from '../modules/font';
 
 import '../../css/option.css';
 
@@ -29,6 +32,28 @@ class Content extends React.Component {
 
   componentWillMount() {
     this.props.funcInitialAsynchronous(this.props.stateModel);
+  }
+
+
+  componentDidUpdate(prevProps) {
+
+
+    // --------------------------------------------------
+    //   Google Fonts
+    // --------------------------------------------------
+
+    if (!this.props.googleFontsList.equals(prevProps.googleFontsList)) {
+      setGoogleFonts(this.props.googleFontsList.toJS(), 'game-users-share-buttons-google-fonts-option');
+    }
+
+
+    // --------------------------------------------------
+    //   Count
+    // --------------------------------------------------
+
+    instanceGameUsersShareButtonsOption.count(true);
+
+
   }
 
 
@@ -55,6 +80,8 @@ Content.propTypes = {
   // --------------------------------------------------
 
   stateModel: PropTypes.instanceOf(Model).isRequired,
+
+  googleFontsList: PropTypes.instanceOf(List).isRequired,
 
 
   // --------------------------------------------------
