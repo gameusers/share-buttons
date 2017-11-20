@@ -331,7 +331,9 @@ export class GameUsersShareButtons {
     this.code += '  border: 0;';
     this.code += '  font-size: 100%;';
     this.code += '  font: inherit;';
-    this.code += '  vertical-align: baseline;';
+    this.code += '  line-height: 1;';
+    // this.code += '  vertical-align: baseline;';
+    // this.code += '  vertical-align: top;';
     this.code += '}';
 
     this.code += `.${this.className}-free {`;
@@ -353,6 +355,7 @@ export class GameUsersShareButtons {
     this.code += `  ${freeImageWidth}`;
     this.code += `  ${freeImageHeight}`;
     this.code += `  margin: ${freeImageMarginTop} ${freeImageMarginRight} ${freeImageMarginBottom} ${freeImageMarginLeft};`;
+    this.code += '  vertical-align: top;';
     this.code += '}';
 
     this.code += `.${this.className}-box {`;
@@ -386,12 +389,12 @@ export class GameUsersShareButtons {
     this.code += '  box-shadow: none;';
     this.code += `  ${shareImageWidth}`;
     this.code += `  ${shareImageHeight}`;
-    // this.code += '  vertical-align: bottom;';
-    this.code += '  vertical-align: baseline;';
+    this.code += '  vertical-align: top;';
+    // this.code += '  vertical-align: baseline;';
     this.code += '}';
 
     this.code += `.${this.className}-box-count {`;
-    this.code += '  line-height: 1;';
+    // this.code += '  line-height: 1;';
     this.code += '  display: -webkit-box;';
     this.code += '  display: -ms-flexbox;';
     this.code += '  display: flex;';
@@ -647,6 +650,7 @@ export class GameUsersShareButtons {
     this.code += '  -ms-flex-flow: row wrap;';
     this.code += '  flex-flow: row wrap;';
     this.code += `  margin: ${marginTop} ${marginRight} ${marginBottom} ${marginLeft};`;
+    this.code += '  line-height: 1;';
     this.code += '}';
 
     this.code += `.${this.className}-box {`;
@@ -666,11 +670,11 @@ export class GameUsersShareButtons {
     this.code += '  box-shadow: none;';
     this.code += `  ${shareImageWidth}`;
     this.code += `  ${shareImageHeight}`;
-    this.code += '  vertical-align: bottom;';
+    this.code += '  vertical-align: top;';
     this.code += '}';
 
     this.code += `.${this.className}-box-count {`;
-    this.code += '  line-height: 1;';
+    // this.code += '  line-height: 1;';
     this.code += '  position: absolute;';
     this.code += `  ${countWidth}`;
     this.code += `  top: ${countTop};`;
@@ -702,6 +706,7 @@ export class GameUsersShareButtons {
     this.code += `  ${freeImageWidth}`;
     this.code += `  ${freeImageHeight}`;
     this.code += `  margin: ${freeImageMarginTop} ${freeImageMarginRight} ${freeImageMarginBottom} ${freeImageMarginLeft};`;
+    this.code += '  vertical-align: top;';
     this.code += '}';
 
     this.code += '</style>';

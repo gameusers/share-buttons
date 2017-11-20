@@ -1,6 +1,6 @@
 {
   "name": "game-users-share-buttons",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Game Users Share Buttons",
   "main": "js/option-bundle.min.js",
   "scripts": {
@@ -26,18 +26,24 @@
       "env"
     ],
     "plugins": [
-      ["module-resolver", {
-        "alias": {
-          "alias-node-modules": "./node_modules"
+      [
+        "module-resolver",
+        {
+          "alias": {
+            "alias-node-modules": "./node_modules"
+          }
         }
-      }],
+      ],
       "transform-async-to-generator",
-      ["transform-runtime", {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true,
-        "moduleName": "babel-runtime"
-      }]
+      [
+        "transform-runtime",
+        {
+          "helpers": false,
+          "polyfill": false,
+          "regenerator": true,
+          "moduleName": "babel-runtime"
+        }
+      ]
     ]
   },
   "eslintConfig": {
@@ -124,16 +130,16 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-import-resolver-babel-module": "^4.0.0-beta.3",
+    "eslint-import-resolver-babel-module": "^4.0.0-beta.5",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
+    "eslint-plugin-react": "^7.5.1",
     "postcss-loader": "^2.0.8",
     "style-loader": "^0.19.0",
     "stylelint": "^8.2.0",
     "stylelint-config-standard": "^17.0.0",
-    "uglify-js": "^3.1.9",
-    "uglifyjs-webpack-plugin": "^1.0.1",
+    "uglify-js": "^3.1.10",
+    "uglifyjs-webpack-plugin": "^1.1.0",
     "webpack": "^3.8.1",
     "webpack-bundle-size-analyzer": "^2.7.0"
   }
