@@ -17,6 +17,9 @@ desktop.ini
 #
 /node_modules/
 
+# リリース版のディレクトリを除外
+/release/
+
 # テーマを除外
 /themes/*
 !/themes/.gitkeep
