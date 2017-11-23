@@ -3,6 +3,7 @@
 // --------------------------------------------------
 
 import setGoogleFonts from './modules/font';
+import getDeviceAndOs from './modules/device';
 
 
 
@@ -51,6 +52,9 @@ export const PLUGIN_URL = (() => {
 export class GameUsersShareButtons {
 
   constructor() {
+
+    this.deviceAndOsObj = getDeviceAndOs();
+    // console.log('this.deviceAndOsObj = ', this.deviceAndOsObj);
 
     this.gameUsersShareButtonsWebUrl = 'https://gameusers.org/app/share-buttons';
     this.gameUsersShareButtonsFreeImageAlt = 'Game Users Share Buttons';
@@ -219,10 +223,40 @@ export class GameUsersShareButtons {
     const countMarginRight = GameUsersShareButtons.styleAddPx(this.jsonObj.countMarginRight);
     const countMarginBottom = GameUsersShareButtons.styleAddPx(this.jsonObj.countMarginBottom);
     const countMarginLeft = GameUsersShareButtons.styleAddPx(this.jsonObj.countMarginLeft);
-    const countPaddingTop = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingTop);
-    const countPaddingRight = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingRight);
-    const countPaddingBottom = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingBottom);
-    const countPaddingLeft = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingLeft);
+
+
+    let adjustmentTop = 0;
+    let adjustmentRight = 0;
+    let adjustmentBottom = 0;
+    let adjustmentLeft = 0;
+
+    // this.deviceAndOsObj.device = 'smartphone';
+    // this.deviceAndOsObj.os = 'Android';
+
+    if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'iOS') {
+
+      adjustmentTop = this.jsonObj.countPaddingTopForIos || 0;
+      adjustmentRight = this.jsonObj.countPaddingRightForIos || 0;
+      adjustmentBottom = this.jsonObj.countPaddingBottomForIos || 0;
+      adjustmentLeft = this.jsonObj.countPaddingLeftForIos || 0;
+
+    } else if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'Android') {
+
+      adjustmentTop = this.jsonObj.countPaddingTopForAndroid || 0;
+      adjustmentRight = this.jsonObj.countPaddingRightForAndroid || 0;
+      adjustmentBottom = this.jsonObj.countPaddingBottomForAndroid || 0;
+      adjustmentLeft = this.jsonObj.countPaddingLeftForAndroid || 0;
+
+    }
+    // console.log('adjustmentTop = ', adjustmentTop);
+
+    const countPaddingTop = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingTop + adjustmentTop);
+    const countPaddingRight = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingRight + adjustmentRight);
+    const countPaddingBottom = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingBottom + adjustmentBottom);
+    const countPaddingLeft = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingLeft + adjustmentLeft);
+
+
+
     const countColor = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.countColor);
     const countBorderColor = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.countBorderColor);
     const countBorderRadius = GameUsersShareButtons.styleAddPx(this.jsonObj.countBorderRadius);
@@ -600,6 +634,37 @@ export class GameUsersShareButtons {
     const countFontWeight = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.countFontWeight);
 
 
+    let adjustmentTop = 0;
+    let adjustmentRight = 0;
+    let adjustmentBottom = 0;
+    let adjustmentLeft = 0;
+
+    // this.deviceAndOsObj.device = 'smartphone';
+    // this.deviceAndOsObj.os = 'Android';
+
+    if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'iOS') {
+
+      adjustmentTop = this.jsonObj.countPaddingTopForIos || 0;
+      adjustmentRight = this.jsonObj.countPaddingRightForIos || 0;
+      adjustmentBottom = this.jsonObj.countPaddingBottomForIos || 0;
+      adjustmentLeft = this.jsonObj.countPaddingLeftForIos || 0;
+
+    } else if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'Android') {
+
+      adjustmentTop = this.jsonObj.countPaddingTopForAndroid || 0;
+      adjustmentRight = this.jsonObj.countPaddingRightForAndroid || 0;
+      adjustmentBottom = this.jsonObj.countPaddingBottomForAndroid || 0;
+      adjustmentLeft = this.jsonObj.countPaddingLeftForAndroid || 0;
+
+    }
+    // console.log('adjustmentTop = ', adjustmentTop);
+
+    const countPaddingTop = GameUsersShareButtons.styleAddPx(adjustmentTop);
+    const countPaddingRight = GameUsersShareButtons.styleAddPx(adjustmentRight);
+    const countPaddingBottom = GameUsersShareButtons.styleAddPx(adjustmentBottom);
+    const countPaddingLeft = GameUsersShareButtons.styleAddPx(adjustmentLeft);
+
+
     // --------------------------------------------------
     //   Free Image
     // --------------------------------------------------
@@ -685,6 +750,7 @@ export class GameUsersShareButtons {
     this.code += `  font-style: ${countFontStyle};`;
     this.code += `  font-weight: ${countFontWeight};`;
     this.code += `  font-family: ${countFont};`;
+    this.code += `  padding: ${countPaddingTop} ${countPaddingRight} ${countPaddingBottom} ${countPaddingLeft};`;
     this.code += '}';
 
     this.code += `.${this.className}-free {`;

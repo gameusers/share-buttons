@@ -175,6 +175,22 @@ class ContentEditForm extends React.Component {
     return state;
   }
 
+  validationStateCountPaddingForIos() {
+    let state = 'error';
+    if (this.props.countPaddingTopForIos !== '' && this.props.countPaddingRightForIos !== '' && this.props.countPaddingBottomForIos !== '' && this.props.countPaddingLeftForIos !== '') {
+      state = 'success';
+    }
+    return state;
+  }
+
+  validationStateCountPaddingForAndroid() {
+    let state = 'error';
+    if (this.props.countPaddingTopForAndroid !== '' && this.props.countPaddingRightForAndroid !== '' && this.props.countPaddingBottomForAndroid !== '' && this.props.countPaddingLeftForAndroid !== '') {
+      state = 'success';
+    }
+    return state;
+  }
+
   validationStateCountBorderRadius() {
     let state = 'error';
     if (this.props.countBorderRadius !== '') {
@@ -710,7 +726,7 @@ class ContentEditForm extends React.Component {
       codeArr.push(
         <div className="form-group-margin" key="count-padding">
           <FormGroup bsSize="sm" validationState={this.validationStateCountPadding()}>
-            <ControlLabel>フキダシ 余白・内側</ControlLabel>
+            <ControlLabel>1. フキダシ 余白・内側</ControlLabel>
             <div className="form-inline">
               <InputGroup className="inline-margin">
                 <InputGroup.Addon>上</InputGroup.Addon>
@@ -750,6 +766,92 @@ class ContentEditForm extends React.Component {
               </InputGroup>
             </div>
             <HelpBlock>フキダシ内部に表示されているシェア数の表示位置を調整する値です。</HelpBlock>
+          </FormGroup>
+        </div>
+      );
+
+      codeArr.push(
+        <div className="form-group-margin" key="count-padding-for-ios">
+          <FormGroup bsSize="sm" validationState={this.validationStateCountPaddingForIos()}>
+            <ControlLabel>2. フキダシ 余白・内側 / ズレ修正用 for iOS</ControlLabel>
+            <div className="form-inline">
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>上</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingTopForIos}
+                  onChange={e => this.props.funcCountPaddingTopForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>右</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingRightForIos}
+                  onChange={e => this.props.funcCountPaddingRightForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>下</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingBottomForIos}
+                  onChange={e => this.props.funcCountPaddingBottomForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>左</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingLeftForIos}
+                  onChange={e => this.props.funcCountPaddingLeftForIos(e.target.value)}
+                />
+              </InputGroup>
+            </div>
+            <HelpBlock>モバイル環境でシェアボタンを表示した場合、使用するフォントや指定したフォントのサイズによって、フキダシ内部に表示されるシェア数の文字位置が若干ずれることがあります。そのズレを修正するためのフォームです。iOS環境でズレが確認された場合は、こちらのフォームで文字の位置を修正してください。入力した値は、1番のフキダシ余白・内側フォームの値に加算・減算されて表示されます。</HelpBlock>
+          </FormGroup>
+        </div>
+      );
+
+      codeArr.push(
+        <div className="form-group-margin" key="count-padding-for-android">
+          <FormGroup bsSize="sm" validationState={this.validationStateCountPaddingForAndroid()}>
+            <ControlLabel>3. フキダシ 余白・内側 / ズレ修正用 for Android</ControlLabel>
+            <div className="form-inline">
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>上</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingTopForAndroid}
+                  onChange={e => this.props.funcCountPaddingTopForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>右</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingRightForAndroid}
+                  onChange={e => this.props.funcCountPaddingRightForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>下</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingBottomForAndroid}
+                  onChange={e => this.props.funcCountPaddingBottomForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>左</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingLeftForAndroid}
+                  onChange={e => this.props.funcCountPaddingLeftForAndroid(e.target.value)}
+                />
+              </InputGroup>
+            </div>
+            <HelpBlock>上記フォームのAndroid用です。</HelpBlock>
           </FormGroup>
         </div>
       );
@@ -860,6 +962,92 @@ class ContentEditForm extends React.Component {
               </InputGroup>
             </div>
             <HelpBlock>シェア数の表示位置を指定します。例）ボタン画像を基準にして上から10ピクセル、左から20ピクセルの位置にシェア数を表示。</HelpBlock>
+          </FormGroup>
+        </div>
+      );
+
+      codeArr.push(
+        <div className="form-group-margin" key="count-padding-for-ios">
+          <FormGroup bsSize="sm" validationState={this.validationStateCountPaddingForIos()}>
+            <ControlLabel>シェア数の位置 / ズレ修正用 for iOS</ControlLabel>
+            <div className="form-inline">
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>上</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingTopForIos}
+                  onChange={e => this.props.funcCountPaddingTopForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>右</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingRightForIos}
+                  onChange={e => this.props.funcCountPaddingRightForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>下</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingBottomForIos}
+                  onChange={e => this.props.funcCountPaddingBottomForIos(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>左</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingLeftForIos}
+                  onChange={e => this.props.funcCountPaddingLeftForIos(e.target.value)}
+                />
+              </InputGroup>
+            </div>
+            <HelpBlock>モバイル環境でシェアボタンを表示した場合、使用するフォントや指定したフォントのサイズによって、シェア数の文字位置が若干ずれることがあります。そのズレを修正するためのフォームです。iOS環境でズレが確認された場合は、こちらのフォームで文字の位置を修正してください。</HelpBlock>
+          </FormGroup>
+        </div>
+      );
+
+      codeArr.push(
+        <div className="form-group-margin" key="count-padding-for-android">
+          <FormGroup bsSize="sm" validationState={this.validationStateCountPaddingForAndroid()}>
+            <ControlLabel>シェア数の位置 / ズレ修正用 for Android</ControlLabel>
+            <div className="form-inline">
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>上</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingTopForAndroid}
+                  onChange={e => this.props.funcCountPaddingTopForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>右</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingRightForAndroid}
+                  onChange={e => this.props.funcCountPaddingRightForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>下</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingBottomForAndroid}
+                  onChange={e => this.props.funcCountPaddingBottomForAndroid(e.target.value)}
+                />
+              </InputGroup>
+              <InputGroup className="inline-margin">
+                <InputGroup.Addon>左</InputGroup.Addon>
+                <FormControl
+                  type="number"
+                  value={this.props.countPaddingLeftForAndroid}
+                  onChange={e => this.props.funcCountPaddingLeftForAndroid(e.target.value)}
+                />
+              </InputGroup>
+            </div>
+            <HelpBlock>上記フォームのAndroid用です。</HelpBlock>
           </FormGroup>
         </div>
       );
@@ -1794,6 +1982,14 @@ ContentEditForm.propTypes = {
   countPaddingRight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   countPaddingBottom: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   countPaddingLeft: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingTopForIos: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingRightForIos: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingBottomForIos: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingLeftForIos: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingTopForAndroid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingRightForAndroid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingBottomForAndroid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  countPaddingLeftForAndroid: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   countBorderColor: PropTypes.string,
   countBorderRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   countTop: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -1883,6 +2079,14 @@ ContentEditForm.propTypes = {
   funcCountPaddingRight: PropTypes.func.isRequired,
   funcCountPaddingBottom: PropTypes.func.isRequired,
   funcCountPaddingLeft: PropTypes.func.isRequired,
+  funcCountPaddingTopForIos: PropTypes.func.isRequired,
+  funcCountPaddingRightForIos: PropTypes.func.isRequired,
+  funcCountPaddingBottomForIos: PropTypes.func.isRequired,
+  funcCountPaddingLeftForIos: PropTypes.func.isRequired,
+  funcCountPaddingTopForAndroid: PropTypes.func.isRequired,
+  funcCountPaddingRightForAndroid: PropTypes.func.isRequired,
+  funcCountPaddingBottomForAndroid: PropTypes.func.isRequired,
+  funcCountPaddingLeftForAndroid: PropTypes.func.isRequired,
   funcCountBorderColor: PropTypes.func.isRequired,
   funcCountBorderRadius: PropTypes.func.isRequired,
   funcCountBackgroundColor: PropTypes.func.isRequired,
@@ -1968,6 +2172,14 @@ ContentEditForm.defaultProps = {
   countPaddingRight: 0,
   countPaddingBottom: 0,
   countPaddingLeft: 0,
+  countPaddingTopForIos: 0,
+  countPaddingRightForIos: 0,
+  countPaddingBottomForIos: 0,
+  countPaddingLeftForIos: 0,
+  countPaddingTopForAndroid: 0,
+  countPaddingRightForAndroid: 0,
+  countPaddingBottomForAndroid: 0,
+  countPaddingLeftForAndroid: 0,
   countBorderColor: '',
   countBorderRadius: 3,
   countTop: 0,

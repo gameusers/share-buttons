@@ -252,6 +252,46 @@ export const funcCountPaddingLeft = value => ({
   value
 });
 
+export const funcCountPaddingTopForIos = value => ({
+  type: 'COUNT_PADDING_TOP_FOR_IOS',
+  value
+});
+
+export const funcCountPaddingRightForIos = value => ({
+  type: 'COUNT_PADDING_RIGHT_FOR_IOS',
+  value
+});
+
+export const funcCountPaddingBottomForIos = value => ({
+  type: 'COUNT_PADDING_BOTTOM_FOR_IOS',
+  value
+});
+
+export const funcCountPaddingLeftForIos = value => ({
+  type: 'COUNT_PADDING_LEFT_FOR_IOS',
+  value
+});
+
+export const funcCountPaddingTopForAndroid = value => ({
+  type: 'COUNT_PADDING_TOP_FOR_ANDROID',
+  value
+});
+
+export const funcCountPaddingRightForAndroid = value => ({
+  type: 'COUNT_PADDING_RIGHT_FOR_ANDROID',
+  value
+});
+
+export const funcCountPaddingBottomForAndroid = value => ({
+  type: 'COUNT_PADDING_BOTTOM_FOR_ANDROID',
+  value
+});
+
+export const funcCountPaddingLeftForAndroid = value => ({
+  type: 'COUNT_PADDING_LEFT_FOR_ANDROID',
+  value
+});
+
 export const funcCountBackgroundColor = value => ({
   type: 'COUNT_BACKGROUND_COLOR',
   value

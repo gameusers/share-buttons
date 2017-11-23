@@ -235,6 +235,46 @@ const reducer = (state = new Model(), action) => {
       return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingLeft'], number);
     }
 
+    case 'COUNT_PADDING_TOP_FOR_IOS': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingTopForIos'], number);
+    }
+
+    case 'COUNT_PADDING_RIGHT_FOR_IOS': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingRightForIos'], number);
+    }
+
+    case 'COUNT_PADDING_BOTTOM_FOR_IOS': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingBottomForIos'], number);
+    }
+
+    case 'COUNT_PADDING_LEFT_FOR_IOS': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingLeftForIos'], number);
+    }
+
+    case 'COUNT_PADDING_TOP_FOR_ANDROID': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingTopForAndroid'], number);
+    }
+
+    case 'COUNT_PADDING_RIGHT_FOR_ANDROID': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingRightForAndroid'], number);
+    }
+
+    case 'COUNT_PADDING_BOTTOM_FOR_ANDROID': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingBottomForAndroid'], number);
+    }
+
+    case 'COUNT_PADDING_LEFT_FOR_ANDROID': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countPaddingLeftForAndroid'], number);
+    }
+
     case 'COUNT_BORDER_COLOR': {
       return state.setIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'countBorderColor'], action.value);
     }

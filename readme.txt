@@ -4,7 +4,7 @@ Donate link:
 Tags: SNS, social, social media, share buttons
 Requires at least: 4.4.1
 Tested up to: 4.9
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,5 +83,8 @@ Game Users Share Buttonsは優れた機能を提供しています。
 
 = 1.1.2 =
 - フキダシを下に表示するとボタンが揃わなくなる問題と、ダウンロードしたシェアボタンを貼り付けるとフリー画像が若干ズレて表示される問題に対処しました。
+
+= 1.1.3 =
+- モバイル環境でシェア数の文字がずれて表示されることがあるため、iOSとAndroidのアクセス時にズレを調整して表示するフォームを追加しました。
 
 == Upgrade notice ==
