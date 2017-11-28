@@ -39,6 +39,10 @@ body {
   outline: none;
 }
 
+.game-users-share-buttons-option .accordion-box {
+  margin: 30px 0 0;
+}
+
 
 
 /* --------------------------------------------------

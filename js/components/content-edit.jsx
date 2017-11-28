@@ -10,6 +10,9 @@ import FormGroup from 'alias-node-modules/react-bootstrap/lib/FormGroup';
 import ControlLabel from 'alias-node-modules/react-bootstrap/lib/ControlLabel';
 import FormControl from 'alias-node-modules/react-bootstrap/lib/FormControl';
 import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
+import Accordion from 'alias-node-modules/react-bootstrap/lib/Accordion';
+import Panel from 'alias-node-modules/react-bootstrap/lib/Panel';
+
 import { List, Map } from 'alias-node-modules/immutable';
 
 import { OFFICIAL_THEME_DESIGN_URL, instanceGameUsersShareButtonsOption, Model } from '../models/model';
@@ -226,7 +229,33 @@ class ContentEdit extends React.Component {
         </p>
 
 
-        <hr className="hr-slash" style={{ margin: '40px 0 20px 0' }} />
+        <Accordion className="accordion-box">
+
+          <Panel header="モバイル環境で綺麗に表示するには？" eventKey="1">
+            スマートフォンやタブレットでは、通常の2倍の大きさの画像をアップロードすると綺麗に表示されます。例えば <strong>50 x 50</strong> の画像を表示したい場合は、 <strong>100 x 100</strong> の画像を利用してください。
+          </Panel>
+
+          <Panel header="Social Media 公式ロゴ" eventKey="2">
+            シェアボタンの画像を作成する方のために、公式サイトのロゴをチェックできるページを紹介します。ぜひ参考にしてください。<br /><br />
+
+            <ul className="list-top2">
+              <li><a href="https://about.twitter.com/ja/company/brand-resources.html" target="_blank" rel="noopener noreferrer"><strong>Twitter</strong></a></li>
+              <li><a href="https://en.facebookbrand.com/assets" target="_blank" rel="noopener noreferrer"><strong>Facebook</strong></a></li>
+              <li><a href="https://developers.google.com/identity/branding-guidelines?hl=ja" target="_blank" rel="noopener noreferrer"><strong>Google+</strong></a></li>
+              <li><a href="https://getpocket.com/publisher/button" target="_blank" rel="noopener noreferrer"><strong>Pocket</strong></a></li>
+              <li><a href="https://business.pinterest.com/ja/brand-guidelines" target="_blank" rel="noopener noreferrer"><strong>Pinterest</strong></a></li>
+              <li><a href="https://brand.linkedin.com/visual-identity/logo" target="_blank" rel="noopener noreferrer"><strong>LinkedIn</strong></a></li>
+              <li><a href="https://www.tumblr.com/logo/?language=ja_JP" target="_blank" rel="noopener noreferrer"><strong>Tumblr</strong></a></li>
+              <li><a href="http://hatenacorp.jp/press/resource" target="_blank" rel="noopener noreferrer"><strong>はてなブックマーク</strong></a></li>
+              <li><a href="https://line.me/en/logo" target="_blank" rel="noopener noreferrer"><strong>LINE</strong></a></li>
+              <li><a href="https://www.feedly.com/factory.html" target="_blank" rel="noopener noreferrer"><strong>Feedly</strong></a>: ロゴをダウンロードしたい方は Step 1: Select your design 部分の button kit をクリックしてください。</li>
+            </ul>
+          </Panel>
+
+        </Accordion>
+
+
+        <hr className="hr-slash" style={{ margin: '30px 0 20px 0' }} />
 
 
         {this.props.pageType === 'wordPressPlugin' &&

@@ -6,8 +6,10 @@ import React from 'alias-node-modules/react';
 import PropTypes from 'alias-node-modules/prop-types';
 import { Map } from 'alias-node-modules/immutable';
 import Well from 'alias-node-modules/react-bootstrap/lib/Well';
+import Accordion from 'alias-node-modules/react-bootstrap/lib/Accordion';
+import Panel from 'alias-node-modules/react-bootstrap/lib/Panel';
 
-import { OFFICIAL_THEME_DESIGN_URL, OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption } from '../models/model';
+import { OFFICIAL_BASE_URL, OFFICIAL_THEME_DESIGN_URL, OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption } from '../models/model';
 
 
 
@@ -111,6 +113,29 @@ class ContentTop extends React.Component {
           <li><strong>LINE</strong>: <a href="https://line.me/" target="_blank" rel="noopener noreferrer">https://line.me/</a></li>
           <li><strong>Feedly</strong>: <a href="https://feedly.com/" target="_blank" rel="noopener noreferrer">https://feedly.com/</a></li>
         </ul>
+
+
+        <Accordion className="accordion-box">
+
+          <Panel header="テーマ募集" bsStyle="success" eventKey="1">
+            オリジナルのテーマを提供してくれる方を募集しています。テーマとして採用された方には、ビジネスプラン（￥3000 相当）の利用券を差し上げます。すべて自作の画像（あなたが権利を保有している）を利用してテーマを作成してください。テーマの応募方法については以下のページで詳しく解説しています。<br /><br />
+
+            <a href={`${OFFICIAL_BASE_URL}app/share-buttons/recruitment`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons テーマ募集</a><br /><br />
+
+            <strong>提供用のテーマを作成する場合は、一時的にビジネスプランを利用してください（プランを購入する必要はありません）。</strong>プランタブでビジネスプランに変更すると、黒猫の画像が編集できるようになりますので、自作のアイコンに変更したり、自サイトへのリンクを貼ることができます。作成したテーマを利用する人が出てくると、ユーザーの各ブログ記事からあなたのサイトへのリンクが貼られることになりますので、宣伝効果も非常に大きいです。<br /><br />
+
+            絵が描けたり、デザインが行える方は、ぜひともご参加よろしくお願いします。<br /><br />
+
+            ※ テーマに利用する画像を作成する前に、編集タブの「モバイル環境で綺麗に表示するには？」を必ずチェックしてください。
+          </Panel>
+
+          <Panel header="ビジネスプラン プレゼント" bsStyle="info" eventKey="2">
+            ブログでシェアボタンの紹介記事を書いてくれた方に、ビジネスプラン（￥3000 相当）の利用券を差し上げます。シェアボタンの使用感・レビューや、おすすめ記事などを書いていただけるとありがたいです。力作を求めているわけではありませんので、どなたでも気軽に参加していただけます。詳しくは以下のページを確認してください。<br /><br />
+
+            <a href={`${OFFICIAL_BASE_URL}app/share-buttons/campaign`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons キャンペーン</a>
+          </Panel>
+
+        </Accordion>
 
 
         <hr className="hr-slash" style={{ margin: '40px 0 40px 0' }} />
