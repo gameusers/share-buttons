@@ -35,8 +35,128 @@ const reducer = (state = new Model(), action) => {
       return state.set('topTheme', action.value);
     }
 
+    case 'TOP_THEME_SINGLE_MARGIN_TOP': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemeSingleMarginTop', number);
+    }
+
+    case 'TOP_THEME_SINGLE_MARGIN_RIGHT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemeSingleMarginRight', number);
+    }
+
+    case 'TOP_THEME_SINGLE_MARGIN_BOTTOM': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemeSingleMarginBottom', number);
+    }
+
+    case 'TOP_THEME_SINGLE_MARGIN_LEFT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemeSingleMarginLeft', number);
+    }
+
+    case 'TOP_THEME_PAGE_MARGIN_TOP': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemePageMarginTop', number);
+    }
+
+    case 'TOP_THEME_PAGE_MARGIN_RIGHT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemePageMarginRight', number);
+    }
+
+    case 'TOP_THEME_PAGE_MARGIN_BOTTOM': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemePageMarginBottom', number);
+    }
+
+    case 'TOP_THEME_PAGE_MARGIN_LEFT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('topThemePageMarginLeft', number);
+    }
+
+    case 'TOP_THEME_SHOW_FRONT': {
+      return state.set('topThemeShowFront', action.value);
+    }
+
+    case 'TOP_THEME_SHOW_SINGLE': {
+      return state.set('topThemeShowSingle', action.value);
+    }
+
+    case 'TOP_THEME_SHOW_PAGE': {
+      return state.set('topThemeShowPage', action.value);
+    }
+
+    case 'TOP_THEME_SHOW_ARCHIVE': {
+      return state.set('topThemeShowArchive', action.value);
+    }
+
+
+
     case 'BOTTOM_THEME': {
       return state.set('bottomTheme', action.value);
+    }
+
+    case 'BOTTOM_THEME_SINGLE_MARGIN_TOP': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemeSingleMarginTop', number);
+    }
+
+    case 'BOTTOM_THEME_SINGLE_MARGIN_RIGHT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemeSingleMarginRight', number);
+    }
+
+    case 'BOTTOM_THEME_SINGLE_MARGIN_BOTTOM': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemeSingleMarginBottom', number);
+    }
+
+    case 'BOTTOM_THEME_SINGLE_MARGIN_LEFT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemeSingleMarginLeft', number);
+    }
+
+    case 'BOTTOM_THEME_PAGE_MARGIN_TOP': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemePageMarginTop', number);
+    }
+
+    case 'BOTTOM_THEME_PAGE_MARGIN_RIGHT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemePageMarginRight', number);
+    }
+
+    case 'BOTTOM_THEME_PAGE_MARGIN_BOTTOM': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemePageMarginBottom', number);
+    }
+
+    case 'BOTTOM_THEME_PAGE_MARGIN_LEFT': {
+      const number = action.value ? parseInt(action.value, 10) : '';
+      return state.set('bottomThemePageMarginLeft', number);
+    }
+
+    case 'BOTTOM_THEME_SHOW_FRONT': {
+      return state.set('bottomThemeShowFront', action.value);
+    }
+
+    case 'BOTTOM_THEME_SHOW_SINGLE': {
+      return state.set('bottomThemeShowSingle', action.value);
+    }
+
+    case 'BOTTOM_THEME_SHOW_PAGE': {
+      return state.set('bottomThemeShowPage', action.value);
+    }
+
+    case 'BOTTOM_THEME_SHOW_ARCHIVE': {
+      return state.set('bottomThemeShowArchive', action.value);
+    }
+
+
+
+    case 'CODE_OPEN_LIST': {
+      return state.setCodeOpenList(action.value);
     }
 
 

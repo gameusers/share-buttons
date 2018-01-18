@@ -6,7 +6,7 @@ import React from 'alias-node-modules/react';
 import PropTypes from 'alias-node-modules/prop-types';
 import { Map } from 'alias-node-modules/immutable';
 import Well from 'alias-node-modules/react-bootstrap/lib/Well';
-import Accordion from 'alias-node-modules/react-bootstrap/lib/Accordion';
+import PanelGroup from 'alias-node-modules/react-bootstrap/lib/PanelGroup';
 import Panel from 'alias-node-modules/react-bootstrap/lib/Panel';
 
 import { OFFICIAL_BASE_URL, OFFICIAL_THEME_DESIGN_URL, OFFICIAL_THEME_ICON_URL, instanceGameUsersShareButtonsOption } from '../models/model';
@@ -47,7 +47,7 @@ class ContentTop extends React.Component {
       const codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('design', OFFICIAL_THEME_DESIGN_URL, false) };
 
       codeArr.push(
-        <div className="top-share-buttons-margin" id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
+        <div className="top-share-buttons-margin" data-game-users-share-buttons={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
       );
 
     });
@@ -65,7 +65,7 @@ class ContentTop extends React.Component {
       const codeShareButtons = { __html: instanceGameUsersShareButtonsOption.shareButtonsSampleTheme('icon', OFFICIAL_THEME_ICON_URL, false) };
 
       codeArr.push(
-        <div className="top-share-buttons-margin" id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
+        <div className="top-share-buttons-margin" data-game-users-share-buttons={themeNameId} dangerouslySetInnerHTML={codeShareButtons} key={themeNameId} />
       );
 
     });
@@ -115,27 +115,37 @@ class ContentTop extends React.Component {
         </ul>
 
 
-        <Accordion className="accordion-box">
+        <PanelGroup accordion className="accordion-box" id="accordion-top">
 
-          <Panel header="テーマ募集" bsStyle="success" eventKey="1">
-            オリジナルのテーマを提供してくれる方を募集しています。テーマとして採用された方には、ビジネスプラン（￥3000 相当）の利用券を差し上げます。すべて自作の画像（あなたが権利を保有している）を利用してテーマを作成してください。テーマの応募方法については以下のページで詳しく解説しています。<br /><br />
+          <Panel eventKey="1" bsStyle="success">
+            <Panel.Heading>
+              <Panel.Title toggle>テーマ募集</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+              オリジナルのテーマを提供してくれる方を募集しています。テーマとして採用された方には、ビジネスプラン（￥3000 相当）の利用券を差し上げます。すべて自作の画像（あなたが権利を保有している）を利用してテーマを作成してください。テーマの応募方法については以下のページで詳しく解説しています。<br /><br />
 
-            <a href={`${OFFICIAL_BASE_URL}app/share-buttons/recruitment`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons テーマ募集</a><br /><br />
+              <a href={`${OFFICIAL_BASE_URL}app/share-buttons/recruitment`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons テーマ募集</a><br /><br />
 
-            <strong>提供用のテーマを作成する場合は、一時的にビジネスプランを利用してください（プランを購入する必要はありません）。</strong>プランタブでビジネスプランに変更すると、黒猫の画像が編集できるようになりますので、自作のアイコンに変更したり、自サイトへのリンクを貼ることができます。作成したテーマを利用する人が出てくると、ユーザーの各ブログ記事からあなたのサイトへのリンクが貼られることになりますので、宣伝効果も非常に大きいです。<br /><br />
+              <strong>提供用のテーマを作成する場合は、一時的にビジネスプランを利用してください（プランを購入する必要はありません）。</strong>プランタブでビジネスプランに変更すると、黒猫の画像が編集できるようになりますので、自作のアイコンに変更したり、自サイトへのリンクを貼ることができます。作成したテーマを利用する人が出てくると、ユーザーの各ブログ記事からあなたのサイトへのリンクが貼られることになりますので、宣伝効果も非常に大きいです。<br /><br />
 
-            絵が描けたり、デザインが行える方は、ぜひともご参加よろしくお願いします。<br /><br />
+              絵が描けたり、デザインが行える方は、ぜひともご参加よろしくお願いします。<br /><br />
 
-            ※ テーマに利用する画像を作成する前に、編集タブの「モバイル環境で綺麗に表示するには？」を必ずチェックしてください。
+              ※ テーマに利用する画像を作成する前に、編集タブの「モバイル環境で綺麗に表示するには？」を必ずチェックしてください。
+            </Panel.Body>
           </Panel>
 
-          <Panel header="ビジネスプラン プレゼント" bsStyle="info" eventKey="2">
-            ブログでシェアボタンの紹介記事を書いてくれた方に、ビジネスプラン（￥3000 相当）の利用券を差し上げます。シェアボタンの使用感・レビューや、おすすめ記事などを書いていただけるとありがたいです。力作を求めているわけではありませんので、どなたでも気軽に参加していただけます。詳しくは以下のページを確認してください。<br /><br />
+          <Panel eventKey="2" bsStyle="info">
+            <Panel.Heading>
+              <Panel.Title toggle>ビジネスプラン プレゼント</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+              ブログでシェアボタンの紹介記事を書いてくれた方に、ビジネスプラン（￥3000 相当）の利用券を差し上げます。シェアボタンの使用感・レビューや、おすすめ記事などを書いていただけるとありがたいです。力作を求めているわけではありませんので、どなたでも気軽に参加していただけます。詳しくは以下のページを確認してください。<br /><br />
 
-            <a href={`${OFFICIAL_BASE_URL}app/share-buttons/campaign`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons キャンペーン</a>
+              <a href={`${OFFICIAL_BASE_URL}app/share-buttons/campaign`} target="_blank" rel="noopener noreferrer">Game Users Share Buttons キャンペーン</a>
+            </Panel.Body>
           </Panel>
 
-        </Accordion>
+        </PanelGroup>
 
 
         <hr className="hr-slash" style={{ margin: '40px 0 40px 0' }} />
@@ -154,7 +164,21 @@ class ContentTop extends React.Component {
 
           また<strong>アイコンタブ</strong>では、シェアボタンに利用できる素材サイトを紹介しています。テーマタブに比べると少し手間はかかりますが、自分で素材をダウンロードしてきてオリジナルのシェアボタンを作成することが可能です。<br /><br />
 
-          <strong>Game Users Share Buttons</strong>は<strong><a href="https://gameusers.org/app/share-buttons">公式ページ</a></strong>と<strong>WordPressのプラグイン</strong>の2種類で提供されています。お使いのWordPress上でシェアボタンを使いたい場合は、WordPressのプラグインページで「Game Users Share Buttons」を検索してください。
+          シェアボタンを実際に利用する前に、設定タブで必要な設定を行うことを忘れないようにしてください。
+        </p>
+
+
+        <hr className="hr-slash" style={{ margin: '40px 0 40px 0' }} />
+
+
+        <p className="title-sub">WordPressで利用する</p>
+
+        <p style={{ margin: '0 0 20px 0' }}>
+          WordPressをお使いの方はGame Users Share Buttonsをプラグインとして利用することができます。WordPressのダッシュボード &gt; プラグイン &gt; 新規追加ページで「Game Users Share Buttons」を検索してください。<br /><br />
+
+          WordPressで利用する場合は、ソーシャルサイトの設定を行えるプラグインを同時に導入することをおすすめします。例えば <strong><a href="https://ja.wordpress.org/plugins/all-in-one-seo-pack/" target="_blank" rel="noopener noreferrer">All in One SEO Pack</a></strong> をインストールして設定を行うと、シェアボタンの性能がフルに発揮されるようになります。All in One SEO Packの設定方法について詳しく知りたい方は、検索サイトで「All in One SEO Pack 設定」を調べてみてください。<br /><br />
+
+          ソーシャルサイトの設定が行えるプラグインなら、All in One SEO Pack以外でも問題ありません。
         </p>
 
 
@@ -171,7 +195,7 @@ class ContentTop extends React.Component {
 
         <div style={{ margin: '0 0 10px 10px' }}>game-users-share-buttons /</div>
         <div style={{ margin: '0 0 10px 20px' }}>├ img /</div>
-        <div style={{ margin: '0 0 10px 20px' }}>├ js /（Javascriptフォルダ）</div>
+        <div style={{ margin: '0 0 10px 20px' }}>├ js /（JavaScriptフォルダ）</div>
         <div style={{ margin: '0 0 10px 20px' }}>│<span style={{ margin: '0 0 0 10px' }} className="color-red">└ share-bundle.min.js</span></div>
         <div style={{ margin: '0 0 10px 20px' }}>├ json /</div>
         <div style={{ margin: '0 0 10px 20px' }}>├ php /</div>
@@ -192,7 +216,7 @@ class ContentTop extends React.Component {
         </p>
 
         <Well className="well">
-          {'<div id="game-users-share-buttons" data-theme="'}<span className="color-red">gameusers1-olxdmwzh</span>{'"></div>'}
+          {'<div data-game-users-share-buttons="'}<span className="color-red">gameusers1-olxdmwzh</span>{'"></div>'}
         </Well>
 
         <p style={{ margin: '20px 0 20px 0' }}>
@@ -212,8 +236,8 @@ class ContentTop extends React.Component {
 
           {'<body>'}<br />
           <div className="color-red" style={{ margin: '0 0 0 10px' }}>
-            {'<div id="game-users-share-buttons" data-theme="gameusers1-olxdmwzh"></div>'}<br />
-            {'<div id="game-users-share-buttons" data-theme="gameusers2-vd2bwk79"></div>'}<br />
+            {'<div data-game-users-share-buttons="gameusers1-olxdmwzh"></div>'}<br />
+            {'<div data-game-users-share-buttons="gameusers2-vd2bwk79"></div>'}<br />
             {'<script type="text/javascript" src="game-users-share-buttons/js/share-bundle.min.js"></script>'}<br />
           </div>
           {'</body>'}<br />
@@ -223,6 +247,19 @@ class ContentTop extends React.Component {
         <p style={{ margin: '20px 0 20px 0' }}>
           上記の例ではシェアボタンが2つ表示されます。share-bundle.min.js のコードは表示するシェアボタンの数に関わらず、<strong>ひとつだけ</strong>貼り付けるようにしてください。
         </p>
+
+
+
+        <hr className="hr-slash" style={{ margin: '40px 0 40px 0' }} />
+
+
+        <p className="title-sub">リンク</p>
+
+        <ul className="list-top3">
+          <li><a href="https://gameusers.org/app/share-buttons" target="_blank" rel="noopener noreferrer">公式サイト</a></li>
+          <li><a href="https://wordpress.org/plugins/game-users-share-buttons/" target="_blank" rel="noopener noreferrer">WordPress Plugin Page</a></li>
+          <li><a href="https://github.com/gameusers/share-buttons" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+        </ul>
 
       </div>
     );

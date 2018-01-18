@@ -13,17 +13,6 @@ export const funcInitialAsynchronous = (designThemesMap, iconThemesMap, designTh
   editThemesDataObj
 });
 
-// export const funcInitialAsynchronous = (designThemesMap, iconThemesMap, loadedDataEditThemesObj, loadedDataDesignThemesObj, loadedDataIconThemesObj, randomDesignThemesArr, randomIconThemesArr) => ({
-//   type: 'INITIAL_ASYNCHRONOUS',
-//   designThemesMap,
-//   iconThemesMap,
-//   loadedDataEditThemesObj,
-//   loadedDataDesignThemesObj,
-//   loadedDataIconThemesObj,
-//   randomDesignThemesArr,
-//   randomIconThemesArr
-// });
-
 
 
 export const funcTopTheme = value => ({
@@ -31,8 +20,137 @@ export const funcTopTheme = value => ({
   value
 });
 
+export const funcTopThemeSingleMarginTop = value => ({
+  type: 'TOP_THEME_SINGLE_MARGIN_TOP',
+  value
+});
+
+export const funcTopThemeSingleMarginRight = value => ({
+  type: 'TOP_THEME_SINGLE_MARGIN_RIGHT',
+  value
+});
+
+export const funcTopThemeSingleMarginBottom = value => ({
+  type: 'TOP_THEME_SINGLE_MARGIN_BOTTOM',
+  value
+});
+
+export const funcTopThemeSingleMarginLeft = value => ({
+  type: 'TOP_THEME_SINGLE_MARGIN_LEFT',
+  value
+});
+
+export const funcTopThemePageMarginTop = value => ({
+  type: 'TOP_THEME_PAGE_MARGIN_TOP',
+  value
+});
+
+export const funcTopThemePageMarginRight = value => ({
+  type: 'TOP_THEME_PAGE_MARGIN_RIGHT',
+  value
+});
+
+export const funcTopThemePageMarginBottom = value => ({
+  type: 'TOP_THEME_PAGE_MARGIN_BOTTOM',
+  value
+});
+
+export const funcTopThemePageMarginLeft = value => ({
+  type: 'TOP_THEME_PAGE_MARGIN_LEFT',
+  value
+});
+
+export const funcTopThemeShowFront = value => ({
+  type: 'TOP_THEME_SHOW_FRONT',
+  value
+});
+
+export const funcTopThemeShowSingle = value => ({
+  type: 'TOP_THEME_SHOW_SINGLE',
+  value
+});
+
+export const funcTopThemeShowPage = value => ({
+  type: 'TOP_THEME_SHOW_PAGE',
+  value
+});
+
+export const funcTopThemeShowArchive = value => ({
+  type: 'TOP_THEME_SHOW_ARCHIVE',
+  value
+});
+
+
+
 export const funcBottomTheme = value => ({
   type: 'BOTTOM_THEME',
+  value
+});
+
+export const funcBottomThemeSingleMarginTop = value => ({
+  type: 'BOTTOM_THEME_SINGLE_MARGIN_TOP',
+  value
+});
+
+export const funcBottomThemeSingleMarginRight = value => ({
+  type: 'BOTTOM_THEME_SINGLE_MARGIN_RIGHT',
+  value
+});
+
+export const funcBottomThemeSingleMarginBottom = value => ({
+  type: 'BOTTOM_THEME_SINGLE_MARGIN_BOTTOM',
+  value
+});
+
+export const funcBottomThemeSingleMarginLeft = value => ({
+  type: 'BOTTOM_THEME_SINGLE_MARGIN_LEFT',
+  value
+});
+
+export const funcBottomThemePageMarginTop = value => ({
+  type: 'BOTTOM_THEME_PAGE_MARGIN_TOP',
+  value
+});
+
+export const funcBottomThemePageMarginRight = value => ({
+  type: 'BOTTOM_THEME_PAGE_MARGIN_RIGHT',
+  value
+});
+
+export const funcBottomThemePageMarginBottom = value => ({
+  type: 'BOTTOM_THEME_PAGE_MARGIN_BOTTOM',
+  value
+});
+
+export const funcBottomThemePageMarginLeft = value => ({
+  type: 'BOTTOM_THEME_PAGE_MARGIN_LEFT',
+  value
+});
+
+export const funcBottomThemeShowFront = value => ({
+  type: 'BOTTOM_THEME_SHOW_FRONT',
+  value
+});
+
+export const funcBottomThemeShowSingle = value => ({
+  type: 'BOTTOM_THEME_SHOW_SINGLE',
+  value
+});
+
+export const funcBottomThemeShowPage = value => ({
+  type: 'BOTTOM_THEME_SHOW_PAGE',
+  value
+});
+
+export const funcBottomThemeShowArchive = value => ({
+  type: 'BOTTOM_THEME_SHOW_ARCHIVE',
+  value
+});
+
+
+
+export const funcCodeOpenList = value => ({
+  type: 'CODE_OPEN_LIST',
   value
 });
 

@@ -41,9 +41,25 @@ class Game_Users_Share_Buttons_Model
     {
         if (! $this->databaseVersion) {
             $tempArr = array(
-                'databaseVersion' => 1,
+                'databaseVersion' => 2,
                 'topTheme' => null,
+                'topThemeSingleMarginArr' => array(0, 0, 0, 0),
+                'topThemePageMarginArr' => array(0, 0, 0, 0),
+                'topThemeShowArr' => array(
+                    'front' => false,
+                    'single' => true,
+                    'page' => true,
+                    'archive' => false
+                ),
                 'bottomTheme' => null,
+                'bottomThemeSingleMarginArr' => array(0, 0, 0, 0),
+                'bottomThemePageMarginArr' => array(0, 0, 0, 0),
+                'bottomThemeShowArr' => array(
+                    'front' => false,
+                    'single' => true,
+                    'page' => true,
+                    'archive' => false
+                ),
                 'editThemesArr' => array(),
                 'php' => 0,
                 'twitterApiType' => '',
@@ -60,11 +76,49 @@ class Game_Users_Share_Buttons_Model
         update_option('game_users_option', $this->optionArr);
     }
 
+    public function updateOptions($arr)
+    {
+        foreach ($arr as $key => $value) {
+            $this->optionArr[$key] = $value;
+        }
+
+        update_option('game_users_option', $this->optionArr);
+    }
+
     public function deleteOption()
     {
         delete_option('game_users_option');
     }
 
+
+    public function versionUpOption()
+    {
+        if ($this->optionArr['databaseVersion'] === 1) {
+
+            $this->optionArr['databaseVersion'] = 2;
+
+            $this->optionArr['topThemeSingleMarginArr'] = array(0, 0, 0, 0);
+            $this->optionArr['topThemePageMarginArr'] = array(0, 0, 0, 0);
+            $this->optionArr['topThemeShowArr'] = array(
+                'front' => false,
+                'single' => true,
+                'page' => true,
+                'archive' => false
+            );
+
+            $this->optionArr['bottomThemeSingleMarginArr'] = array(0, 0, 0, 0);
+            $this->optionArr['bottomThemePageMarginArr'] = array(0, 0, 0, 0);
+            $this->optionArr['bottomThemeShowArr'] = array(
+                'front' => false,
+                'single' => true,
+                'page' => true,
+                'archive' => false
+            );
+
+            update_option('game_users_option', $this->optionArr);
+
+        }
+    }
 
 
     public function getOptionArr()

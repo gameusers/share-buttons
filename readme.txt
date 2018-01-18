@@ -3,8 +3,8 @@ Contributors: gameusers
 Donate link:
 Tags: SNS, social, social media, share buttons
 Requires at least: 4.4.1
-Tested up to: 4.9
-Stable tag: 1.1.4
+Tested up to: 4.9.2
+Stable tag: 1.2.1
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,5 +89,14 @@ Game Users Share Buttonsは優れた機能を提供しています。
 
 = 1.1.4 =
 - シェアボタン作成時に参考になる情報を掲載しました。
+
+= 1.1.5 =
+- 使用方法についての情報とリンクを追加しました。
+
+= 1.2.0 =
+- シェアボタンの表示コードを変更しました。コードを貼り付けて利用している方は新しいコードに貼り直してください。編集タブで簡単にコードをコピーできる機能を新たに提供しています。またTopとBottomに設定したシェアボタンを表示する場所を選択できるようにし、余白設定を個別に行えるようにしました。
+
+= 1.2.1 =
+- Feedlyがシェアできなくなっていたので修正しました。
 
 == Upgrade notice ==

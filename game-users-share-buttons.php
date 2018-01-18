@@ -3,7 +3,7 @@
 Plugin Name: Game Users Share Buttons
 Plugin URI: https://gameusers.org/app/share-buttons
 Description: Twitter、Facebook、Google+など（全10サイト）のシェアボタンが利用できるようになるプラグインです。自由度の高いカスタマイズが行え、他にないオリジナルのシェアボタンを作成できます。設定 > Game Users Share Buttons を開いてシェアボタンを作成・編集してください。
-Version: 1.1.4
+Version: 1.2.1
 Author: Game Users
 Author URI: https://gameusers.org/
 License: GPL2
@@ -63,6 +63,16 @@ class Game_Users_Share_Buttons
     //   Property
     // --------------------------------------------------
 
+    private $instanceModel = null;
+
+    private $isFront = false;
+    private $isSingle = false;
+    private $isPage = false;
+    private $isArchive = false;
+    private $topThemeShow = false;
+    private $bottomThemeShow = false;
+
+
     public static $shareArr = array(
         'twitter' => array('name' => 'Twitter', 'count' => true),
         'facebook' => array('name' => 'Facebook', 'count' => true),
@@ -93,8 +103,8 @@ class Game_Users_Share_Buttons
         //   Model
         // --------------------------------------------------
 
-        $instanceModel = new Game_Users_Share_Buttons_Model();
-        $this->optionArr = $instanceModel->getOptionArr();
+        $this->instanceModel = new Game_Users_Share_Buttons_Model();
+        $this->optionArr = $this->instanceModel->getOptionArr();
 
 
         // --------------------------------------------------
@@ -136,6 +146,7 @@ class Game_Users_Share_Buttons
         add_action('wp_ajax_game_users_share_buttons_ajax_save_theme', array( $this, 'ajaxSaveTheme' ));
         add_action('wp_ajax_game_users_share_buttons_ajax_delete_theme', array( $this, 'ajaxDeleteTheme' ));
         add_action('wp_ajax_game_users_share_buttons_ajax_set_top_bottom_theme', array( $this, 'ajaxSetTopBottomTheme' ));
+        add_action('wp_ajax_game_users_share_buttons_ajax_top_bottom_theme_save_option', array( $this, 'ajaxTopBottomThemeSaveOption' ));
         add_action('wp_ajax_game_users_share_buttons_ajax_move_edit_tab', array( $this, 'ajaxMoveEditTab' ));
         add_action('wp_ajax_game_users_share_buttons_ajax_save_option', array( $this, 'ajaxSaveOption' ));
         add_action('wp_ajax_game_users_share_buttons_ajax_change_plan', array( $this, 'ajaxChangePlan' ));
@@ -148,10 +159,19 @@ class Game_Users_Share_Buttons
     //   Share Buttons Code
     // --------------------------------------------------
 
-    public static function code($themeNameId)
+    public static function code($themeNameId, $marginArr)
     {
         $escValue = esc_attr($themeNameId);
-        return '<div id="game-users-share-buttons" data-theme="' . $escValue . '"></div>';
+        $escMarginTop = esc_attr($marginArr[0]);
+        $escMarginRight = esc_attr($marginArr[1]);
+        $escMarginBottom = esc_attr($marginArr[2]);
+        $escMarginLeft = esc_attr($marginArr[3]);
+        // return '<div id="game-users-share-buttons" data-theme="' . $escValue . '"></div>';4
+        // return '<div data-game-users-share-buttons="' . $escValue . '"></div>';
+
+        // return '<div data-game-users-share-buttons="' . $escValue . '" style="margin: ' . $escMarginTop . 'px ' .  . ';"></div>';
+        return "<div data-game-users-share-buttons=\"${escValue}\" style=\"margin: ${escMarginTop}px ${escMarginRight}px ${escMarginBottom}px ${escMarginLeft}px;\"></div>";
+        // return '<div data-game-users-share-buttons="' . $escValue . '" style="margin: 20px 0 60px 0;"></div>';
     }
 
 
@@ -161,22 +181,110 @@ class Game_Users_Share_Buttons
 
     public function head()
     {
-        wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.1.4', true);
+
+        // --------------------------------------------------
+        //   Conditional Tag
+        // --------------------------------------------------
+
+        if (is_front_page() || is_home()) {
+            $this->isFront = true;
+        }
+
+        if (is_single()) {
+            $this->isSingle = true;
+        }
+
+        if (is_page()) {
+            $this->isPage = true;
+        }
+
+        if (is_archive()) {
+            $this->isArchive = true;
+        }
+
+
+        // --------------------------------------------------
+        //   Show Top Theme
+        // --------------------------------------------------
+
+        if ($this->optionArr['topThemeShowArr']['front'] && $this->isFront) {
+            $this->topThemeShow = true;
+        } else if ($this->optionArr['topThemeShowArr']['single'] && $this->isSingle) {
+            $this->topThemeShow = true;
+        } else if ($this->optionArr['topThemeShowArr']['page'] && $this->isPage) {
+            $this->topThemeShow = true;
+        } else if ($this->optionArr['topThemeShowArr']['archive'] && $this->isArchive) {
+            $this->topThemeShow = true;
+        }
+
+
+        // --------------------------------------------------
+        //   Show Bottom Theme
+        // --------------------------------------------------
+
+        if ($this->optionArr['bottomThemeShowArr']['front'] && $this->isFront) {
+            $this->bottomThemeShow = true;
+        } else if ($this->optionArr['bottomThemeShowArr']['single'] && $this->isSingle) {
+            $this->bottomThemeShow = true;
+        } else if ($this->optionArr['bottomThemeShowArr']['page'] && $this->isPage) {
+            $this->bottomThemeShow = true;
+        } else if ($this->optionArr['bottomThemeShowArr']['archive'] && $this->isArchive) {
+            $this->bottomThemeShow = true;
+        }
+
+
+        // --------------------------------------------------
+        //   Read share-bundle.min.js
+        // --------------------------------------------------
+
+        if ($this->topThemeShow || $this->bottomThemeShow) {
+            wp_enqueue_script('game-users-share', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/share-bundle.min.js', array('jquery'), '1.2.1', true);
+        }
+
     }
 
     public function view($article)
     {
-        $top = $bottom = null;
+        // var_dump('is_front_page = ' . is_front_page());
+        // echo '<br>';
+        // var_dump('is_home = ' . is_home());
+        // echo '<br>';
+        // var_dump('is_single = ' . is_single());
+        // echo '<br>';
+        // var_dump('is_page()  = ' . is_page() );
+        // echo '<br>';
+        // var_dump('is_archive()  = ' . is_archive() );
+        // echo '<br>';
 
-        if (isset($this->optionArr['topTheme'])) {
-            $top = Game_Users_Share_Buttons::code($this->optionArr['topTheme']);
+        // var_dump($this->optionArr);
+
+
+        // --------------------------------------------------
+        //   Render Code - Top Theme
+        // --------------------------------------------------
+
+        $top = null;
+
+        if ($this->topThemeShow && isset($this->optionArr['topTheme'])) {
+            $topMarginArr = $this->isPage ? $this->optionArr['topThemePageMarginArr'] : $this->optionArr['topThemeSingleMarginArr'];
+            $top = Game_Users_Share_Buttons::code($this->optionArr['topTheme'], $topMarginArr);
         }
 
-        if (isset($this->optionArr['bottomTheme'])) {
-            $bottom = Game_Users_Share_Buttons::code($this->optionArr['bottomTheme']);
+
+        // --------------------------------------------------
+        //   Render Code - Bottom Theme
+        // --------------------------------------------------
+
+        $bottom = null;
+
+        if ($this->bottomThemeShow && isset($this->optionArr['bottomTheme'])) {
+            $bottomMarginArr = $this->isPage ? $this->optionArr['bottomThemePageMarginArr'] : $this->optionArr['bottomThemeSingleMarginArr'];
+            $bottom = Game_Users_Share_Buttons::code($this->optionArr['bottomTheme'], $bottomMarginArr);
         }
+
 
         return "{$top}{$article}{$bottom}";
+
     }
 
 
@@ -188,6 +296,14 @@ class Game_Users_Share_Buttons
     {
         if ($hook === 'settings_page_game-users-share-buttons') {
 
+
+            // --------------------------------------------------
+            //   Version Up Option
+            // --------------------------------------------------
+
+            $this->instanceModel->versionUpOption();
+
+
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_style('jquery-confirm', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.css', array(), '3.3.2');
             wp_enqueue_script('jquery-confirm', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/jquery/confirm/jquery-confirm.min.js', array('jquery'), '3.3.2');
@@ -197,7 +313,7 @@ class Game_Users_Share_Buttons
             wp_enqueue_script('ladda-bootstrap-spin', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/spin.min.js', array(), '0.9.4');
             wp_enqueue_script('ladda-bootstrap', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/lib/bootstrap/ladda/ladda.min.js', array(), '0.9.4');
 
-            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.1.4', true);
+            wp_enqueue_script('game-users-option', GAME_USERS_SHARE_BUTTONS_PLUGIN_URL . '/js/option-bundle.min.js', array('jquery'), '1.2.1', true);
 
             $instanceOption = new Game_Users_Share_Buttons_Option();
             $instanceOption->jsFunctionAdmin($this->optionArr);
@@ -660,6 +776,135 @@ class Game_Users_Share_Buttons
 
         } catch (Exception $e) {
 
+            $returnArr['error'] = true;
+
+        }
+
+
+        // --------------------------------------------------
+        //   Output
+        // --------------------------------------------------
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($returnArr);
+
+        exit();
+
+    }
+
+
+
+    public function ajaxTopBottomThemeSaveOption()
+    {
+
+        $returnArr = array();
+        $returnArr['error'] = false;
+
+
+        // $_POST['type'] = 'top';
+        // $_POST['topThemeSingleMarginTop'] = 0;
+        // $_POST['topThemeSingleMarginRight'] = 1;
+        // $_POST['topThemeShowFront'] = 1;
+
+
+        try {
+
+
+            // --------------------------------------------------
+            //   Validation & Set Value
+            // --------------------------------------------------
+
+            if (empty($_POST['type']) || ($_POST['type'] !== 'top' && $_POST['type'] !== 'bottom')) {
+                throw new Exception('type');
+            } else {
+                $type = sanitize_text_field($_POST['type']);
+            }
+
+
+            // --------------------------------------------------
+            //   Save Array
+            // --------------------------------------------------
+
+            $saveArr = array();
+
+            if ($type === 'top') {
+
+                $topThemeSingleMarginTop = isset($_POST['topThemeSingleMarginTop']) ? (int) sanitize_text_field($_POST['topThemeSingleMarginTop']) : 0;
+                $topThemeSingleMarginRight = isset($_POST['topThemeSingleMarginRight']) ? (int) sanitize_text_field($_POST['topThemeSingleMarginRight']) : 0;
+                $topThemeSingleMarginBottom = isset($_POST['topThemeSingleMarginBottom']) ? (int) sanitize_text_field($_POST['topThemeSingleMarginBottom']) : 0;
+                $topThemeSingleMarginLeft = isset($_POST['topThemeSingleMarginLeft']) ? (int) sanitize_text_field($_POST['topThemeSingleMarginLeft']) : 0;
+                $topThemePageMarginTop = isset($_POST['topThemePageMarginTop']) ? (int) sanitize_text_field($_POST['topThemePageMarginTop']) : 0;
+                $topThemePageMarginRight = isset($_POST['topThemePageMarginRight']) ? (int) sanitize_text_field($_POST['topThemePageMarginRight']) : 0;
+                $topThemePageMarginBottom = isset($_POST['topThemePageMarginBottom']) ? (int) sanitize_text_field($_POST['topThemePageMarginBottom']) : 0;
+                $topThemePageMarginLeft = isset($_POST['topThemePageMarginLeft']) ? (int) sanitize_text_field($_POST['topThemePageMarginLeft']) : 0;
+                $topThemeShowFront = isset($_POST['topThemeShowFront']) ? true : false;
+                $topThemeShowSingle = isset($_POST['topThemeShowSingle']) ? true : false;
+                $topThemeShowPage = isset($_POST['topThemeShowPage']) ? true : false;
+                $topThemeShowArchive = isset($_POST['topThemeShowArchive']) ? true : false;
+                // $topThemeShowFront = isset($_POST['topThemeShowFront']) && $_POST['topThemeShowFront'] == 1 ? true : false;
+                // $topThemeShowSingle = isset($_POST['topThemeShowSingle']) && $_POST['topThemeShowSingle'] == 1 ? true : false;
+                // $topThemeShowPage = isset($_POST['topThemeShowPage']) && $_POST['topThemeShowPage'] == 1 ? true : false;
+                // $topThemeShowArchive = isset($_POST['topThemeShowArchive']) && $_POST['topThemeShowArchive'] == 1 ? true : false;
+
+                $saveArr['topThemeSingleMarginArr'] = array($topThemeSingleMarginTop, $topThemeSingleMarginRight, $topThemeSingleMarginBottom, $topThemeSingleMarginLeft);
+                $saveArr['topThemePageMarginArr'] = array($topThemePageMarginTop, $topThemePageMarginRight, $topThemePageMarginBottom, $topThemePageMarginLeft);
+                $saveArr['topThemeShowArr'] = array(
+                    'front' => $topThemeShowFront,
+                    'single' => $topThemeShowSingle,
+                    'page' => $topThemeShowPage,
+                    'archive' => $topThemeShowArchive
+                );
+
+            } else if ($type === 'bottom') {
+
+                $bottomThemeSingleMarginTop = isset($_POST['bottomThemeSingleMarginTop']) ? (int) sanitize_text_field($_POST['bottomThemeSingleMarginTop']) : 0;
+                $bottomThemeSingleMarginRight = isset($_POST['bottomThemeSingleMarginRight']) ? (int) sanitize_text_field($_POST['bottomThemeSingleMarginRight']) : 0;
+                $bottomThemeSingleMarginBottom = isset($_POST['bottomThemeSingleMarginBottom']) ? (int) sanitize_text_field($_POST['bottomThemeSingleMarginBottom']) : 0;
+                $bottomThemeSingleMarginLeft = isset($_POST['bottomThemeSingleMarginLeft']) ? (int) sanitize_text_field($_POST['bottomThemeSingleMarginLeft']) : 0;
+                $bottomThemePageMarginTop = isset($_POST['bottomThemePageMarginTop']) ? (int) sanitize_text_field($_POST['bottomThemePageMarginTop']) : 0;
+                $bottomThemePageMarginRight = isset($_POST['bottomThemePageMarginRight']) ? (int) sanitize_text_field($_POST['bottomThemePageMarginRight']) : 0;
+                $bottomThemePageMarginBottom = isset($_POST['bottomThemePageMarginBottom']) ? (int) sanitize_text_field($_POST['bottomThemePageMarginBottom']) : 0;
+                $bottomThemePageMarginLeft = isset($_POST['bottomThemePageMarginLeft']) ? (int) sanitize_text_field($_POST['bottomThemePageMarginLeft']) : 0;
+                $bottomThemeShowFront = isset($_POST['bottomThemeShowFront']) ? true : false;
+                $bottomThemeShowSingle = isset($_POST['bottomThemeShowSingle']) ? true : false;
+                $bottomThemeShowPage = isset($_POST['bottomThemeShowPage']) ? true : false;
+                $bottomThemeShowArchive = isset($_POST['bottomThemeShowArchive']) ? true : false;
+                // $bottomThemeShowFront = isset($_POST['bottomThemeShowFront']) && $_POST['bottomThemeShowFront'] == 1 ? true : false;
+                // $bottomThemeShowSingle = isset($_POST['bottomThemeShowSingle']) && $_POST['bottomThemeShowSingle'] == 1 ? true : false;
+                // $bottomThemeShowPage = isset($_POST['bottomThemeShowPage']) && $_POST['bottomThemeShowPage'] == 1 ? true : false;
+                // $bottomThemeShowArchive = isset($_POST['bottomThemeShowArchive']) && $_POST['bottomThemeShowArchive'] == 1 ? true : false;
+
+                $saveArr['bottomThemeSingleMarginArr'] = array($bottomThemeSingleMarginTop, $bottomThemeSingleMarginRight, $bottomThemeSingleMarginBottom, $bottomThemeSingleMarginLeft);
+                $saveArr['bottomThemePageMarginArr'] = array($bottomThemePageMarginTop, $bottomThemePageMarginRight, $bottomThemePageMarginBottom, $bottomThemePageMarginLeft);
+                $saveArr['bottomThemeShowArr'] = array(
+                    'front' => $bottomThemeShowFront,
+                    'single' => $bottomThemeShowSingle,
+                    'page' => $bottomThemeShowPage,
+                    'archive' => $bottomThemeShowArchive
+                );
+
+            }
+
+
+            // var_dump($topThemeSingleMarginTop);
+            // var_dump($saveArr);
+
+
+
+            // --------------------------------------------------
+            //   Update Option
+            // --------------------------------------------------
+
+            $this->instanceModel->updateOptions($saveArr);
+
+            $returnArr['saveArr'] = $saveArr;
+            $returnArr['topThemeShowFront'] = $_POST['topThemeShowFront'];
+
+
+
+        } catch (Exception $e) {
+
+            // var_dump($e->getMessage());
             $returnArr['error'] = true;
 
         }

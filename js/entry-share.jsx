@@ -54,7 +54,6 @@ export class GameUsersShareButtons {
   constructor() {
 
     this.deviceAndOsObj = getDeviceAndOs();
-    // console.log('this.deviceAndOsObj = ', this.deviceAndOsObj);
 
     this.gameUsersShareButtonsWebUrl = 'https://gameusers.org/app/share-buttons';
     this.gameUsersShareButtonsFreeImageAlt = 'Game Users Share Buttons';
@@ -230,9 +229,6 @@ export class GameUsersShareButtons {
     let adjustmentBottom = 0;
     let adjustmentLeft = 0;
 
-    // this.deviceAndOsObj.device = 'smartphone';
-    // this.deviceAndOsObj.os = 'Android';
-
     if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'iOS') {
 
       adjustmentTop = this.jsonObj.countPaddingTopForIos || 0;
@@ -248,7 +244,6 @@ export class GameUsersShareButtons {
       adjustmentLeft = this.jsonObj.countPaddingLeftForAndroid || 0;
 
     }
-    // console.log('adjustmentTop = ', adjustmentTop);
 
     const countPaddingTop = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingTop + adjustmentTop);
     const countPaddingRight = GameUsersShareButtons.styleAddPx(this.jsonObj.countPaddingRight + adjustmentRight);
@@ -366,8 +361,6 @@ export class GameUsersShareButtons {
     this.code += '  font-size: 100%;';
     this.code += '  font: inherit;';
     this.code += '  line-height: 1;';
-    // this.code += '  vertical-align: baseline;';
-    // this.code += '  vertical-align: top;';
     this.code += '}';
 
     this.code += `.${this.className}-free {`;
@@ -424,11 +417,9 @@ export class GameUsersShareButtons {
     this.code += `  ${shareImageWidth}`;
     this.code += `  ${shareImageHeight}`;
     this.code += '  vertical-align: top;';
-    // this.code += '  vertical-align: baseline;';
     this.code += '}';
 
     this.code += `.${this.className}-box-count {`;
-    // this.code += '  line-height: 1;';
     this.code += '  display: -webkit-box;';
     this.code += '  display: -ms-flexbox;';
     this.code += '  display: flex;';
@@ -639,9 +630,6 @@ export class GameUsersShareButtons {
     let adjustmentBottom = 0;
     let adjustmentLeft = 0;
 
-    // this.deviceAndOsObj.device = 'smartphone';
-    // this.deviceAndOsObj.os = 'Android';
-
     if (this.deviceAndOsObj.device !== 'other' && this.deviceAndOsObj.os === 'iOS') {
 
       adjustmentTop = this.jsonObj.countPaddingTopForIos || 0;
@@ -657,7 +645,6 @@ export class GameUsersShareButtons {
       adjustmentLeft = this.jsonObj.countPaddingLeftForAndroid || 0;
 
     }
-    // console.log('adjustmentTop = ', adjustmentTop);
 
     const countPaddingTop = GameUsersShareButtons.styleAddPx(adjustmentTop);
     const countPaddingRight = GameUsersShareButtons.styleAddPx(adjustmentRight);
@@ -739,7 +726,6 @@ export class GameUsersShareButtons {
     this.code += '}';
 
     this.code += `.${this.className}-box-count {`;
-    // this.code += '  line-height: 1;';
     this.code += '  position: absolute;';
     this.code += `  ${countWidth}`;
     this.code += `  top: ${countTop};`;
@@ -820,7 +806,7 @@ export class GameUsersShareButtons {
       const shareCount = GameUsersShareButtonsCommon.escapeHtml(value.count);
 
 
-      this.code += `<div class="${this.className}-box" id="game-users-share-buttons-${shareName}" data-count="${shareCount}">`;
+      this.code += `<div class="${this.className}-box" data-share="${shareName}" data-count="${shareCount}">`;
 
       if (this.jsonObj.count) {
 
@@ -882,13 +868,6 @@ export class GameUsersShareButtons {
 
       } else {
 
-
-        // console.log('themeType1Ver1 / this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
-        // console.log('themeType1Ver1 / themeUrl = ', themeUrl);
-        // console.log('themeType1Ver1 / url = ', url);
-        // console.log('themeType1Ver1 / 含む / imageSrc2 = ', imageSrc);
-        // console.log('\n');
-
         codeImage = `<div class="${this.className}-box-image"><img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" /></div>`;
 
       }
@@ -949,8 +928,6 @@ export class GameUsersShareButtons {
           freeImageType = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageType);
         }
         freeImageSrc = `${this.shareButtonsFreeImageBaseUrl}free${freeImageType}.png?${queryControlCache}`;
-        // freeImageSrc = `${this.shareButtonsBaseUrl}img/free${freeImageType}.png?${queryControlCache}`;
-
 
       }
 
@@ -975,7 +952,6 @@ export class GameUsersShareButtons {
 
   themeType2Ver1(url, uploadImageActive) {
 
-    // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
     const themeId = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.id);
 
@@ -985,10 +961,6 @@ export class GameUsersShareButtons {
       themeUrl = url;
     }
 
-    // console.log('url = ', url);
-    // console.log('uploadImageActive = ', uploadImageActive);
-    // console.log('themeName = ', themeName);
-    // console.log('themeId = ', themeId);
 
     const queryControlCache = GameUsersShareButtonsCommon.escapeHtml(this.optionJsonObj.queryControlCache) || 10000000;
 
@@ -1014,7 +986,8 @@ export class GameUsersShareButtons {
       const shareFormalName = GameUsersShareButtonsCommon.escapeHtml(this.shareObj[key]);
       const shareCount = GameUsersShareButtonsCommon.escapeHtml(value.count);
 
-      this.code += `<div class="${this.className}-box" id="game-users-share-buttons-${shareName}" data-count="${shareCount}">`;
+      this.code += `<div class="${this.className}-box" data-share="${shareName}" data-count="${shareCount}">`;
+
 
 
       // --------------------------------------------------
@@ -1028,9 +1001,6 @@ export class GameUsersShareButtons {
       if (uploadImageActive && this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src'])) {
         imageSrc = this.uploadImageMap.getIn([`${themeName}-${themeId}`, 'type2', shareName, 'src']);
       }
-      // console.log('themeUrl = ', themeUrl);
-      // console.log('imageSrc = ', imageSrc);
-
 
 
       if (key === 'pinterest') {
@@ -1046,19 +1016,6 @@ export class GameUsersShareButtons {
       } else {
 
         this.code += `<img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" />`;
-
-        // if (imageSrc.indexOf('https://gameusers.org/dev/blog/wp-content/plugins/game-users-share-buttons/') !== -1) {
-        //   // console.log('this.shareButtonsBaseUrl = ', this.shareButtonsBaseUrl);
-        //   // console.log('themeUrl = ', themeUrl);
-        //   // console.log('url = ', url);
-        //   // console.log('含む / imageSrc2 = ', imageSrc);
-        //   // console.log('\n');
-        // } else {
-        //   this.code += `<img src="${imageSrc}" width="'${shareImageWidth}" height="${shareImageHeight}" alt="${shareFormalName}" />`;
-        // }
-
-
-
 
       }
 
@@ -1121,8 +1078,6 @@ export class GameUsersShareButtons {
           freeImageType = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.freeImageType);
         }
         freeImageSrc = `${this.shareButtonsFreeImageBaseUrl}free${freeImageType}.png?${queryControlCache}`;
-        // freeImageSrc = `${this.shareButtonsBaseUrl}img/free${freeImageType}.png?${queryControlCache}`;
-
 
       }
 
@@ -1148,8 +1103,6 @@ export class GameUsersShareButtons {
 
   renderAllShareButtons() {
 
-    // console.log('renderAllShareButtons()');
-
     // --------------------------------------------------
     //   Set Variable
     // --------------------------------------------------
@@ -1168,12 +1121,12 @@ export class GameUsersShareButtons {
     //   https://stackoverflow.com/questions/7459704/in-javascript-what-is-the-best-way-to-convert-a-nodelist-to-an-array/7459729#7459729
     // --------------------------------------------------
 
-    const elementsArr = [...document.querySelectorAll(`${that.containerSelector}#game-users-share-buttons`)];
+    const elementsArr = [...document.querySelectorAll(`${that.containerSelector}[data-game-users-share-buttons]`)];
     const elementsArrCount = elementsArr.length;
     const themesArr = [];
 
     elementsArr.forEach((element) => {
-      const themeNameId = element.dataset.theme;
+      const themeNameId = element.dataset.gameUsersShareButtons;
 
       if (themeNameId && themesArr.indexOf(themeNameId) === -1) {
         themesArr.push(themeNameId);
@@ -1182,10 +1135,6 @@ export class GameUsersShareButtons {
 
     const themesArrCount = themesArr.length;
 
-    // console.log('elementsArr = ', elementsArr);
-    // console.log('elementsArrCount = ', elementsArrCount);
-    // console.log('themesArr = ', themesArr);
-
 
 
     /**
@@ -1193,8 +1142,6 @@ export class GameUsersShareButtons {
      */
     function render() {
 
-      // console.log('render()');
-      // console.log('cacheDataJsonObj = ', cacheDataJsonObj);
 
       // --------------------------------------------------
       //   Set Variable
@@ -1222,8 +1169,7 @@ export class GameUsersShareButtons {
         //   Get themeNameId
         // --------------------------------------------------
 
-        const themeNameId = element.dataset.theme;
-        // console.log('themeNameId = ', themeNameId);
+        const themeNameId = element.dataset.gameUsersShareButtons;
 
         if (!themeNameId) {
           return;
@@ -1237,8 +1183,6 @@ export class GameUsersShareButtons {
         const jsonObj = cacheDataJsonObj[themeNameId];
         that.setJsonObj(jsonObj);
 
-        // console.log('jsonObj = ', jsonObj);
-
 
         // --------------------------------------------------
         //   Share Buttons を描画する
@@ -1247,11 +1191,11 @@ export class GameUsersShareButtons {
         const copyElement = element;
         copyElement.innerHTML = that.shareButtons();
 
-        const elementDivArr = [...element.querySelectorAll('[id^=game-users-share-buttons-]')];
+        const elementDivArr = [...element.querySelectorAll('[data-share]')];
 
         elementDivArr.forEach((elementDiv) => {
           const elementCopy = elementDiv;
-          const shareId = elementDiv.id.replace(/game-users-share-buttons-/g, '');
+          const shareId = elementDiv.dataset.share;
 
           if (elementCopy.dataset.count) {
             that.countObj[shareId] = null;
@@ -1273,7 +1217,6 @@ export class GameUsersShareButtons {
 
         if (elementsArrCount === loopCount) {
 
-          // console.log('Render Last loopCount = ', loopCount);
 
           // --------------------------------------------------
           //   Add Google Fonts Style Sheet
@@ -1376,7 +1319,6 @@ export class GameUsersShareButtons {
             // --------------------------------------------------
 
             if (loopCount === themesArrCount) {
-              // console.log('data.json Last loopCount = ', loopCount);
               render();
             }
 
@@ -1422,7 +1364,7 @@ export class GameUsersShareButtons {
     } else if (type === 'line') {
       openAddress = `http://line.me/R/msg/text/?${title}%20${url}`;
     } else if (type === 'feedly' && this.optionJsonObj.rssUrl) {
-      openAddress = `http://www.feedly.com/home#subscription/feed/${this.optionJsonObj.rssUrl}`;
+      openAddress = `https://feedly.com/i/subscription/feed/${this.optionJsonObj.rssUrl}`;
     } else if (type === 'mail') {
       window.location.href = `mailto:?subject=${document.title}&body=${window.location.href}`;
     }
@@ -1438,7 +1380,7 @@ export class GameUsersShareButtons {
 
   countApply(type) {
 
-    const elementArr = [...document.querySelectorAll(`${this.containerSelector}#game-users-share-buttons-${type}`)];
+    const elementArr = [...document.querySelectorAll(`${this.containerSelector} [data-game-users-share-buttons] [data-share=${type}]`)];
 
     elementArr.forEach((element) => {
 
@@ -1715,9 +1657,6 @@ export class GameUsersShareButtons {
     const url = window.location.href;
     // const url = 'https://www.yahoo.co.jp/';
     // const url = 'https://www.google.com/';
-
-    // console.log('this.countObj = ', this.countObj);
-
 
     Object.keys(this.countObj).forEach((key) => {
       if (key === 'twitter') {

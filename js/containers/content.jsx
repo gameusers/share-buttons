@@ -34,8 +34,37 @@ const mapStateToProps = (state) => {
     stateModel: state,
 
     pageType: state.get('pageType'),
+
     topTheme: state.get('topTheme'),
+    topThemeSingleMarginTop: state.get('topThemeSingleMarginTop'),
+    topThemeSingleMarginRight: state.get('topThemeSingleMarginRight'),
+    topThemeSingleMarginBottom: state.get('topThemeSingleMarginBottom'),
+    topThemeSingleMarginLeft: state.get('topThemeSingleMarginLeft'),
+    topThemePageMarginTop: state.get('topThemePageMarginTop'),
+    topThemePageMarginRight: state.get('topThemePageMarginRight'),
+    topThemePageMarginBottom: state.get('topThemePageMarginBottom'),
+    topThemePageMarginLeft: state.get('topThemePageMarginLeft'),
+    topThemeShowFront: state.get('topThemeShowFront'),
+    topThemeShowSingle: state.get('topThemeShowSingle'),
+    topThemeShowPage: state.get('topThemeShowPage'),
+    topThemeShowArchive: state.get('topThemeShowArchive'),
+
     bottomTheme: state.get('bottomTheme'),
+    bottomThemeSingleMarginTop: state.get('bottomThemeSingleMarginTop'),
+    bottomThemeSingleMarginRight: state.get('bottomThemeSingleMarginRight'),
+    bottomThemeSingleMarginBottom: state.get('bottomThemeSingleMarginBottom'),
+    bottomThemeSingleMarginLeft: state.get('bottomThemeSingleMarginLeft'),
+    bottomThemePageMarginTop: state.get('bottomThemePageMarginTop'),
+    bottomThemePageMarginRight: state.get('bottomThemePageMarginRight'),
+    bottomThemePageMarginBottom: state.get('bottomThemePageMarginBottom'),
+    bottomThemePageMarginLeft: state.get('bottomThemePageMarginLeft'),
+    bottomThemeShowFront: state.get('bottomThemeShowFront'),
+    bottomThemeShowSingle: state.get('bottomThemeShowSingle'),
+    bottomThemeShowPage: state.get('bottomThemeShowPage'),
+    bottomThemeShowArchive: state.get('bottomThemeShowArchive'),
+
+    codeOpenList: state.get('codeOpenList'),
+
     php: state.get('php'),
     twitterApiType: state.get('twitterApiType'),
     rssUrl: state.get('rssUrl'),
@@ -177,6 +206,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 
   const bindActionObj = bindActionCreators(actions, dispatch);
+
 
 
   /**
@@ -960,7 +990,7 @@ const mapDispatchToProps = (dispatch) => {
    */
   bindActionObj.funcChangeShareButtonsList = async (stateModel, contentType, page) => {
 
-
+    // console.log('funcChangeShareButtonsList');
     // --------------------------------------------------
     //   Set Value
     // --------------------------------------------------
@@ -1325,7 +1355,7 @@ const mapDispatchToProps = (dispatch) => {
    * 記事の上部・下部に表示するシェアボタンを選択する
    * @param  {Model}   stateModel    Modelクラスのインスタンス
    * @param  {string}  currentTarget クリックしたボタンのエレメント
-   * @param  {string}  currentTarget クリックしたボタンのエレメント
+   * @param  {string}  type          top / bottom : topテーマかbottomテーマか
    * @param  {string}  themeNameId   テーマの名前とID
    */
   bindActionObj.funcAjaxSetTopBottomTheme = async (stateModel, currentTarget, type, themeNameId) => {
@@ -1370,6 +1400,109 @@ const mapDispatchToProps = (dispatch) => {
       } else if (type === 'bottom') {
         dispatch(actions.funcBottomTheme(returnObj.bottom));
       }
+
+      iziToast.success({
+        title: 'OK',
+        message: '変更しました。'
+      });
+
+    } catch (e) {
+
+      iziToast.error({
+        title: 'Error',
+        message: '変更できませんでした。'
+      });
+
+    }
+
+
+    // --------------------------------------------------
+    //   Loading Stop
+    // --------------------------------------------------
+
+    if (currentTarget) {
+      instanceLadda.stop();
+    }
+
+  };
+
+  /**
+   * Top Theme と Bottom Theme の設定を保存する
+   * @param  {Model}   stateModel    Modelクラスのインスタンス
+   * @param  {string}  currentTarget クリックしたボタンのエレメント
+   * @param  {string}  type          top / bottom : topテーマかbottomテーマか
+   */
+  bindActionObj.funcAjaxTopBottomThemeSaveOption = async (stateModel, currentTarget, type) => {
+
+
+    // --------------------------------------------------
+    //   Loading Start
+    // --------------------------------------------------
+
+    let instanceLadda = null;
+
+    if (currentTarget) {
+      instanceLadda = Ladda.create(currentTarget);
+      instanceLadda.start();
+    }
+
+
+    console.log('topThemeShowFront = ', stateModel.get('topThemeShowFront'));
+
+
+    // --------------------------------------------------
+    //   FormData
+    // --------------------------------------------------
+
+    const formData = new FormData();
+
+    formData.append('type', type);
+
+    if (stateModel.get('topThemeShowFront')) formData.append('topThemeShowFront', stateModel.get('topThemeShowFront'));
+    if (stateModel.get('topThemeShowSingle')) formData.append('topThemeShowSingle', stateModel.get('topThemeShowSingle'));
+    if (stateModel.get('topThemeShowPage')) formData.append('topThemeShowPage', stateModel.get('topThemeShowPage'));
+    if (stateModel.get('topThemeShowArchive')) formData.append('topThemeShowArchive', stateModel.get('topThemeShowArchive'));
+    formData.append('topThemeSingleMarginTop', stateModel.get('topThemeSingleMarginTop'));
+    formData.append('topThemeSingleMarginRight', stateModel.get('topThemeSingleMarginRight'));
+    formData.append('topThemeSingleMarginBottom', stateModel.get('topThemeSingleMarginBottom'));
+    formData.append('topThemeSingleMarginLeft', stateModel.get('topThemeSingleMarginLeft'));
+    formData.append('topThemePageMarginTop', stateModel.get('topThemePageMarginTop'));
+    formData.append('topThemePageMarginRight', stateModel.get('topThemePageMarginRight'));
+    formData.append('topThemePageMarginBottom', stateModel.get('topThemePageMarginBottom'));
+    formData.append('topThemePageMarginLeft', stateModel.get('topThemePageMarginLeft'));
+
+    if (stateModel.get('bottomThemeShowFront')) formData.append('bottomThemeShowFront', stateModel.get('bottomThemeShowFront'));
+    if (stateModel.get('bottomThemeShowSingle')) formData.append('bottomThemeShowSingle', stateModel.get('bottomThemeShowSingle'));
+    if (stateModel.get('bottomThemeShowPage')) formData.append('bottomThemeShowPage', stateModel.get('bottomThemeShowPage'));
+    if (stateModel.get('bottomThemeShowArchive')) formData.append('bottomThemeShowArchive', stateModel.get('bottomThemeShowArchive'));
+    formData.append('bottomThemeSingleMarginTop', stateModel.get('bottomThemeSingleMarginTop'));
+    formData.append('bottomThemeSingleMarginRight', stateModel.get('bottomThemeSingleMarginRight'));
+    formData.append('bottomThemeSingleMarginBottom', stateModel.get('bottomThemeSingleMarginBottom'));
+    formData.append('bottomThemeSingleMarginLeft', stateModel.get('bottomThemeSingleMarginLeft'));
+    formData.append('bottomThemePageMarginTop', stateModel.get('bottomThemePageMarginTop'));
+    formData.append('bottomThemePageMarginRight', stateModel.get('bottomThemePageMarginRight'));
+    formData.append('bottomThemePageMarginBottom', stateModel.get('bottomThemePageMarginBottom'));
+    formData.append('bottomThemePageMarginLeft', stateModel.get('bottomThemePageMarginLeft'));
+
+
+    // --------------------------------------------------
+    //   Await & Dispatch
+    // --------------------------------------------------
+
+    try {
+
+      const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_top_bottom_theme_save_option`, 'POST', 'same-origin', 'same-origin', formData);
+      console.log('returnObj = ', returnObj);
+
+      if (returnObj.error) {
+        throw new Error();
+      }
+      //
+      // if (type === 'top') {
+      //   dispatch(actions.funcTopTheme(returnObj.top));
+      // } else if (type === 'bottom') {
+      //   dispatch(actions.funcBottomTheme(returnObj.bottom));
+      // }
 
       iziToast.success({
         title: 'OK',

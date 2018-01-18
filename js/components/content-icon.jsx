@@ -69,7 +69,8 @@ class ContentIcon extends React.Component {
             </div>
           </div>
 
-          <div id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
+          {/* <div id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} /> */}
+          <div data-game-users-share-buttons={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
 
           <div className="file-format">File Format: {fileFormat}</div>
 
@@ -90,23 +91,53 @@ class ContentIcon extends React.Component {
     //   Pagination
     // --------------------------------------------------
 
-    const items = Math.ceil(this.props.iconThemesTotal / this.props.contentsNumberOfLines);
+    // const items = Math.ceil(this.props.iconThemesTotal / this.props.contentsNumberOfLines);
+    //
+    // codeArr.push(
+    //   <Pagination
+    //     key="pagination"
+    //     prev
+    //     next
+    //     first
+    //     last
+    //     ellipsis={false}
+    //     boundaryLinks
+    //     items={items}
+    //     maxButtons={5}
+    //     activePage={this.props.iconThemesPage}
+    //     onSelect={e => this.props.funcChangeShareButtonsList(this.props.stateModel, 'iconThemes', e)}
+    //   />
+    // );
+
+
+    const total = Math.ceil(this.props.iconThemesTotal / this.props.contentsNumberOfLines);
+
+    const itemsArr = [];
+    for (let number = 1; number <= total; number += 1) {
+      itemsArr.push(
+        <Pagination.Item
+          active={number === this.props.iconThemesPage}
+          key={number}
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'iconThemes', number)}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    }
 
     codeArr.push(
-      <Pagination
-        key="pagination"
-        prev
-        next
-        first
-        last
-        ellipsis={false}
-        boundaryLinks
-        items={items}
-        maxButtons={5}
-        activePage={this.props.iconThemesPage}
-        onSelect={e => this.props.funcChangeShareButtonsList(this.props.stateModel, 'iconThemes', e)}
-      />
+      <Pagination bsSize="medium" key="pagination">
+        <Pagination.First
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'iconThemes', 1)}
+        />
+        {itemsArr}
+        <Pagination.Last
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'iconThemes', total)}
+        />
+      </Pagination>
     );
+
+
 
     return codeArr;
 

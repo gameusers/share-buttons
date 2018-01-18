@@ -322,6 +322,8 @@ const initialStateObj = {
   randomDesignThemesList: [],
   randomIconThemesList: [],
 
+  codeOpenList: [],
+
 };
 
 
@@ -329,16 +331,8 @@ const initialStateObj = {
 //   Option Object / 設定
 // --------------------------------------------------
 
-let optionObj = {
-  databaseVersion: 1,
-  topTheme: '',
-  bottomTheme: '',
-  editThemesArr: [],
-  php: 0,
-  twitterApiType: '',
-  rssUrl: '',
-  plan: 'free',
-};
+let optionObj = {};
+
 
 // ---------------------------------------------
 //   - Official Site
@@ -346,6 +340,41 @@ let optionObj = {
 // ---------------------------------------------
 
 if (pageType === 'official') {
+
+  optionObj = {
+    databaseVersion: 2,
+    topTheme: '',
+    topThemeSingleMarginTop: 0,
+    topThemeSingleMarginRight: 0,
+    topThemeSingleMarginBottom: 0,
+    topThemeSingleMarginLeft: 0,
+    topThemePageMarginTop: 0,
+    topThemePageMarginRight: 0,
+    topThemePageMarginBottom: 0,
+    topThemePageMarginLeft: 0,
+    topThemeShowFront: false,
+    topThemeShowSingle: true,
+    topThemeShowPage: true,
+    topThemeShowArchive: false,
+    bottomTheme: '',
+    bottomThemeSingleMarginTop: 0,
+    bottomThemeSingleMarginRight: 0,
+    bottomThemeSingleMarginBottom: 0,
+    bottomThemeSingleMarginLeft: 0,
+    bottomThemePageMarginTop: 0,
+    bottomThemePageMarginRight: 0,
+    bottomThemePageMarginBottom: 0,
+    bottomThemePageMarginLeft: 0,
+    bottomThemeShowFront: false,
+    bottomThemeShowSingle: true,
+    bottomThemeShowPage: true,
+    bottomThemeShowArchive: false,
+    editThemesArr: [],
+    php: 0,
+    twitterApiType: '',
+    rssUrl: '',
+    plan: 'free',
+  };
 
   if (localStorage.getItem('php')) {
     optionObj.php = parseInt(localStorage.getItem('php'), 10);
@@ -375,7 +404,58 @@ if (pageType === 'official') {
 }
 
 initialStateObj.topTheme = optionObj.topTheme || '';
+
+const topThemeSingleMarginArr = optionObj.topThemeSingleMarginArr || [0, 0, 0, 0];
+initialStateObj.topThemeSingleMarginTop = topThemeSingleMarginArr[0];
+initialStateObj.topThemeSingleMarginRight = topThemeSingleMarginArr[1];
+initialStateObj.topThemeSingleMarginBottom = topThemeSingleMarginArr[2];
+initialStateObj.topThemeSingleMarginLeft = topThemeSingleMarginArr[3];
+
+const topThemePageMarginArr = optionObj.topThemePageMarginArr || [0, 0, 0, 0];
+initialStateObj.topThemePageMarginTop = topThemePageMarginArr[0];
+initialStateObj.topThemePageMarginRight = topThemePageMarginArr[1];
+initialStateObj.topThemePageMarginBottom = topThemePageMarginArr[2];
+initialStateObj.topThemePageMarginLeft = topThemePageMarginArr[3];
+
+if (optionObj.topThemeShowArr) {
+  initialStateObj.topThemeShowFront = optionObj.topThemeShowArr.front;
+  initialStateObj.topThemeShowSingle = optionObj.topThemeShowArr.single;
+  initialStateObj.topThemeShowPage = optionObj.topThemeShowArr.page;
+  initialStateObj.topThemeShowArchive = optionObj.topThemeShowArr.archive;
+} else {
+  initialStateObj.topThemeShowFront = false;
+  initialStateObj.topThemeShowSingle = true;
+  initialStateObj.topThemeShowPage = true;
+  initialStateObj.topThemeShowArchive = false;
+}
+
+
 initialStateObj.bottomTheme = optionObj.bottomTheme || '';
+
+const bottomThemeSingleMarginArr = optionObj.bottomThemeSingleMarginArr || [0, 0, 0, 0];
+initialStateObj.bottomThemeSingleMarginTop = bottomThemeSingleMarginArr[0];
+initialStateObj.bottomThemeSingleMarginRight = bottomThemeSingleMarginArr[1];
+initialStateObj.bottomThemeSingleMarginBottom = bottomThemeSingleMarginArr[2];
+initialStateObj.bottomThemeSingleMarginLeft = bottomThemeSingleMarginArr[3];
+
+const bottomThemePageMarginArr = optionObj.bottomThemePageMarginArr || [0, 0, 0, 0];
+initialStateObj.bottomThemePageMarginTop = bottomThemePageMarginArr[0];
+initialStateObj.bottomThemePageMarginRight = bottomThemePageMarginArr[1];
+initialStateObj.bottomThemePageMarginBottom = bottomThemePageMarginArr[2];
+initialStateObj.bottomThemePageMarginLeft = bottomThemePageMarginArr[3];
+
+if (optionObj.bottomThemeShowArr) {
+  initialStateObj.bottomThemeShowFront = optionObj.bottomThemeShowArr.front;
+  initialStateObj.bottomThemeShowSingle = optionObj.bottomThemeShowArr.single;
+  initialStateObj.bottomThemeShowPage = optionObj.bottomThemeShowArr.page;
+  initialStateObj.bottomThemeShowArchive = optionObj.bottomThemeShowArr.archive;
+} else {
+  initialStateObj.bottomThemeShowFront = false;
+  initialStateObj.bottomThemeShowSingle = true;
+  initialStateObj.bottomThemeShowPage = true;
+  initialStateObj.bottomThemeShowArchive = false;
+}
+
 initialStateObj.php = optionObj.php;
 initialStateObj.twitterApiType = optionObj.twitterApiType;
 initialStateObj.rssUrl = optionObj.rssUrl;
@@ -644,6 +724,25 @@ export class Model extends ModelRecord {
 
   }
 
+
+  setCodeOpenList(themeNameId) {
+
+    let map = this;
+
+    let codeOpenList = map.getIn(['codeOpenList']);
+
+    if (codeOpenList.includes(themeNameId)) {
+      const key = codeOpenList.keyOf(themeNameId);
+      codeOpenList = codeOpenList.delete(key);
+    } else {
+      codeOpenList = codeOpenList.push(themeNameId);
+    }
+
+    map = map.set('codeOpenList', codeOpenList);
+
+    return map;
+
+  }
 
 
   setToggleEditForm(themeNameId) {
@@ -1075,13 +1174,17 @@ export class Model extends ModelRecord {
     const currentThemeType = map.getIn(['formMap', 'currentThemeType']);
 
     const selectors = document.querySelectorAll(`#sample-theme .game-users-share-buttons-${currentThemeNameId}-sample-box`);
+    // console.log('selectors = ', selectors);
 
     let tempMap = OrderedMap();
 
     Object.keys(selectors).forEach((key) => {
 
-      const id = selectors[key].id.split('game-users-share-buttons-')[1];
-      tempMap = tempMap.set(id, map.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'share', id]));
+      // const id = selectors[key].id.split('game-users-share-buttons-')[1];
+      // const id = selectors[key].className.split('game-users-share-buttons-')[1].split('-sample-box')[0];
+      const { share } = selectors[key].dataset;
+      // console.log('share = ', share);
+      tempMap = tempMap.set(share, map.getIn(['dataSampleThemesMap', currentThemeNameId, currentThemeType, 'share', share]));
 
     });
 

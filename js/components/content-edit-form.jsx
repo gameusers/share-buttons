@@ -1788,7 +1788,7 @@ class ContentEditForm extends React.Component {
 
 
         <div className={this.props.checkStickySampleTheme ? 'sample-theme-box sticky' : 'sample-theme-box'} id="sample-theme-box">
-          <div className="sample-theme" id="sample-theme" dangerouslySetInnerHTML={this.renderSampleTheme()} />
+          <div className="sample-theme" id="sample-theme" data-game-users-share-buttons="sample-theme" dangerouslySetInnerHTML={this.renderSampleTheme()} />
           <div className="submit-button">
             <Button
               bsStyle="success"

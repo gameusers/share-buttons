@@ -9,8 +9,11 @@ import ButtonToolbar from 'alias-node-modules/react-bootstrap/lib/ButtonToolbar'
 import FormGroup from 'alias-node-modules/react-bootstrap/lib/FormGroup';
 import ControlLabel from 'alias-node-modules/react-bootstrap/lib/ControlLabel';
 import FormControl from 'alias-node-modules/react-bootstrap/lib/FormControl';
+import InputGroup from 'alias-node-modules/react-bootstrap/lib/InputGroup';
+import Checkbox from 'alias-node-modules/react-bootstrap/lib/Checkbox';
+import HelpBlock from 'alias-node-modules/react-bootstrap/lib/HelpBlock';
 import Pagination from 'alias-node-modules/react-bootstrap/lib/Pagination';
-import Accordion from 'alias-node-modules/react-bootstrap/lib/Accordion';
+import PanelGroup from 'alias-node-modules/react-bootstrap/lib/PanelGroup';
 import Panel from 'alias-node-modules/react-bootstrap/lib/Panel';
 
 import { List, Map } from 'alias-node-modules/immutable';
@@ -88,7 +91,7 @@ class ContentEdit extends React.Component {
 
       let codeShareButtons = null;
       const dataMap = this.props.dataEditThemesMap.getIn([themeNameId, openedThemeType]);
-      // console.log('themeNameId = ', themeNameId);
+
 
       // --------------------------------------------------
       //   シェアボタンのコード作成
@@ -151,8 +154,15 @@ class ContentEdit extends React.Component {
       }
 
 
+      const codeOpen = this.props.codeOpenList.includes(themeNameId) ? true : false;
+
+      const pluginUrl = this.props.pageType === 'wordPressPlugin' ? gameUsersShareButtonsPluginUrl() : 'game-users-share-buttons/';
+      const codeShareBundleJsUrl = `<script type="text/javascript" src="${pluginUrl}js/share-bundle.min.js"></script>`;
+      const codeThemeUrl = `<div data-game-users-share-buttons="${themeNameId}"></div>`;
+
       codeArr.push(
         <div className="theme-box" key={themeNameId}>
+
           <div className="menu-box">
             <div className="name-box">
               <FormControl
@@ -177,9 +187,35 @@ class ContentEdit extends React.Component {
               </Button>
               {buttonSetTopTheme}
               {buttonSetBottomTheme}
+              <Button bsStyle="primary" bsSize="xsmall" className="buttons" onClick={() => this.props.funcCodeOpenList(themeNameId)}>Code</Button>
             </div>
           </div>
-          <div id="game-users-share-buttons" data-theme={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
+
+          <div data-game-users-share-buttons={themeNameId} dangerouslySetInnerHTML={codeShareButtons} />
+
+
+          {codeOpen &&
+            <div>
+              <FormGroup controlId="formControlsTextarea" className="edit-list-code-box">
+                <ControlLabel>Code 1: 1ページにつきひとつだけ貼ってください。</ControlLabel>
+                <FormControl
+                  componentClass="textarea"
+                  placeholder="textarea"
+                  defaultValue={codeShareBundleJsUrl}
+                />
+              </FormGroup>
+
+              <FormGroup controlId="formControlsTextarea" className="edit-list-code-box">
+                <ControlLabel>Code 2: シェアボタンを表示したい場所に貼ってください。</ControlLabel>
+                <FormControl
+                  componentClass="textarea"
+                  placeholder="textarea"
+                  defaultValue={codeThemeUrl}
+                />
+              </FormGroup>
+            </div>
+          }
+
         </div>
       );
 
@@ -190,23 +226,35 @@ class ContentEdit extends React.Component {
     //   Pagination
     // --------------------------------------------------
 
-    const items = Math.ceil(themesList.count() / this.props.contentsNumberOfLines);
+    const total = Math.ceil(themesList.count() / this.props.contentsNumberOfLines);
+
+    const itemsArr = [];
+    for (let number = 1; number <= total; number += 1) {
+      itemsArr.push(
+        <Pagination.Item
+          active={number === page}
+          key={number}
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'editThemes', number)}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    }
 
     codeArr.push(
-      <Pagination
-        key="pagination"
-        prev
-        next
-        first
-        last
-        ellipsis={false}
-        boundaryLinks
-        items={items}
-        maxButtons={5}
-        activePage={page}
-        onSelect={e => this.props.funcChangeShareButtonsList(this.props.stateModel, 'editThemes', e)}
-      />
+      <Pagination bsSize="medium" key="pagination">
+        <Pagination.First
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'editThemes', 1)}
+        />
+        {itemsArr}
+        <Pagination.Last
+          onClick={() => this.props.funcChangeShareButtonsList(this.props.stateModel, 'editThemes', total)}
+        />
+      </Pagination>
     );
+
+
+
 
     return codeArr;
 
@@ -229,30 +277,54 @@ class ContentEdit extends React.Component {
         </p>
 
 
-        <Accordion className="accordion-box">
+        <PanelGroup accordion className="accordion-box" id="accordion-edit">
 
-          <Panel header="モバイル環境で綺麗に表示するには？" eventKey="1">
-            スマートフォンやタブレットでは、通常の2倍の大きさの画像をアップロードすると綺麗に表示されます。例えば <strong>50 x 50</strong> の画像を表示したい場合は、 <strong>100 x 100</strong> の画像を利用してください。
+          <Panel eventKey="1">
+            <Panel.Heading>
+              <Panel.Title toggle>モバイル環境で綺麗に表示するには？</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+              スマートフォンやタブレットでは、通常の2倍の大きさの画像をアップロードすると綺麗に表示されます。例えば <strong>50 x 50</strong> の画像を表示したい場合は、 <strong>100 x 100</strong> の画像を利用してください。
+            </Panel.Body>
           </Panel>
 
-          <Panel header="Social Media 公式ロゴ" eventKey="2">
-            シェアボタンの画像を作成する方のために、公式サイトのロゴをチェックできるページを紹介します。ぜひ参考にしてください。<br /><br />
+          <Panel eventKey="2">
+            <Panel.Heading>
+              <Panel.Title toggle>Social Media 公式ロゴ</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+              シェアボタンの画像を作成する方のために、公式サイトのロゴをチェックできるページを紹介します。ぜひ参考にしてください。<br /><br />
 
-            <ul className="list-top2">
-              <li><a href="https://about.twitter.com/ja/company/brand-resources.html" target="_blank" rel="noopener noreferrer"><strong>Twitter</strong></a></li>
-              <li><a href="https://en.facebookbrand.com/assets" target="_blank" rel="noopener noreferrer"><strong>Facebook</strong></a></li>
-              <li><a href="https://developers.google.com/identity/branding-guidelines?hl=ja" target="_blank" rel="noopener noreferrer"><strong>Google+</strong></a></li>
-              <li><a href="https://getpocket.com/publisher/button" target="_blank" rel="noopener noreferrer"><strong>Pocket</strong></a></li>
-              <li><a href="https://business.pinterest.com/ja/brand-guidelines" target="_blank" rel="noopener noreferrer"><strong>Pinterest</strong></a></li>
-              <li><a href="https://brand.linkedin.com/visual-identity/logo" target="_blank" rel="noopener noreferrer"><strong>LinkedIn</strong></a></li>
-              <li><a href="https://www.tumblr.com/logo/?language=ja_JP" target="_blank" rel="noopener noreferrer"><strong>Tumblr</strong></a></li>
-              <li><a href="http://hatenacorp.jp/press/resource" target="_blank" rel="noopener noreferrer"><strong>はてなブックマーク</strong></a></li>
-              <li><a href="https://line.me/en/logo" target="_blank" rel="noopener noreferrer"><strong>LINE</strong></a></li>
-              <li><a href="https://www.feedly.com/factory.html" target="_blank" rel="noopener noreferrer"><strong>Feedly</strong></a>: ロゴをダウンロードしたい方は Step 1: Select your design 部分の button kit をクリックしてください。</li>
-            </ul>
+              <ul className="list-top2">
+                <li><a href="https://about.twitter.com/ja/company/brand-resources.html" target="_blank" rel="noopener noreferrer"><strong>Twitter</strong></a></li>
+                <li><a href="https://en.facebookbrand.com/assets" target="_blank" rel="noopener noreferrer"><strong>Facebook</strong></a></li>
+                <li><a href="https://developers.google.com/identity/branding-guidelines?hl=ja" target="_blank" rel="noopener noreferrer"><strong>Google+</strong></a></li>
+                <li><a href="https://getpocket.com/publisher/button" target="_blank" rel="noopener noreferrer"><strong>Pocket</strong></a></li>
+                <li><a href="https://business.pinterest.com/ja/brand-guidelines" target="_blank" rel="noopener noreferrer"><strong>Pinterest</strong></a></li>
+                <li><a href="https://brand.linkedin.com/visual-identity/logo" target="_blank" rel="noopener noreferrer"><strong>LinkedIn</strong></a></li>
+                <li><a href="https://www.tumblr.com/logo/?language=ja_JP" target="_blank" rel="noopener noreferrer"><strong>Tumblr</strong></a></li>
+                <li><a href="http://hatenacorp.jp/press/resource" target="_blank" rel="noopener noreferrer"><strong>はてなブックマーク</strong></a></li>
+                <li><a href="https://line.me/en/logo" target="_blank" rel="noopener noreferrer"><strong>LINE</strong></a></li>
+                <li><a href="https://www.feedly.com/factory.html" target="_blank" rel="noopener noreferrer"><strong>Feedly</strong></a>: ロゴをダウンロードしたい方は Step 1: Select your design 部分の button kit をクリックしてください。</li>
+              </ul>
+            </Panel.Body>
           </Panel>
 
-        </Accordion>
+          <Panel eventKey="3">
+            <Panel.Heading>
+              <Panel.Title toggle>画像の軽量化について</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+              シェアボタンに利用する画像は圧縮を行って軽量化を行いましょう。軽いほど表示も早くなります。画質を維持したまま、軽量化を行ってくれるサービスを紹介しますので、ぜひ活用してください。<br /><br />
+
+              <ul className="list-top2">
+                <li><a href="http://optimizilla.com/ja/" target="_blank" rel="noopener noreferrer"><strong>Optimizilla</strong></a>: JPEG, PNGに対応。20個までの画像を同時にアップロードできます。</li>
+                <li><a href="https://mozjpeg.codelove.de/" target="_blank" rel="noopener noreferrer"><strong>mozjpeg</strong></a>: JPEG, BMP, TARGAに対応。圧縮の性能が高いです。JPEGの場合はこちらをおすすめ。</li>
+              </ul>
+            </Panel.Body>
+          </Panel>
+
+        </PanelGroup>
 
 
         <hr className="hr-slash" style={{ margin: '30px 0 20px 0' }} />
@@ -263,7 +335,7 @@ class ContentEdit extends React.Component {
 
             <div className="select-theme-box">
               <FormGroup controlId="select-top-theme">
-                <ControlLabel>Top（記事の上部に表示するシェアボタン）</ControlLabel>
+                <ControlLabel>Top（上部に表示するシェアボタン）</ControlLabel>
                 <FormControl
                   componentClass="select"
                   value={this.props.topTheme}
@@ -274,8 +346,151 @@ class ContentEdit extends React.Component {
                 </FormControl>
               </FormGroup>
 
+              <Panel id="collapsible-panel-top-theme" bsStyle="info" defaultExpanded={false}>
+                <Panel.Heading>
+                  <Panel.Title toggle componentClass="h3">
+                    Top 設定
+                  </Panel.Title>
+                </Panel.Heading>
+                <Panel.Collapse>
+                  <Panel.Body>
+
+                    <p>シェアボタンを表示するページを選択してください。</p>
+
+                    <div className="edit-theme-option-show-checkbox">
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.topThemeShowFront} onChange={e => this.props.funcTopThemeShowFront(e.target.checked)}>
+                          トップページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.topThemeShowSingle} onChange={e => this.props.funcTopThemeShowSingle(e.target.checked)}>
+                          個別投稿ページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.topThemeShowPage} onChange={e => this.props.funcTopThemeShowPage(e.target.checked)}>
+                          固定ページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.topThemeShowArchive} onChange={e => this.props.funcTopThemeShowArchive(e.target.checked)}>
+                          アーカイブページ（カテゴリー、タグページなど）
+                        </Checkbox>
+                      </FormGroup>
+                    </div>
+
+
+                    <div className="edit-theme-option-margin">
+                      <FormGroup bsSize="sm" validationState={null}>
+                        <ControlLabel>余白 - 個別投稿ページ</ControlLabel>
+                        <div className="form-inline">
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>上</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemeSingleMarginTop}
+                              onChange={e => this.props.funcTopThemeSingleMarginTop(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>右</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemeSingleMarginRight}
+                              onChange={e => this.props.funcTopThemeSingleMarginRight(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>下</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemeSingleMarginBottom}
+                              onChange={e => this.props.funcTopThemeSingleMarginBottom(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>左</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemeSingleMarginLeft}
+                              onChange={e => this.props.funcTopThemeSingleMarginLeft(e.target.value)}
+                            />
+                          </InputGroup>
+                        </div>
+                        <HelpBlock>個別投稿ページに表示するシェアボタン周囲の余白を設定します。</HelpBlock>
+                      </FormGroup>
+
+                      <FormGroup bsSize="sm" validationState={null}>
+                        <ControlLabel>余白 - 固定ページ</ControlLabel>
+                        <div className="form-inline">
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>上</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemePageMarginTop}
+                              onChange={e => this.props.funcTopThemePageMarginTop(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>右</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemePageMarginRight}
+                              onChange={e => this.props.funcTopThemePageMarginRight(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>下</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemePageMarginBottom}
+                              onChange={e => this.props.funcTopThemePageMarginBottom(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>左</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.topThemePageMarginLeft}
+                              onChange={e => this.props.funcTopThemePageMarginLeft(e.target.value)}
+                            />
+                          </InputGroup>
+                        </div>
+                        <HelpBlock>固定ページに表示するシェアボタン周囲の余白を設定します。</HelpBlock>
+                      </FormGroup>
+                    </div>
+
+                    <Button
+                      bsStyle="success"
+                      bsSize="small"
+                      className="ladda-button"
+                      data-style="slide-right"
+                      data-size="s"
+                      onClick={e => this.props.funcAjaxTopBottomThemeSaveOption(this.props.stateModel, e.currentTarget, 'top')}
+                    >
+                      <span className="ladda-label">保存</span>
+                    </Button>
+
+                  </Panel.Body>
+                </Panel.Collapse>
+              </Panel>
+
+
+
               <FormGroup controlId="select-bottom-theme">
-                <ControlLabel>Bottom（記事の下部に表示するシェアボタン）</ControlLabel>
+                <ControlLabel>Bottom（下部に表示するシェアボタン）</ControlLabel>
                 <FormControl
                   componentClass="select"
                   value={this.props.bottomTheme}
@@ -285,6 +500,148 @@ class ContentEdit extends React.Component {
                   {this.codeSelectThemeOption()}
                 </FormControl>
               </FormGroup>
+
+              <Panel id="collapsible-panel-bottom-theme" bsStyle="info" defaultExpanded={false}>
+                <Panel.Heading>
+                  <Panel.Title toggle componentClass="h3">
+                    Bottom 設定
+                  </Panel.Title>
+                </Panel.Heading>
+                <Panel.Collapse>
+                  <Panel.Body>
+
+                    <p>シェアボタンを表示するページを選択してください。</p>
+
+                    <div className="edit-theme-option-show-checkbox">
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.bottomThemeShowFront} onChange={e => this.props.funcBottomThemeShowFront(e.target.checked)}>
+                          トップページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.bottomThemeShowSingle} onChange={e => this.props.funcBottomThemeShowSingle(e.target.checked)}>
+                          個別投稿ページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.bottomThemeShowPage} onChange={e => this.props.funcBottomThemeShowPage(e.target.checked)}>
+                          固定ページ
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.bottomThemeShowArchive} onChange={e => this.props.funcBottomThemeShowArchive(e.target.checked)}>
+                          アーカイブページ（カテゴリー、タグページなど）
+                        </Checkbox>
+                      </FormGroup>
+                    </div>
+
+
+                    <div className="edit-theme-option-margin">
+                      <FormGroup bsSize="sm" validationState={null}>
+                        <ControlLabel>余白 - 個別投稿ページ</ControlLabel>
+                        <div className="form-inline">
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>上</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemeSingleMarginTop}
+                              onChange={e => this.props.funcBottomThemeSingleMarginTop(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>右</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemeSingleMarginRight}
+                              onChange={e => this.props.funcBottomThemeSingleMarginRight(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>下</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemeSingleMarginBottom}
+                              onChange={e => this.props.funcBottomThemeSingleMarginBottom(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>左</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemeSingleMarginLeft}
+                              onChange={e => this.props.funcBottomThemeSingleMarginLeft(e.target.value)}
+                            />
+                          </InputGroup>
+                        </div>
+                        <HelpBlock>個別投稿ページに表示するシェアボタン周囲の余白を設定します。</HelpBlock>
+                      </FormGroup>
+
+                      <FormGroup bsSize="sm" validationState={null}>
+                        <ControlLabel>余白 - 固定ページ</ControlLabel>
+                        <div className="form-inline">
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>上</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemePageMarginTop}
+                              onChange={e => this.props.funcBottomThemePageMarginTop(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>右</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemePageMarginRight}
+                              onChange={e => this.props.funcBottomThemePageMarginRight(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>下</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemePageMarginBottom}
+                              onChange={e => this.props.funcBottomThemePageMarginBottom(e.target.value)}
+                            />
+                          </InputGroup>
+                          <InputGroup className="inline-margin">
+                            <InputGroup.Addon>左</InputGroup.Addon>
+                            <FormControl
+                              type="number"
+                              min="0"
+                              value={this.props.bottomThemePageMarginLeft}
+                              onChange={e => this.props.funcBottomThemePageMarginLeft(e.target.value)}
+                            />
+                          </InputGroup>
+                        </div>
+                        <HelpBlock>固定ページに表示するシェアボタン周囲の余白を設定します。</HelpBlock>
+                      </FormGroup>
+                    </div>
+
+                    <Button
+                      bsStyle="success"
+                      bsSize="small"
+                      className="ladda-button"
+                      data-style="slide-right"
+                      data-size="s"
+                      onClick={e => this.props.funcAjaxTopBottomThemeSaveOption(this.props.stateModel, e.currentTarget, 'bottom')}
+                    >
+                      <span className="ladda-label">保存</span>
+                    </Button>
+
+                  </Panel.Body>
+                </Panel.Collapse>
+              </Panel>
+
             </div>
 
 
@@ -362,8 +719,37 @@ ContentEdit.propTypes = {
   stateModel: PropTypes.instanceOf(Model).isRequired,
 
   pageType: PropTypes.string.isRequired,
+
   topTheme: PropTypes.string.isRequired,
+  topThemeSingleMarginTop: PropTypes.number.isRequired,
+  topThemeSingleMarginRight: PropTypes.number.isRequired,
+  topThemeSingleMarginBottom: PropTypes.number.isRequired,
+  topThemeSingleMarginLeft: PropTypes.number.isRequired,
+  topThemePageMarginTop: PropTypes.number.isRequired,
+  topThemePageMarginRight: PropTypes.number.isRequired,
+  topThemePageMarginBottom: PropTypes.number.isRequired,
+  topThemePageMarginLeft: PropTypes.number.isRequired,
+  topThemeShowFront: PropTypes.bool.isRequired,
+  topThemeShowSingle: PropTypes.bool.isRequired,
+  topThemeShowPage: PropTypes.bool.isRequired,
+  topThemeShowArchive: PropTypes.bool.isRequired,
+
   bottomTheme: PropTypes.string.isRequired,
+  bottomThemeSingleMarginTop: PropTypes.number.isRequired,
+  bottomThemeSingleMarginRight: PropTypes.number.isRequired,
+  bottomThemeSingleMarginBottom: PropTypes.number.isRequired,
+  bottomThemeSingleMarginLeft: PropTypes.number.isRequired,
+  bottomThemePageMarginTop: PropTypes.number.isRequired,
+  bottomThemePageMarginRight: PropTypes.number.isRequired,
+  bottomThemePageMarginBottom: PropTypes.number.isRequired,
+  bottomThemePageMarginLeft: PropTypes.number.isRequired,
+  bottomThemeShowFront: PropTypes.bool.isRequired,
+  bottomThemeShowSingle: PropTypes.bool.isRequired,
+  bottomThemeShowPage: PropTypes.bool.isRequired,
+  bottomThemeShowArchive: PropTypes.bool.isRequired,
+
+  codeOpenList: PropTypes.instanceOf(List).isRequired,
+
   editThemesList: PropTypes.instanceOf(List).isRequired,
 
   contentsNumberOfLines: PropTypes.number.isRequired,
@@ -385,7 +771,38 @@ ContentEdit.propTypes = {
   funcChangeShareButtonsList: PropTypes.func.isRequired,
   funcToggleEditForm: PropTypes.func.isRequired,
   funcAjaxDeleteTheme: PropTypes.func.isRequired,
+
   funcAjaxSetTopBottomTheme: PropTypes.func.isRequired,
+  funcAjaxTopBottomThemeSaveOption: PropTypes.func.isRequired,
+
+  funcTopThemeSingleMarginTop: PropTypes.func.isRequired,
+  funcTopThemeSingleMarginRight: PropTypes.func.isRequired,
+  funcTopThemeSingleMarginBottom: PropTypes.func.isRequired,
+  funcTopThemeSingleMarginLeft: PropTypes.func.isRequired,
+  funcTopThemePageMarginTop: PropTypes.func.isRequired,
+  funcTopThemePageMarginRight: PropTypes.func.isRequired,
+  funcTopThemePageMarginBottom: PropTypes.func.isRequired,
+  funcTopThemePageMarginLeft: PropTypes.func.isRequired,
+  funcTopThemeShowFront: PropTypes.func.isRequired,
+  funcTopThemeShowSingle: PropTypes.func.isRequired,
+  funcTopThemeShowPage: PropTypes.func.isRequired,
+  funcTopThemeShowArchive: PropTypes.func.isRequired,
+
+  funcBottomThemeSingleMarginTop: PropTypes.func.isRequired,
+  funcBottomThemeSingleMarginRight: PropTypes.func.isRequired,
+  funcBottomThemeSingleMarginBottom: PropTypes.func.isRequired,
+  funcBottomThemeSingleMarginLeft: PropTypes.func.isRequired,
+  funcBottomThemePageMarginTop: PropTypes.func.isRequired,
+  funcBottomThemePageMarginRight: PropTypes.func.isRequired,
+  funcBottomThemePageMarginBottom: PropTypes.func.isRequired,
+  funcBottomThemePageMarginLeft: PropTypes.func.isRequired,
+  funcBottomThemeShowFront: PropTypes.func.isRequired,
+  funcBottomThemeShowSingle: PropTypes.func.isRequired,
+  funcBottomThemeShowPage: PropTypes.func.isRequired,
+  funcBottomThemeShowArchive: PropTypes.func.isRequired,
+
+  funcCodeOpenList: PropTypes.func.isRequired,
+
   funcCheckDownloadThemes: PropTypes.func.isRequired,
   funcDownloadThemes: PropTypes.func.isRequired,
 
