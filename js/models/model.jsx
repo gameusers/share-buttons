@@ -356,6 +356,7 @@ if (pageType === 'official') {
     topThemeShowSingle: true,
     topThemeShowPage: true,
     topThemeShowArchive: false,
+    topThemeShowAttachment: false,
     bottomTheme: '',
     bottomThemeSingleMarginTop: 0,
     bottomThemeSingleMarginRight: 0,
@@ -422,11 +423,13 @@ if (optionObj.topThemeShowArr) {
   initialStateObj.topThemeShowSingle = optionObj.topThemeShowArr.single;
   initialStateObj.topThemeShowPage = optionObj.topThemeShowArr.page;
   initialStateObj.topThemeShowArchive = optionObj.topThemeShowArr.archive;
+  initialStateObj.topThemeShowAttachment = optionObj.topThemeShowArr.attachment;
 } else {
   initialStateObj.topThemeShowFront = false;
   initialStateObj.topThemeShowSingle = true;
   initialStateObj.topThemeShowPage = true;
   initialStateObj.topThemeShowArchive = false;
+  initialStateObj.topThemeShowAttachment = false;
 }
 
 
@@ -449,11 +452,13 @@ if (optionObj.bottomThemeShowArr) {
   initialStateObj.bottomThemeShowSingle = optionObj.bottomThemeShowArr.single;
   initialStateObj.bottomThemeShowPage = optionObj.bottomThemeShowArr.page;
   initialStateObj.bottomThemeShowArchive = optionObj.bottomThemeShowArr.archive;
+  initialStateObj.bottomThemeShowAttachment = optionObj.bottomThemeShowArr.attachment;
 } else {
   initialStateObj.bottomThemeShowFront = false;
   initialStateObj.bottomThemeShowSingle = true;
   initialStateObj.bottomThemeShowPage = true;
   initialStateObj.bottomThemeShowArchive = false;
+  initialStateObj.bottomThemeShowAttachment = false;
 }
 
 initialStateObj.php = optionObj.php;

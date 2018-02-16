@@ -48,6 +48,7 @@ const mapStateToProps = (state) => {
     topThemeShowSingle: state.get('topThemeShowSingle'),
     topThemeShowPage: state.get('topThemeShowPage'),
     topThemeShowArchive: state.get('topThemeShowArchive'),
+    topThemeShowAttachment: state.get('topThemeShowAttachment'),
 
     bottomTheme: state.get('bottomTheme'),
     bottomThemeSingleMarginTop: state.get('bottomThemeSingleMarginTop'),
@@ -62,6 +63,7 @@ const mapStateToProps = (state) => {
     bottomThemeShowSingle: state.get('bottomThemeShowSingle'),
     bottomThemeShowPage: state.get('bottomThemeShowPage'),
     bottomThemeShowArchive: state.get('bottomThemeShowArchive'),
+    bottomThemeShowAttachment: state.get('bottomThemeShowAttachment'),
 
     codeOpenList: state.get('codeOpenList'),
 
@@ -612,12 +614,6 @@ const mapDispatchToProps = (dispatch) => {
       zip.file('game-users-share-buttons/json/option.json', optionJs, { binary: false });
 
 
-
-      // console.log('LOCAL_PLUGIN_URL = ', LOCAL_PLUGIN_URL);
-      // console.log('LOCAL_PLUGIN_URL = ', `${LOCAL_PLUGIN_URL}js/share-bundle.min.js`);
-      // return;
-
-
       // --------------------------------------------------
       //  Loop
       // --------------------------------------------------
@@ -649,10 +645,6 @@ const mapDispatchToProps = (dispatch) => {
           // ---------------------------------------------
           //   - Get Images
           // ---------------------------------------------
-
-          // console.log('uploadImageOfficialMap = ', uploadImageOfficialMap.toJS());
-          // console.log('themeNameId = ', themeNameId);
-          // console.log('openedThemeType = ', openedThemeType);
 
           const loopObj = uploadImageOfficialMap.getIn([themeNameId, openedThemeType]).toJS();
 
@@ -686,7 +678,7 @@ const mapDispatchToProps = (dispatch) => {
             // ---------------------------------------------
 
             } else {
-              // console.log('imageSrc = ', `${imageSrc}?${queryControlCache}`);
+
               const tempArr = imageSrc.split(themeNameId)[1].split('.');
               const extension = tempArr[1];
               const imageName = `${shareImageType}.${extension}`;
@@ -763,7 +755,6 @@ const mapDispatchToProps = (dispatch) => {
 
     } catch (e) {
 
-      // console.log('e = ', e);
       iziToast.error({
         title: 'Error',
         message: 'ダウンロードできませんでした。'
@@ -803,7 +794,6 @@ const mapDispatchToProps = (dispatch) => {
 
     if (slicedList.count() === 0) {
       resolve({});
-      // return;
     }
 
 
@@ -890,7 +880,6 @@ const mapDispatchToProps = (dispatch) => {
    */
   bindActionObj.funcInitialAsynchronous = async (stateModel) => {
 
-    // console.log('funcInitialAsynchronous');
 
     // --------------------------------------------------
     //   Set Data
@@ -951,16 +940,10 @@ const mapDispatchToProps = (dispatch) => {
           loopArr.push(themeNameId);
         });
 
-        // console.log('editThemesList = ', editThemesList.toJS());
-        // console.log('slicedEditThemesList = ', slicedEditThemesList.toJS());
-        // console.log('loopArr = ', loopArr);
-
 
         await Promise.all(Object.keys(loopArr).map(async (key) => {
-          // console.log(key);
 
           const themeNameId = loopArr[key];
-          // console.log(themeNameId);
           editThemesDataObj[themeNameId] = await fetchApi(`${LOCAL_PLUGIN_URL}themes/${themeNameId}/data.json`, 'GET', 'omit', 'same-origin', null);
 
         }));
@@ -990,7 +973,7 @@ const mapDispatchToProps = (dispatch) => {
    */
   bindActionObj.funcChangeShareButtonsList = async (stateModel, contentType, page) => {
 
-    // console.log('funcChangeShareButtonsList');
+
     // --------------------------------------------------
     //   Set Value
     // --------------------------------------------------
@@ -1447,9 +1430,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 
 
-    console.log('topThemeShowFront = ', stateModel.get('topThemeShowFront'));
-
-
     // --------------------------------------------------
     //   FormData
     // --------------------------------------------------
@@ -1462,6 +1442,7 @@ const mapDispatchToProps = (dispatch) => {
     if (stateModel.get('topThemeShowSingle')) formData.append('topThemeShowSingle', stateModel.get('topThemeShowSingle'));
     if (stateModel.get('topThemeShowPage')) formData.append('topThemeShowPage', stateModel.get('topThemeShowPage'));
     if (stateModel.get('topThemeShowArchive')) formData.append('topThemeShowArchive', stateModel.get('topThemeShowArchive'));
+    if (stateModel.get('topThemeShowAttachment')) formData.append('topThemeShowAttachment', stateModel.get('topThemeShowAttachment'));
     formData.append('topThemeSingleMarginTop', stateModel.get('topThemeSingleMarginTop'));
     formData.append('topThemeSingleMarginRight', stateModel.get('topThemeSingleMarginRight'));
     formData.append('topThemeSingleMarginBottom', stateModel.get('topThemeSingleMarginBottom'));
@@ -1475,6 +1456,7 @@ const mapDispatchToProps = (dispatch) => {
     if (stateModel.get('bottomThemeShowSingle')) formData.append('bottomThemeShowSingle', stateModel.get('bottomThemeShowSingle'));
     if (stateModel.get('bottomThemeShowPage')) formData.append('bottomThemeShowPage', stateModel.get('bottomThemeShowPage'));
     if (stateModel.get('bottomThemeShowArchive')) formData.append('bottomThemeShowArchive', stateModel.get('bottomThemeShowArchive'));
+    if (stateModel.get('bottomThemeShowAttachment')) formData.append('bottomThemeShowAttachment', stateModel.get('bottomThemeShowAttachment'));
     formData.append('bottomThemeSingleMarginTop', stateModel.get('bottomThemeSingleMarginTop'));
     formData.append('bottomThemeSingleMarginRight', stateModel.get('bottomThemeSingleMarginRight'));
     formData.append('bottomThemeSingleMarginBottom', stateModel.get('bottomThemeSingleMarginBottom'));
@@ -1492,17 +1474,10 @@ const mapDispatchToProps = (dispatch) => {
     try {
 
       const returnObj = await fetchApi(`${gameUsersShareButtonsAdminAjaxUrl()}?action=game_users_share_buttons_ajax_top_bottom_theme_save_option`, 'POST', 'same-origin', 'same-origin', formData);
-      console.log('returnObj = ', returnObj);
 
       if (returnObj.error) {
         throw new Error();
       }
-      //
-      // if (type === 'top') {
-      //   dispatch(actions.funcTopTheme(returnObj.top));
-      // } else if (type === 'bottom') {
-      //   dispatch(actions.funcBottomTheme(returnObj.bottom));
-      // }
 
       iziToast.success({
         title: 'OK',
@@ -1796,9 +1771,7 @@ const mapDispatchToProps = (dispatch) => {
     // --------------------------------------------------
 
     const designThemesMap = stateModel.getIn(['designThemesMap', themeNameId]).delete('data');
-    // designThemesMap.delete('data');
-    // console.log('designThemesMap = ', designThemesMap.toJS());
-    // return;
+
 
     // --------------------------------------------------
     //   FormData
@@ -1821,8 +1794,6 @@ const mapDispatchToProps = (dispatch) => {
 
 
       const pageType = stateModel.get('pageType');
-      // console.log('pageType = ', pageType);
-      // console.log('stateModel = ', stateModel.toJS());
 
 
       // ---------------------------------------------
@@ -1833,12 +1804,9 @@ const mapDispatchToProps = (dispatch) => {
       if (pageType === 'official') {
 
         const loadedDataObj = {};
-        // loadedDataObj[themeNameId] = await funcPromiseGetDataJson(OFFICIAL_THEME_DESIGN_URL, themeNameId);
-        // loadedDataObj[themeNameId] = await fetchApi(`${OFFICIAL_THEME_DESIGN_URL}/${themeNameId}/data.json`, 'GET', 'omit', 'same-origin', null);
 
 
         loadedDataObj[themeNameId] = JSON.parse(stateModel.getIn(['designThemesMap', themeNameId, 'data']));
-        // console.log('loadedDataObj', loadedDataObj);
 
 
         dispatch(actions.funcAjaxMoveEditTabOfficial(themeNameId, loadedDataObj));
@@ -1861,7 +1829,7 @@ const mapDispatchToProps = (dispatch) => {
         const editThemesList = fromJSOrdered(returnObj.editThemesArr);
 
         const loadedDataObj = {};
-        // loadedDataObj[themeNameId] = await funcPromiseGetDataJson(`${LOCAL_PLUGIN_URL}themes`, themeNameId);
+
         loadedDataObj[themeNameId] = await fetchApi(`${LOCAL_PLUGIN_URL}themes/${themeNameId}/data.json`, 'GET', 'omit', 'same-origin', null);
 
 

@@ -80,6 +80,11 @@ export const funcTopThemeShowArchive = value => ({
   value
 });
 
+export const funcTopThemeShowAttachment = value => ({
+  type: 'TOP_THEME_SHOW_ATTACHMENT',
+  value
+});
+
 
 
 export const funcBottomTheme = value => ({
@@ -144,6 +149,11 @@ export const funcBottomThemeShowPage = value => ({
 
 export const funcBottomThemeShowArchive = value => ({
   type: 'BOTTOM_THEME_SHOW_ARCHIVE',
+  value
+});
+
+export const funcBottomThemeShowAttachment = value => ({
+  type: 'BOTTOM_THEME_SHOW_ATTACHMENT',
   value
 });
 

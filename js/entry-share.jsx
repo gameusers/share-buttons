@@ -109,6 +109,16 @@ export class GameUsersShareButtons {
 
     this.code = '';
 
+
+    // --------------------------------------------------
+    //   存在しないシェアボタンを表示しようとしたときは処理停止
+    // --------------------------------------------------
+
+    if (!this.jsonObj || 'name' in this.jsonObj === false || 'id' in this.jsonObj === false) {
+      return;
+    }
+
+
     const themeName = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.name);
     const themeId = GameUsersShareButtonsCommon.escapeHtml(this.jsonObj.id);
     this.className = `game-users-share-buttons-${themeName}-${themeId}`;

@@ -3,8 +3,8 @@ Contributors: gameusers
 Donate link:
 Tags: SNS, social, social media, share buttons
 Requires at least: 4.4.1
-Tested up to: 4.9.2
-Stable tag: 1.2.1
+Tested up to: 4.9.4
+Stable tag: 1.3.0
 License: GPL2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,5 +98,8 @@ Game Users Share Buttonsは優れた機能を提供しています。
 
 = 1.2.1 =
 - Feedlyがシェアできなくなっていたので修正しました。
+
+= 1.3.0 =
+- ウィジェットを追加しました。ダッシュボード > 外観 > ウィジェットで設定を行うと、サイドバーにシェアボタンを表示できるようになります。また編集タブのTop設定・Bottom設定で、添付ファイルページにシェアボタンを表示するか表示しないかの設定を行えるようにしました。
 
 == Upgrade notice ==

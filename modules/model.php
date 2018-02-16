@@ -41,7 +41,7 @@ class Game_Users_Share_Buttons_Model
     {
         if (! $this->databaseVersion) {
             $tempArr = array(
-                'databaseVersion' => 2,
+                'databaseVersion' => 3,
                 'topTheme' => null,
                 'topThemeSingleMarginArr' => array(0, 0, 0, 0),
                 'topThemePageMarginArr' => array(0, 0, 0, 0),
@@ -49,7 +49,8 @@ class Game_Users_Share_Buttons_Model
                     'front' => false,
                     'single' => true,
                     'page' => true,
-                    'archive' => false
+                    'archive' => false,
+                    'attachment' => false
                 ),
                 'bottomTheme' => null,
                 'bottomThemeSingleMarginArr' => array(0, 0, 0, 0),
@@ -58,7 +59,8 @@ class Game_Users_Share_Buttons_Model
                     'front' => false,
                     'single' => true,
                     'page' => true,
-                    'archive' => false
+                    'archive' => false,
+                    'attachment' => false
                 ),
                 'editThemesArr' => array(),
                 'php' => 0,
@@ -93,27 +95,70 @@ class Game_Users_Share_Buttons_Model
 
     public function versionUpOption()
     {
-        if ($this->optionArr['databaseVersion'] === 1) {
+        if ($this->optionArr['databaseVersion'] < 3) {
 
-            $this->optionArr['databaseVersion'] = 2;
+            $this->optionArr['databaseVersion'] = 3;
 
-            $this->optionArr['topThemeSingleMarginArr'] = array(0, 0, 0, 0);
-            $this->optionArr['topThemePageMarginArr'] = array(0, 0, 0, 0);
-            $this->optionArr['topThemeShowArr'] = array(
-                'front' => false,
-                'single' => true,
-                'page' => true,
-                'archive' => false
-            );
 
-            $this->optionArr['bottomThemeSingleMarginArr'] = array(0, 0, 0, 0);
-            $this->optionArr['bottomThemePageMarginArr'] = array(0, 0, 0, 0);
-            $this->optionArr['bottomThemeShowArr'] = array(
-                'front' => false,
-                'single' => true,
-                'page' => true,
-                'archive' => false
-            );
+            // --------------------------------------------------
+            //   Ver.2 / Top Theme
+            // --------------------------------------------------
+
+            if (empty($this->optionArr['topThemeSingleMarginArr'])) {
+                $this->optionArr['topThemeSingleMarginArr'] = array(0, 0, 0, 0);
+            }
+
+            if (empty($this->optionArr['topThemePageMarginArr'])) {
+                $this->optionArr['topThemePageMarginArr'] = array(0, 0, 0, 0);
+            }
+
+            if (empty($this->optionArr['topThemeShowArr'])) {
+                $this->optionArr['topThemeShowArr'] = array(
+                    'front' => false,
+                    'single' => true,
+                    'page' => true,
+                    'archive' => false,
+                    'attachment' => false
+                );
+            }
+
+
+            // --------------------------------------------------
+            //   Ver.2 / Bottom Theme
+            // --------------------------------------------------
+
+            if (empty($this->optionArr['bottomThemeSingleMarginArr'])) {
+                $this->optionArr['bottomThemeSingleMarginArr'] = array(0, 0, 0, 0);
+            }
+
+            if (empty($this->optionArr['bottomThemePageMarginArr'])) {
+                $this->optionArr['bottomThemePageMarginArr'] = array(0, 0, 0, 0);
+            }
+
+            if (empty($this->optionArr['bottomThemeShowArr'])) {
+                $this->optionArr['bottomThemeShowArr'] = array(
+                    'front' => false,
+                    'single' => true,
+                    'page' => true,
+                    'archive' => false,
+                    'attachment' => false
+                );
+            }
+
+
+
+            // --------------------------------------------------
+            //   Ver.3
+            // --------------------------------------------------
+
+            if (empty($this->optionArr['topThemeShowArr']['attachment'])) {
+                $this->optionArr['topThemeShowArr']['attachment'] = false;
+            }
+
+            if (empty($this->optionArr['bottomThemeShowArr']['attachment'])) {
+                $this->optionArr['bottomThemeShowArr']['attachment'] = false;
+            }
+
 
             update_option('game_users_option', $this->optionArr);
 

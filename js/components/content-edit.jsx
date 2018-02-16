@@ -381,6 +381,12 @@ class ContentEdit extends React.Component {
                           アーカイブページ（カテゴリー、タグページなど）
                         </Checkbox>
                       </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.topThemeShowAttachment} onChange={e => this.props.funcTopThemeShowAttachment(e.target.checked)}>
+                          添付ファイルページ（アップロードしたファイルごとに用意されるページ）
+                        </Checkbox>
+                      </FormGroup>
                     </div>
 
 
@@ -534,6 +540,12 @@ class ContentEdit extends React.Component {
                       <FormGroup controlId="share-button" validationState={null}>
                         <Checkbox checked={this.props.bottomThemeShowArchive} onChange={e => this.props.funcBottomThemeShowArchive(e.target.checked)}>
                           アーカイブページ（カテゴリー、タグページなど）
+                        </Checkbox>
+                      </FormGroup>
+
+                      <FormGroup controlId="share-button" validationState={null}>
+                        <Checkbox checked={this.props.bottomThemeShowAttachment} onChange={e => this.props.funcBottomThemeShowAttachment(e.target.checked)}>
+                          添付ファイルページ（アップロードしたファイルごとに用意されるページ）
                         </Checkbox>
                       </FormGroup>
                     </div>
@@ -733,6 +745,7 @@ ContentEdit.propTypes = {
   topThemeShowSingle: PropTypes.bool.isRequired,
   topThemeShowPage: PropTypes.bool.isRequired,
   topThemeShowArchive: PropTypes.bool.isRequired,
+  topThemeShowAttachment: PropTypes.bool.isRequired,
 
   bottomTheme: PropTypes.string.isRequired,
   bottomThemeSingleMarginTop: PropTypes.number.isRequired,
@@ -747,6 +760,7 @@ ContentEdit.propTypes = {
   bottomThemeShowSingle: PropTypes.bool.isRequired,
   bottomThemeShowPage: PropTypes.bool.isRequired,
   bottomThemeShowArchive: PropTypes.bool.isRequired,
+  bottomThemeShowAttachment: PropTypes.bool.isRequired,
 
   codeOpenList: PropTypes.instanceOf(List).isRequired,
 
@@ -787,6 +801,7 @@ ContentEdit.propTypes = {
   funcTopThemeShowSingle: PropTypes.func.isRequired,
   funcTopThemeShowPage: PropTypes.func.isRequired,
   funcTopThemeShowArchive: PropTypes.func.isRequired,
+  funcTopThemeShowAttachment: PropTypes.func.isRequired,
 
   funcBottomThemeSingleMarginTop: PropTypes.func.isRequired,
   funcBottomThemeSingleMarginRight: PropTypes.func.isRequired,
@@ -800,6 +815,7 @@ ContentEdit.propTypes = {
   funcBottomThemeShowSingle: PropTypes.func.isRequired,
   funcBottomThemeShowPage: PropTypes.func.isRequired,
   funcBottomThemeShowArchive: PropTypes.func.isRequired,
+  funcBottomThemeShowAttachment: PropTypes.func.isRequired,
 
   funcCodeOpenList: PropTypes.func.isRequired,
 

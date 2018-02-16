@@ -91,6 +91,10 @@ const reducer = (state = new Model(), action) => {
       return state.set('topThemeShowArchive', action.value);
     }
 
+    case 'TOP_THEME_SHOW_ATTACHMENT': {
+      return state.set('topThemeShowAttachment', action.value);
+    }
+
 
 
     case 'BOTTOM_THEME': {
@@ -151,6 +155,10 @@ const reducer = (state = new Model(), action) => {
 
     case 'BOTTOM_THEME_SHOW_ARCHIVE': {
       return state.set('bottomThemeShowArchive', action.value);
+    }
+
+    case 'BOTTOM_THEME_SHOW_ATTACHMENT': {
+      return state.set('bottomThemeShowAttachment', action.value);
     }
 
 
